@@ -15,6 +15,7 @@ else
   print("=== Sourcing " .. os.getenv("HOME") .. ".config/nvim/init.lua " .. " part =====")
   -- I am gonna ride with SPACE as LEADER for now to test the feeling
   -- ----------------------------------------------------------------------------
+  vim.g.mkdp_echo_preview_url = 1 -- default was 0 -> make MarkdownPreviewwe show the localhost URL for Peviewerh
   -- some vimscript settings
   vim.cmd("set autochdir")
   -- set colorcolumns
