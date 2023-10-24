@@ -6,10 +6,10 @@ local Job = require("plenary.job")
 
 local new_maker = function(filepath, bufnr, opts)
   opts = opts or {}
-  Threshold = 120000
+  Threshold = 1250000
   filepath = vim.fn.expand(filepath)
   Job:new({
-    command = "C:/Program Files/Git/usr/bin/file", -- do check on this pathin case you copy to other machine!
+    command = "C:/Program Files/Git/usr/bin/file", -- do a check on this Git/bin/file path in case you copy to other machine!
     args = { "--mime-type", "-b", filepath },
     on_exit = function(j)
       local mime_type = vim.split(j:result()[1], "/")[1]
@@ -51,12 +51,12 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
   defaults = {
     buffer_previewer_maker = new_maker, -- from funcs above
     layout_config = {
-      vertical = { width = 0.7 },
-      horizontal = { height = 0.7 },
+      vertical = { width = 0.8 },
+      horizontal = { height = 0.6 },
       prompt_position = "top",
     },
     sorting_strategy = "ascending",
-    winblend = 50,
+    winblend = 5,
     vimgrep_arguments = {
       "rg",
       "--color=never",
@@ -98,11 +98,11 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
         prompt_position = "top",
         preview_width = 0.6,
       },
-      winblend = 47,
+      winblend = 15,
     },
     help_tags = {
       theme = "dropdown",
-      winblend = 36,
+      winblend = 20,
       sorting_strategy = "ascending",
     },
     grep_string = {
@@ -110,9 +110,9 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
       sorting_strategy = "descending",
       layout_config = {
         prompt_position = "bottom",
-        preview_width = 0.66,
+        preview_width = 0.6,
       },
-      winblend = 12,
+      winblend = 10,
     },
   },
   -- configuring prieviewer ... nope not yet working?

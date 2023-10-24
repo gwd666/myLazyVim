@@ -11,6 +11,7 @@ vim.cmd([[
 autocmd! bufwritepost ~/AppData/Local/nvim/init.lua source ~/AppData/Local/nvim/init.lua
 ]])
 
+-- map ,ee to quick edit of init.lua
 map("n", ",ee", ":e! ~/AppData/Local/nvim/init.lua<CR>", { silent = false, desc = "Edit nvim/init.lua file" })
 
 -- map comma+c to close buffer
@@ -60,12 +61,13 @@ map(
 )
 
 -- map Ctrl-h and Ctrl-l to move cursor left/right in INSERT mode, map C-u to undo last edit?
-map("i", "<C-h>", "<left>", { silent = true })
-map("i", "<C-l>", "<right>", { silent = true })
-
+map("i", "<C-h>", "<left>", { noremap = true, silent = true })
+map("i", "<C-l>", "<right>", { noremap = true, silent = true })
+map("i", "<C-j>", "<down>", { noremap = true, silent = true })
+map("i", "<C-k>", "<up>", { noremap = true, silent = true })
 map("i", "<C-u>", "<C-g>u<C-u>", { noremap = true, silent = true })
 
--- remap arrow keys
+-- remap arrow keys deactivate movements in buffer all together
 map("n", "<left>", ":bp<CR>", { noremap = true, silent = true })
 map("n", "<right>", ":bn<CR>", { noremap = true, silent = true })
 map("n", "<up>", ":tabnext<CR>", { noremap = true, silent = true })

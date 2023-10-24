@@ -29,7 +29,6 @@ else
   require("config.telescope")
   -- use tokyonight cs in telescope mod fashion - this will only work from her on since needs require call above to work
   vim.api.nvim_command([[ colorscheme tokyonight ]])
-
   -- handle a weird path error in cse neovim is started in Git Bash
   if os.getenv("TERM") == "xterm-256color" and os.getenv("SHELL") == "C:\\Program Files\\Git\\usr\\bin\\bash.exe" then
     print("Neovim started in Git Bash? Modifying/Fixing SHELL env var!")
