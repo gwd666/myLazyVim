@@ -16,7 +16,7 @@ augroup END
 vim.opt.whichwrap = "<>[],hl,b,s"
 
 -- customize better ws
-vim.cmd("let g:better_whitespace_operator='_s'") -- <leader>s is alrealy takek in LazyVim
+vim.cmd("let g:better_whitespace_operator='_s'") -- <leader>s is alrealy taken in LazyVim
 -- menans you can do <numbber>_s<space> to strip ws on number lines, _s<motion> on lines affected by motion
 -- _sip will clean on current paragraph, etc
 vim.keymap.set("n", "_ws", ":ToggleWhitespace<CR>", { silent = false, desc = "Toggle show Whitespace" })

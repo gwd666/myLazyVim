@@ -27,7 +27,7 @@ return {
   },
   -- add lspkind for VSCode like pictograms
   -- { "onsails/lspkind.nvim" },
-  -- add iron.nvim TERM/REPL
+  -- add iron.nvim TERM/REPL added seperate  iron.lua file to plugins folder
   -- { "hkupty/iron.nvim" },
   -- add send-to-term
   { "mtikekar/nvim-send-to-term" },
@@ -42,6 +42,8 @@ return {
   { "ntpeters/vim-better-whitespace" },
   -- adding calendar to telekasten.nvim
   { "renerocksai/calendar-vim" },
+  -- add catppuccin
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   -- change mason config
   -- trying to change mason ui iconvs - naaa not working - todo
   {

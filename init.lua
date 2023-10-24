@@ -25,6 +25,6 @@ else
   -- bootstrap lazy.nvim, LazyVim and your plugins
   require("config.lazy")
   -- use tokyonight cs in telescope mod fashion - this will only work from her on since needs require call above to work
-  vim.api.nvim_command([[ colorscheme tokyonight ]])
+  vim.api.nvim_command([[ colorscheme catppuccin ]])
   print("=== Finished " .. os.getenv("HOME") .. ".config/nvim/init.lua " .. " part =====")
 end
