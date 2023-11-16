@@ -96,10 +96,10 @@ vim.api.nvim_set_keymap(
 local wk = require("which-key")
 wk.register({
   t = {
-    name = "Tele Lsp/TS",
+    name = "Telekasten/TSitter/Lsp",
     d = { builtin.lsp_definitions, "Lsp Definitions" },
-    s = { builtin.lsp_document_symbols, "Lsp Docu Symbols" },
-    t = { builtin.treesitter, "TreeSitter Funcs/Vars Ref" },
+    s = { builtin.lsp_document_symbols, "Lsp Symbols docu" },
+    x = { builtin.treesitter, "TreeSitter x-Ref Vars/Funcs" },
     -- l = { builtin.lsp_reference, "Lsp reference" }, -- not owrking correctly - TBD
   },
 }, { prefix = "<leader>" })
@@ -122,6 +122,23 @@ vim.keymap.set("n", "<leader>rs", "<cmd>IronRepl<cr>", { desc = "IronRepl start"
 vim.keymap.set("n", "<leader>rr", "<cmd>IronRestart<cr>", { desc = "IronRepl restart" })
 vim.keymap.set("n", "<leader>rf", "<cmd>IronFocus<cr>", { desc = "IronRepl focus" })
 -- vim.keymap.set("n", "<leader>rh", "<cmd>IronHide<cr>", { desc = "IronRepl hide" })
+
+-- telekasten mappings
+-- Launch panel if nothing is typed after <leader>z
+vim.keymap.set("n", "<leader>t", "<cmd>Telekasten panel<CR>")
+
+-- Most used functions
+vim.keymap.set("n", "<leader>tf", "<cmd>Telekasten find_notes<CR>")
+vim.keymap.set("n", "<leader>tg", "<cmd>Telekasten search_notes<CR>")
+vim.keymap.set("n", "<leader>tt", "<cmd>Telekasten goto_today<CR>")
+vim.keymap.set("n", "<leader>tz", "<cmd>Telekasten follow_link<CR>")
+vim.keymap.set("n", "<leader>tn", "<cmd>Telekasten new_note<CR>")
+vim.keymap.set("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
+vim.keymap.set("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
+vim.keymap.set("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
+
+-- Call insert link automatically when we start typing a link
+vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
 
 -- send-to-term mappings
 map("n", "tl", "<plug>sendline", { silent = false, desc = "send line to term" })

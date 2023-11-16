@@ -9,7 +9,7 @@ return {
     event = "InsertEnter",
     config = function()
       require("copilot").setup({
-        suggestion = { enabled = false },
+        suggestion = { enabled = true },
         panel = {
           -- enabled = false,
           -- other options
@@ -40,6 +40,8 @@ return {
   -- add web-devicons({ "nvim-tree/nvim-web-devicons", enabled = false })
   -- better whitespaces showing
   { "ntpeters/vim-better-whitespace" },
+  -- add telekasten
+  { "renerocksai/telekasten.nvim", dependencies = "nvim-telescope/telescope.nvim" },
   -- adding calendar to telekasten.nvim
   { "renerocksai/calendar-vim" },
   -- add catppuccin
