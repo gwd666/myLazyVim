@@ -61,10 +61,10 @@ map(
 
 -- map Ctrl-h, Ctrl-l, j, k to move cursor left/right/down/up in INSERT mode,
 -- map C-u to undo last edit?
-map("i", "<C-h>", "<left>", { silent = true })
-map("i", "<C-j>", "<down>", { silent = true })
-map("i", "<C-k>", "<up>", { silent = true })
-map("i", "<C-l>", "<right>", { silent = true })
+map("i", "<C-h>", "<left>", { noremap = true, silent = true })
+map("i", "<C-j>", "<down>", { noremap = true, silent = true })
+map("i", "<C-k>", "<up>", { noremap = true, silent = true })
+map("i", "<C-l>", "<right>", { noremap = true, silent = true })
 map("i", "<C-u>", "<C-g>u<C-u>", { noremap = true, silent = true })
 
 -- remap arrow keys to move between buffers and tabs

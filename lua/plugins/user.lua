@@ -25,10 +25,10 @@ return {
       require("copilot_cmp").setup()
     end,
   },
-  -- add lspkind for VSCode like pictograms
-  -- { "onsails/lspkind.nvim" },
-  -- add iron.nvim TERM/REPL
-  -- { "hkupty/iron.nvim" },
+  -- add lspkind for VSCode like pictograms-
+  { "onsails/lspkind.nvim" },
+  -- add iron.nvim TERM/REPL - there's a seperate iron.lua file in plugings folder
+  -- { "hkupty/iron.nvim", lazy = false },
   -- add send-to-term
   { "mtikekar/nvim-send-to-term" },
   -- add folke zen instaead of goyo
@@ -40,8 +40,12 @@ return {
   -- add web-devicons({ "nvim-tree/nvim-web-devicons", enabled = false })
   -- better whitespaces showing
   { "ntpeters/vim-better-whitespace" },
+  -- add telekasten
+  { "renerocksai/telekasten.nvim", dependencies = { "nvim-telescope/telescope.nvim" } },
   -- adding calendar to telekasten.nvim
   { "renerocksai/calendar-vim" },
+  -- add catppuccin
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   -- change mason config
   -- trying to change mason ui iconvs - naaa not working - todo
   {
