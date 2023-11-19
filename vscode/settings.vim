@@ -17,5 +17,44 @@ xnoremap <silent> <Space> :call VSCodeNotify('whichkey.show')<CR>
 
 " Open definition on side/aside (default keybinding)
 nnoremap <C-w>gd <Cmd>call VSCodeNotify('editor.action.revealDefinitionAside')<CR>
+
+" Find in files for word under cursor
+nnoremap ? <Cmd>call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>')})<CR>
+
+" Format selection (default binding)
+xnoremap = <Cmd>call VSCodeCall('editor.action.formatSelection')<CR>
+nnoremap = <Cmd>call VSCodeCall('editor.action.formatSelection')<CR><Esc>
+nnoremap == <Cmd>call VSCodeCall('editor.action.formatSelection')<CR>
+
+" try to make VS Code switch between realative in normal and absolute in
+" insert mode line numbers
+augroup ToggleRelLineNumbers
+  autocmd InsertLeave * call VSCodeNotify('settings.cycle.ToggleLineNumbers')
+  autocmd InsertEnter * call VSCodeNotify('settings.cycle.ToggleLineNumbers')
+augroup END
+
 " Toggle zen mode with comma zz
 nnoremap <silent> ,zz :call VSCodeNotify('workbench.action.toggleZenMode')<CR>
+
+" vim.api.nvim_exec([[
+" THEME CHANGER
+function! SetCursorLineNrColorInsert(mode)
+  " Insert mode: blue
+  if a:mode == "i"
+    call VSCodeNotify('nvim-theme.insert')
+    " Replace mode: red
+  elseif a:mode == "r"
+    call VSCodeNotify('nvim-theme.replace')
+  endif
+endfunction
+
+augroup CursorLineNrColorSwap
+  autocmd!
+  autocmd ModeChanged *:[vV\x16]* call VSCodeNotify('nvim-theme.visual')
+  autocmd ModeChanged *:[R]* call VSCodeNotify('nvim-theme.replace')
+  autocmd InsertEnter * call SetCursorLineNrColorInsert(v:insertmode)
+  autocmd InsertLeave * call VSCodeNotify('nvim-theme.normal')
+  autocmd CursorHold * call VSCodeNotify('nvim-theme.normal')
+augroup END
+" ]], false)
+
