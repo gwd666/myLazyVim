@@ -30,7 +30,9 @@ return {
   -- add iron.nvim TERM/REPL - there's a seperate iron.lua file in plugings folder
   -- { "hkupty/iron.nvim", lazy = false },
   -- add send-to-term
-  { "mtikekar/nvim-send-to-term" },
+  -- { "mtikekar/nvim-send-to-term" },
+  -- add vim-ai
+  { "madox2/vim-ai" },
   -- add folke zen instaead of goyo
   { "folke/zen-mode.nvim" },
   -- add vim-devicons
