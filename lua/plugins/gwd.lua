@@ -30,7 +30,9 @@ return {
   -- add iron.nvim TERM/REPL
   { "hkupty/iron.nvim" },
   -- add send-to-term
-  { "mtikekar/nvim-send-to-term" },
+  -- { "mtikekar/nvim-send-to-term" },
+  -- add vim.ai
+  { "madox2/vim-ai" },
   -- add folke zen instaead of goyo
   { "folke/zen-mode.nvim" },
   -- add vim-devicons
