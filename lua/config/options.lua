@@ -15,6 +15,9 @@ augroup END
 -- make j and l move to prev/next line
 vim.opt.whichwrap = "<>[],hl,b,s"
 
+-- activate nice arrows for linebreak
+vim.cmd("set listchars+=eol:↲")
+
 -- customize better ws
 vim.cmd("let g:better_whitespace_operator='_s'") -- <leader>s is alrealy taken in LazyVim
 -- menans you can do <numbber>_s<space> to strip ws on number lines, _s<motion> on lines affected by motion
