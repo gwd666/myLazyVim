@@ -12,6 +12,9 @@ augroup numbertoggle
 augroup END
 ]])
 
+-- activate nice arrows for linebreak
+vim.cmd("set listchars+=eol:↲")
+
 -- make j and l move to prev/next line
 vim.opt.whichwrap = "<>[],hl,b,s"
 
@@ -28,11 +31,11 @@ vim.cmd("let g:better_whitespace_skip_emptylines=1") -- don't  bother with empty
 -- BUT you can try to fix indentation by slecting and hitting '=' key!
 vim.cmd("let g:show_spaces_that_precede_tabs=1")
 
--- send-to-term options for multiline text eg IPython etc
-vim.cmd([[
-  let g:send_multiline = {
-  \    'ipy': {'begin':"\e[200~", 'end':"\e[201~\n", 'newline':"\n"},
-  \    'r': {'begin':"\e[200~", 'end':"\e[201~\n", 'newline':"\n"},
-  \    'jl': {'begin':"\e[200~", 'end':"\e[201~\n", 'newline':"\n"},
-  \}
-]])
+-- send-to-term options for multiline text eg IPython etc -- deactivated, relying on iron.repl now
+-- vim.cmd([[
+--   let g:send_multiline = {
+--   \    'ipy': {'begin':"\e[200~", 'end':"\e[201~\n", 'newline':"\n"},
+--   \    'r': {'begin':"\e[200~", 'end':"\e[201~\n", 'newline':"\n"},
+--   \    'jl': {'begin':"\e[200~", 'end':"\e[201~\n", 'newline':"\n"},
+--   \}
+-- ]])
