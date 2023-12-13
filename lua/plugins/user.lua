@@ -31,14 +31,21 @@ return {
   -- { "hkupty/iron.nvim", lazy = false },
   -- add send-to-term
   -- { "mtikekar/nvim-send-to-term" },
+  -- add quarto-nvim
+  { "quarto-dev/quarto-nvim" },
+  --- add nnn.nvim for nnn tmux
+  {
+    "luukvbaal/nnn.nvim",
+    config = function()
+      require("nnn").setup()
+    end,
+  },
   -- add vim-ai
   { "madox2/vim-ai" },
   -- add folke zen instaead of goyo
   { "folke/zen-mode.nvim" },
   -- add vim-devicons
   { "ryanoasis/vim-devicons" },
-  -- add Primeagens harpoon
-  { "ThePrimeagen/harpoon" },
   -- add web-devicons({ "nvim-tree/nvim-web-devicons", enabled = false })
   -- better whitespaces showing
   { "ntpeters/vim-better-whitespace" },
@@ -46,7 +53,7 @@ return {
   { "renerocksai/telekasten.nvim", dependencies = { "nvim-telescope/telescope.nvim" } },
   -- adding calendar to telekasten.nvim
   { "renerocksai/calendar-vim" },
-  -- add catppuccin
+  -- add catppuccin colorscheme
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   -- change mason config
   -- trying to change mason ui iconvs - naaa not working - todo
