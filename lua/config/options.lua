@@ -18,9 +18,18 @@ vim.cmd("set listchars+=eol:↲")
 -- make j and l move to prev/next line
 vim.opt.whichwrap = "<>[],hl,b,s"
 
+vim.cmd([[
+let g:vim_ai_chat = {
+\ "options": {
+\    "model": "gpt-4",
+\    "temperature": 0.1,
+\ },
+\}
+]])
+
 -- customize better ws
 vim.cmd("let g:better_whitespace_operator='_s'") -- <leader>s is alrealy takek in LazyVim
--- menans you can do <numbber>_s<space> to strip ws on number lines, _s<motion> on lines affected by motion
+-- means you can do <number>_s<space> to strip ws on number lines, _s<motion> on lines affected by motion
 -- _sip will clean on current paragraph, etc
 vim.keymap.set("n", "_ws", ":ToggleWhitespace<CR>", { silent = false, desc = "Toggle show Whitespace" })
 vim.cmd("let g:better_whitespace_ctermcolor='Gray'")
