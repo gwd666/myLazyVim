@@ -15,7 +15,7 @@ autocmd! bufwritepost ~/AppData/Local/nvim/init.lua source ~/AppData/Local/nvim/
 map("n", ",ee", ":e! ~/AppData/Local/nvim/init.lua<CR>", { silent = false, desc = "Edit nvim/init.lua file" })
 
 -- map comma+c to close buffer
-map("n", ",c", ":bd<CR>", { silent = true, desc = "Close current Buffer" })
+map("n", ",c", ":bd<CR>:bnext<CR>", { silent = true, desc = "Close current Buffer move to next" })
 
 -- toggle paste
 map({ "n", "i", "v", "x" }, "<F6>", "<cmd>set invpaste<CR><cmd>set paste?<CR>", { desc = "Toggle PASTE mode" })
@@ -44,7 +44,7 @@ map("n", "<F3>", ":Neotree toggle<CR>", { silent = true, desc = "NTree toggle" }
 map("n", "<F2>", ":Neotree buffers<CR>", { silent = true, desc = "NTree buffers" })
 
 -- map <comma>CD (upppercase CD) to change working dir to curr buffer parent dir
-map("n", ",CD", ":Neotree %:h<CR>", { silent = true, desc = "set NTree workdir to buffer dir" })
+map("n", ",CD", ":Neotree %:h<CR>", { silent = true, desc = "set NeoTree workdir to buffer dir" })
 
 -- Map <leader>o & <leader>O to newline when in Normal mode ie w/o being followed by insert mode
 map(

@@ -37,8 +37,6 @@ return {
   { "folke/zen-mode.nvim" },
   -- add vim-devicons
   { "ryanoasis/vim-devicons" },
-  -- add Primeagens harpoon
-  { "ThePrimeagen/harpoon" },
   -- add telekasten
   { "renerocksai/telekasten.nvim", dependencies = "nvim-telescope/telescope.nvim" },
   -- adding calendar to telekasten.nvim

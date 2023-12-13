@@ -36,6 +36,9 @@ augroup END
 " Toggle zen mode with comma zz
 nnoremap <silent> ,zz :call VSCodeNotify('workbench.action.toggleZenMode')<CR>
 
+" some lines ie calling the vim.api.exec incl last line after augroup 
+" don't go too well in VSC on WINdows! but this way it doesn't error in VSC,
+" so fine with mw to keep it this way here
 " vim.api.nvim_exec([[
 " THEME CHANGER
 function! SetCursorLineNrColorInsert(mode)

@@ -71,12 +71,13 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
       n = {
         -- add mapping to toggle preview
         ["<M-p>"] = require("telescope.actions.layout").toggle_preview,
+        ["<M-h>"] = "which_key",
       },
       i = {
         -- map actions,which-key to <C-h> (defatult: <C-/>)
         -- actions.which-key shows mappings for yr pickers
         ["<M-p>"] = require("telescope.actions.layout").toggle_preview,
-        ["<C-h>"] = "which_key",
+        ["<M-h>"] = "which_key",
       },
     },
   },
