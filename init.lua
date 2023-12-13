@@ -25,8 +25,23 @@ else
   -- Start the bootstrap of lazy.nvim, LazyVim and your plugins
   -- bootstrap lazy.nvim, LazyVim and your plugins
   require("config.lazy")
-  -- use tokyonight cs in telescope mod fashion - this will only work from her on since needs require call above to work
-  vim.api.nvim_command([[ colorscheme catppuccin-macchiato ]])
+  require("config/telescope")
+  -- use tokyonight cs in telescope mod fashion - this will only work from here
+  -- on since needs require call above to work
+  vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
+  require("catppuccin").setup({
+    integrations = {
+      cmp = true,
+      nvimtree = true,
+      treesitter = true,
+      notify = false,
+      mason = true,
+      harpoon = true,
+      telekasten = true,
+      which_key = true,
+    },
+  })
+  -- vim.api.nvim_command([[ colorscheme tokyonight ]])
   require("telekasten").setup({
     home = vim.fn.expand("~/zettelkasten"), -- Put the name of your notes directory here
   })
