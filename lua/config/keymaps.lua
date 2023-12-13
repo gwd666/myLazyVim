@@ -4,6 +4,15 @@
 
 local map = vim.keymap.set
 
+vim.keymap.set("n", "<leader><leader>", function()
+  local is_git = os.execute("git") == 0
+  if is_git then
+    require("telescope.builtin").git_files()
+  else
+    require("telescope.builtin").find_files()
+  end
+end)
+
 -- vim.g.mapleader = "," -- Make sure to set `mapleader` before lazy so your mappings are correct
 -- fast editing and reloading of init.lua config embed vimscript code in vim.cmd(.....)
 -- use vim.cmd([[   ]]) for multi-line
@@ -13,8 +22,8 @@ autocmd! bufwritepost ~/.config/nvim/init.lua source ~/.config/nvim/init.lua
 
 map("n", ",ee", ":e! ~/.config/init.lua<CR>", { silent = false, desc = "Edit nvim/init.lua file" })
 
--- map comma+c to close buffer
-map("n", ",c", ":bd<CR>", { silent = true, desc = "Close current Buffer" })
+-- map comma+c to 'close buffer'
+map("n", ",c", ":bd<CR>:bnext<CR>", { silent = true, desc = "Close current Buffer" })
 
 -- toggle paste
 map({ "n", "i", "v", "x" }, "<F6>", "<cmd>set invpaste<CR><cmd>set paste?<CR>", { desc = "Toggle PASTE mode" })
@@ -36,7 +45,8 @@ map("n", "<C-o>", "<C-o>zz", { noremap = true, silent = true })
 map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "fix Windows CRLF meta chars" })
 
 -- map jk to ESC
-map("i", "jk", "<ESC>", { silent = true })
+map("i", "jk", "<ESC>", { noremap = true, silent = true })
+map("i", "jj", "<ESC>", { noremap = true, silent = true })
 
 -- map F3 [no longer <C-t>] to toggle Neotree
 map("n", "<F3>", ":Neotree toggle<CR>", { silent = true, desc = "NTree toggle" })
@@ -103,6 +113,17 @@ wk.register({
     -- l = { builtin.lsp_reference, "Lsp reference" }, -- not owrking correctly - TBD
   },
 }, { prefix = "<leader>" })
+-- AIChat keymappings
+map("n", "<leader>aa", ":AI<CR>", { desc = "Complete text on current line or selection" })
+map("x", "<leader>aa", ":AI<CR>", { desc = "Complete text on current line or selection" })
+
+map("n", "<leader>as", ":AIEdit fix grammar and spelling<CR>", { desc = "Edit text with a custom prompt" })
+map("x", "<leader>as", ":AIEdit fix grammar and spelling<CR>", { desc = "Edit text with a custom prompt" })
+
+map("n", "<leader>ac", ":AIChat<CR>", { desc = "Trigger Chat" })
+map("x", "<leader>ac", ":AIChat<CR>", { desc = "Trigger Chat" })
+
+map("n", "<leader>ar", ":AIRedo<CR>", { desc = "Redo last AI command" })
 
 -- OLD STYLE DEFINTIONS w/o local map
 -- map leader-c to close buffer
@@ -139,6 +160,10 @@ vim.keymap.set("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
 
 -- Call insert link automatically when we start typing a link
 vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
+
+-- nnn.nvim bindings
+map("n", "<C-M-n>", "<cmd>NnnExplorer %:p:h<CR>", { desc = "Open nnn Explorer in curr buffer" })
+map("n", "<C-M-p>", ":NnnPicker<CR>", { desc = "Open nnn Picker in curr buffer" })
 
 -- send-to-term mappings
 map("n", "tl", "<plug>sendline", { silent = false, desc = "send line to term" })
