@@ -11,7 +11,7 @@ return {
     harpoon:setup()
     require("telescope").load_extension("harpoon")
     -- keymaps
-    vim.keymap.set("n", "<M-Q>", ":Telescope harpoon marks<CR>", { silent = false, desc = "Telescope Harpoon marks" })
+    vim.keymap.set("n", "<M-T>", ":Telescope harpoon marks<CR>", { silent = false, desc = "Telescope Harpoon marks" })
     vim.keymap.set("n", "<M-q>", function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
     end, { silent = true, desc = "Toggle Harpoon QuickMenu" })
