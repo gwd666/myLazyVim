@@ -11,6 +11,7 @@ if vim.g.vscode then
   -- require("config/keymaps")
   -- require("config/options")
   -- require("")
+  vim.cmd([[source /home/gwd/.config/nvim/vscode/settings.vim]])
 else
   print("=== Sourcing " .. os.getenv("HOME") .. ".config/nvim/init.lua " .. " part =====")
   -- I am gonna ride with SPACE as LEADER for now to test the feeling
@@ -26,9 +27,11 @@ else
   -- bootstrap lazy.nvim, LazyVim and your plugins
   require("config.lazy")
   require("config/telescope")
+  require("config/zls_lspconfig")
   -- use tokyonight cs in telescope mod fashion - this will only work from here
   -- on since needs require call above to work
-  vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
+  -- vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
+  vim.api.nvim_command([[ colorscheme onenord ]])
   require("catppuccin").setup({
     integrations = {
       cmp = true,
