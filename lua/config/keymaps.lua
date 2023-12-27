@@ -95,13 +95,14 @@ vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Tele Buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Tele Help tags" })
 vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Tele 'n' mode kmaps" })
 
--- remap <leader><Space> to fall back to find_files if git_files can't find .git dir
-vim.api.nvim_set_keymap(
-  "n",
-  "<Leader><Space>",
-  "<CMD>lua require'tele-git_find_file-config'.project_files()<CR>",
-  { noremap = true, silent = true }
-)
+-- remap <leader><Space> to fall back to find_files if git_files can't find .git dir THIS CAUSES ERRORS
+-- vim.api.nvim_set_keymap(
+--   "n",
+--   "<Leader><Space>",
+--   "<CMD>lua require'tele-git_find_file-config'.project_files()<CR>",
+--   { noremap = true, silent = true }
+-- )
+
 -- add a telescope lsp keymap and which-key group
 local wk = require("which-key")
 wk.register({
@@ -113,6 +114,7 @@ wk.register({
     -- l = { builtin.lsp_reference, "Lsp reference" }, -- not owrking correctly - TBD
   },
 }, { prefix = "<leader>" })
+
 -- AIChat keymappings
 map("n", "<leader>aa", ":AI<CR>", { desc = "Complete text on current line or selection" })
 map("x", "<leader>aa", ":AI<CR>", { desc = "Complete text on current line or selection" })
@@ -148,7 +150,7 @@ vim.keymap.set("n", "<leader>rf", "<cmd>IronFocus<cr>", { desc = "IronRepl focus
 -- Launch panel if nothing is typed after <leader>z
 vim.keymap.set("n", "<leader>t", "<cmd>Telekasten panel<CR>")
 
--- Most used functions
+-- Most used Telekasten functions
 vim.keymap.set("n", "<leader>tf", "<cmd>Telekasten find_notes<CR>")
 vim.keymap.set("n", "<leader>tg", "<cmd>Telekasten search_notes<CR>")
 vim.keymap.set("n", "<leader>tt", "<cmd>Telekasten goto_today<CR>")
@@ -157,16 +159,15 @@ vim.keymap.set("n", "<leader>tn", "<cmd>Telekasten new_note<CR>")
 vim.keymap.set("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
 vim.keymap.set("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
 vim.keymap.set("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
-
 -- Call insert link automatically when we start typing a link
 vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
 
--- nnn.nvim bindings
+-- nnn.nvim bindings currenly only in Ubuntu
 map("n", "<C-M-n>", "<cmd>NnnExplorer %:p:h<CR>", { desc = "Open nnn Explorer in curr buffer" })
 map("n", "<C-M-p>", ":NnnPicker<CR>", { desc = "Open nnn Picker in curr buffer" })
 
 -- send-to-term mappings
-map("n", "tl", "<plug>sendline", { silent = false, desc = "send line to term" })
-map("n", "ts", "<plug>send", { silent = false, desc = "send motion to term" })
-map("v", "ts", "<plug>send", { silent = false, desc = "send visual to term" })
-map("n", "ts", "ts$")
+-- map("n", "tl", "<plug>sendline", { silent = false, desc = "send line to term" })
+-- map("n", "ts", "<plug>send", { silent = false, desc = "send motion to term" })
+-- map("v", "ts", "<plug>send", { silent = false, desc = "send visual to term" })
+-- map("n", "ts", "ts$")

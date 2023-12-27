@@ -18,6 +18,10 @@ vim.cmd("set listchars+=eol:↲")
 -- make j and l move to prev/next line
 vim.opt.whichwrap = "<>[],hl,b,s"
 
+-- enable autocompletions as you type
+-- vim.opt.completion_enable_auto_popup = 1
+vim.cmd("let g:completion_enable_auto_popup=1")
+
 vim.cmd([[
 let g:vim_ai_chat = {
 \ "options": {

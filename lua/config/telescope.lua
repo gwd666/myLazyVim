@@ -53,7 +53,7 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
     layout_config = {
       vertical = { width = 0.8 },
       horizontal = { height = 0.6 },
-      prompt_position = "top",
+      prompt_position = "top", --or "bottom"
     },
     sorting_strategy = "ascending",
     winblend = 5,
@@ -110,7 +110,7 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
       layout_strategy = "horizontal",
       sorting_strategy = "descending",
       layout_config = {
-        prompt_position = "top",
+        prompt_position = "bottom",
         preview_width = 0.7,
       },
       winblend = 10,
