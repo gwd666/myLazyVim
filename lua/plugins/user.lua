@@ -53,6 +53,14 @@ return {
   { "renerocksai/telekasten.nvim", dependencies = { "nvim-telescope/telescope.nvim" } },
   -- adding calendar to telekasten.nvim
   { "renerocksai/calendar-vim" },
+  -- add gruvbox themes
+  { "luisiacc/gruvbox-baby" },
+  { "sainnhe/gruvbox-material" },
+  -- add Monokai, Material, OneDark Pro and Atom themes
+  { "loctvl842/monokai-pro.nvim" },
+  { "rmehri01/onenord.nvim" },
+  { "marko-cerovac/material.nvim" },
+  { "olimorris/onedarkpro.nvim" },
   -- add catppuccin colorscheme
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   -- change mason config
