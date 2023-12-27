@@ -1,3 +1,4 @@
+-- taken from: https://github.com/wnz27/zls-learn?tab=readme-ov-file#nvim-lspconfig
 local lspconfig = require("lspconfig")
 
 local on_attach = function(_, bufnr)
