@@ -9,7 +9,7 @@ local new_maker = function(filepath, bufnr, opts)
   Threshold = 1250000
   filepath = vim.fn.expand(filepath)
   Job:new({
-    command = "/usr/bin/file", -- do a check on this Git/bin/file path in case you copy to other machine!
+    command = "/usr/bin/file", -- do a check on this /bin/file path in case you copy to other machine!
     args = { "--mime-type", "-b", filepath },
     on_exit = function(j)
       local mime_type = vim.split(j:result()[1], "/")[1]
