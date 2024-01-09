@@ -44,6 +44,9 @@ vim.cmd("let g:better_whitespace_skip_emptylines=1") -- don't  bother with empty
 -- BUT you can try to fix indentation by slecting and hitting '=' key!
 vim.cmd("let g:show_spaces_that_precede_tabs=1")
 
+-- need conceallevel of 1 or 2 for obsidian.nvim to manage format concealment
+vim.opt.conceallevel = 1
+
 -- send-to-term options for multiline text eg IPython etc -- deactivated, relying on iron.repl now
 -- vim.cmd([[
 --   let g:send_multiline = {
