@@ -22,10 +22,10 @@ return {
         path = "/mnt/d/OneDrive/Documents/zettelkasten",
         -- path = "~/zettelkasten",
       },
-      -- {
-      --   name = "job",
-      --   path = "/mnt/d/OneDrive/Documents/zettelkasten/job",
-      -- },
+      {
+        name = "job",
+        path = "/mnt/d/OneDrive/Documents/zettelkasten/job",
+      },
     },
     -- additional Options
     daily_notes = {
