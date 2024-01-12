@@ -20,6 +20,9 @@ return {
             julia = {
               command = { "julia" },
             },
+            python = {
+              command = { "ipython" },
+            },
           },
           -- How the repl window will be displayed
           -- See below for more information
