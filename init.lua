@@ -9,7 +9,7 @@ if vim.g.vscode then
   print("Looks like you're starting Neovim from VSC!")
   local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
   -- require("config/keymaps")
-  -- require("config/options")
+  require("config/options") -- this makes H/L move to prev/next line etc
   -- require("")
   vim.cmd([[source /home/gwd/.config/nvim/vscode/settings.vim]])
 else
