@@ -7,9 +7,9 @@
 if vim.g.vscode then
   -- VSC extension
   print("Looks like you're starting Neovim from VSC!")
-  local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  -- local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  require("config/options") -- this makes H/L move to prev/mext line, etc
   -- require("config/keymaps")
-  -- require("config/options")
   -- require("")
   vim.cmd([[source $HOME\AppData\Local\nvim\vscode\settings.vim]])
 else
@@ -28,7 +28,8 @@ else
   -- load telescope config
   require("config.telescope")
   -- use tokyonight cs in telescope mod fashion - this will only work from her on since needs require call above to work
-  vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
+  -- vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
+  -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
   require("catppuccin").setup({
     integrations = {
       cmp = true,

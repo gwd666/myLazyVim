@@ -74,7 +74,7 @@ map("n", "<up>", ":tabnext<CR>", { noremap = true, silent = true })
 map("n", "<down>", ":tabprev<CR>", { noremap = true, silent = true })
 
 -- toggle zen mode w Comma-zz
-map("n", ",zz", ":ZenMode<CR>", { desc = "Toggle ZenMode" })
+map("n", ",zz", ":ZenMode<CR>", { noremap = true, silent = true, desc = "Toggle ZenMode" })
 
 -- telscope mappings
 local builtin = require("telescope.builtin")
@@ -84,13 +84,15 @@ vim.keymap.set("n", "<leader>fs", builtin.grep_string, { desc = "Tele grep Strin
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Tele Buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Tele Help tags" })
 vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Tele 'n' mode kmaps" })
--- remap <leader><Space> to fall back to find_files if git_files can't find .git dir
-vim.api.nvim_set_keymap(
-  "n",
-  "<Leader><Space>",
-  "<CMD>lua require'tele-git_find_file-config'.project_files()<CR>",
-  { noremap = true, silent = true }
-)
+
+-- remap <leader><Space> to fall back to find_files if git_files can't find .git dir THIS CAUSES ERRORS
+-- vim.api.nvim_set_keymap(
+--   "n",
+--   "<Leader><Space>",
+--   "<CMD>lua require'tele-git_find_file-config'.project_files()<CR>",
+--   { noremap = true, silent = true }
+-- )
+
 -- add a telescope lsp keymap and which-key group
 local wk = require("which-key")
 wk.register({
@@ -104,8 +106,6 @@ wk.register({
 }, { prefix = "<leader>" })
 
 -- OLD STYLE DEFINTIONS w/o local map
--- map leader-c to close buffer
--- vim.keymap.set("n", "<leader>c", ":bd<CR>")
 -- map Ctrl-PgUp/PgDown to move between buffers in NORMAL mode
 vim.keymap.set("n", "<C-PageUp>", ":bp<CR>", { silent = true, desc = "Prev buff" })
 vim.keymap.set("n", "<C-PageDown>", ":bn<CR>", { silent = true, desc = "Next buff" })

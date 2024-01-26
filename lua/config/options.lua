@@ -32,10 +32,10 @@ vim.cmd("let g:better_whitespace_skip_emptylines=1") -- don't  bother with empty
 vim.cmd("let g:show_spaces_that_precede_tabs=1")
 
 -- send-to-term options for multiline text eg IPython etc
-vim.cmd([[
-  let g:send_multiline = {
-  \    'ipy': {'begin':"\e[200~", 'end':"\e[201~\n", 'newline':"\n"},
-  \    'r': {'begin':"\e[200~", 'end':"\e[201~\n", 'newline':"\n"},
-  \    'jl': {'begin':"\e[200~", 'end':"\e[201~\n", 'newline':"\n"},
-  \}
-]])
+-- vim.cmd([[
+--   let g:send_multiline = {
+--   \    'ipy': {'begin':"\e[200~", 'end':"\e[201~\n", 'newline':"\n"},
+--   \    'r': {'begin':"\e[200~", 'end':"\e[201~\n", 'newline':"\n"},
+--   \    'jl': {'begin':"\e[200~", 'end':"\e[201~\n", 'newline':"\n"},
+--   \}
+-- ]])

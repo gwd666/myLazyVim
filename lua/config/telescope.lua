@@ -9,7 +9,7 @@ local new_maker = function(filepath, bufnr, opts)
   Threshold = 1250000
   filepath = vim.fn.expand(filepath)
   Job:new({
-    command = "C:/Program Files/Git/usr/bin/file", -- do a check on this Git/bin/file path in case you copy to other machine!
+    command = "C:\\Program Files\\Git\\usr\\bin\\file", -- do a check on this Git/bin/file path in case you copy to other machine!
     args = { "--mime-type", "-b", filepath },
     on_exit = function(j)
       local mime_type = vim.split(j:result()[1], "/")[1]
@@ -53,7 +53,7 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
     layout_config = {
       vertical = { width = 0.8 },
       horizontal = { height = 0.6 },
-      prompt_position = "top",
+      prompt_position = "top", -- or "bottom"
     },
     sorting_strategy = "ascending",
     winblend = 5,
@@ -99,11 +99,11 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
         prompt_position = "top",
         preview_width = 0.6,
       },
-      winblend = 15,
+      winblend = 5,
     },
     help_tags = {
       theme = "dropdown",
-      winblend = 20,
+      winblend = 15,
       sorting_strategy = "ascending",
     },
     grep_string = {
