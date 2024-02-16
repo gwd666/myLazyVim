@@ -6,29 +6,30 @@ return {
     keys[#keys + 1] = { "<C-k>", mode = "i", false }
     keys[#keys + 1] =
       { "<C-o>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "SignatureHelp" }
-    local cmp = require("cmp")
 
+    -- this commented out code below - breaks command completion in vim COMMAND mode/prompt
     -- '/' cmdline setup
-    cmp.setup.cmdline("/", {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = {
-        { name = "buffer" },
-      },
-    })
-
-    -- ':' cmdline setup
-    cmp.setup.cmdline(":", {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = cmp.config.sources({
-        { name = "path" },
-      }, {
-        {
-          name = "cmdline",
-          option = {
-            ignore_cmds = { "Man", "!" },
-          },
-        },
-      }),
-    })
+    -- local cmp = require("cmp")
+    -- cmp.setup.cmdline("/", {
+    --   mapping = cmp.mapping.preset.cmdline(),
+    --   sources = {
+    --     { name = "buffer" },
+    --   },
+    -- })
+    --
+    -- -- ':' cmdline setup
+    -- cmp.setup.cmdline(":", {
+    --   mapping = cmp.mapping.preset.cmdline(),
+    --   sources = cmp.config.sources({
+    --     { name = "path" },
+    --   }, {
+    --     {
+    --       name = "cmdline",
+    --       option = {
+    --         ignore_cmds = { "Man", "!" },
+    --       },
+    --     },
+    --   }),
+    -- })
   end,
 }
