@@ -7,7 +7,7 @@
 if vim.g.vscode then
   -- VSC extension
   print("Looks like you're starting Neovim from VSC!")
-  local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  -- local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
   -- require("config/keymaps")
   require("config/options") -- this makes H/L move to prev/next line etc
   -- require("")
@@ -26,8 +26,8 @@ else
   -- Start the bootstrap of lazy.nvim, LazyVim and your plugins
   -- bootstrap lazy.nvim, LazyVim and your plugins
   require("config.lazy")
-  require("config/telescope")
-  require("config/zls_lspconfig")
+  require("config.telescope")
+  -- require("config.zls_lspconfig")
   -- use tokyonight cs in telescope mod fashion - this will only work from here
   -- on since needs require call above to work
   -- vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
