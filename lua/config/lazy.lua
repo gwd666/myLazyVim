@@ -13,7 +13,8 @@ require("lazy").setup({
     -- import any extras modules here
     -- { import = "lazyvim.plugins.extras.lang.typescript" },
     -- { import = "lazyvim.plugins.extras.lang.json" },
-    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    { import = "lazyvim.plugins.extras.coding.copilot" },
     -- import/override with your plugins
     { import = "plugins" },
   },
@@ -42,5 +43,74 @@ require("lazy").setup({
         "zipPlugin",
       },
     },
+  },
+  opts = {
+    colorscheme = "gruvbox", -- "gruvbox", or "tokyonight",
+    style = "baby", -- "baby" or "material" for gruvbox -- "storm", ... for tokyonight, "frappe", ... for catppuccin
+  },
+})
+-- make some tokyonight setup mods
+require("tokyonight").setup({
+  -- use the night style
+  style = "storm",
+  -- disable italic for functions
+  styles = {
+    functions = {},
+  },
+  sidebars = { "qf", "vista_kind", "terminal", "packer" },
+  -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+  on_colors = function(colors)
+    colors.hint = colors.orange
+    colors.error = "#ff0000" -- red
+  end,
+})
+-- make Telescope borderless with tokyonight cs
+require("tokyonight").setup({
+  on_highlights = function(hl, c)
+    local prompt = "#2d3149"
+    hl.TelescopeNormal = {
+      bg = c.bg_dark,
+      fg = c.fg_dark,
+    }
+    hl.TelescopeBorder = {
+      bg = c.bg_dark,
+      fg = c.bg_dark,
+    }
+    hl.TelescopePromptNormal = {
+      bg = prompt,
+    }
+    hl.TelescopePromptBorder = {
+      bg = prompt,
+      fg = prompt,
+    }
+    hl.TelescopePromptTitle = {
+      bg = prompt,
+      fg = prompt,
+    }
+    hl.TelescopePreviewTitle = {
+      bg = c.bg_dark,
+      fg = c.bg_dark,
+    }
+    hl.TelescopeResultsTitle = {
+      bg = c.bg_dark,
+      fg = c.bg_dark,
+    }
+  end,
+})
+-------------- catppuccin setup ----------------
+require("catppuccin").setup({
+  transparent_background = true, --false, -- if true nvim will be transparent!
+  integrations = {
+    cmp = true,
+    nvimtree = true,
+    treesitter = true,
+    treesitter_context = true,
+    notify = true, --false,
+    neotree = true,
+    mason = true,
+    harpoon = true,
+    telescope = true,
+    telekasten = true,
+    which_key = true,
   },
 })
