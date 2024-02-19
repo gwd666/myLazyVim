@@ -94,6 +94,7 @@ vim.keymap.set("n", "<leader>fs", builtin.grep_string, { desc = "Tele grep Strin
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Tele Buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Tele Help tags" })
 vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Tele 'n' mode kmaps" })
+vim.keymap.set("n", "<leader>fm", "<cmd>NoiceTelescope<CR>", { desc = "NoiceTelescope message/notifications" })
 
 -- remap <leader><Space> to fall back to find_files if git_files can't find .git dir THIS CAUSES ERRORS
 -- vim.api.nvim_set_keymap(
