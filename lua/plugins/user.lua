@@ -26,13 +26,16 @@ return {
     end,
   },
   -- add lspkind for VSCode like pictograms
-  -- { "onsails/lspkind.nvim" },
+  { "onsails/lspkind.nvim" },
   -- add iron.nvim TERM/REPL
   { "hkupty/iron.nvim" },
+  -- add some telescope extensions:
+  { "nvim-telescope/telescope-project.nvim" },
+  { "nvim-telescope/telescope-file-browser.nvim" },
   -- add send-to-term
   -- { "mtikekar/nvim-send-to-term" },
   -- add vim.ai
-  { "madox2/vim-ai" },
+  -- { "madox2/vim-ai" },
   -- add folke zen instaead of goyo
   { "folke/zen-mode.nvim" },
   -- add vim-devicons
@@ -55,6 +58,19 @@ return {
   { "nvim-tree/nvim-web-devicons", enabled = false },
   -- better whitespaces showing
   { "ntpeters/vim-better-whitespace" },
+  {
+    "jackMort/ChatGPT.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("chatgpt").setup()
+    end,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "folke/trouble.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+  },
   -- change mason config
   -- trying to change mason ui iconvs - naaa not working - todo
   {

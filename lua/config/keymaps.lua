@@ -84,14 +84,23 @@ vim.keymap.set("n", "<leader>fs", builtin.grep_string, { desc = "Tele grep Strin
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Tele Buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Tele Help tags" })
 vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Tele 'n' mode kmaps" })
+vim.keymap.set("n", "<leader>fm", "<cmd>NoiceTelescope<CR>", { desc = "NoiceTelescope messages/notificatons" })
 
--- remap <leader><Space> to fall back to find_files if git_files can't find .git dir THIS CAUSES ERRORS
--- vim.api.nvim_set_keymap(
---   "n",
---   "<Leader><Space>",
---   "<CMD>lua require'tele-git_find_file-config'.project_files()<CR>",
---   { noremap = true, silent = true }
--- )
+-- find Lazy configuration files
+vim.api.nvim_set_keymap(
+  "n",
+  "<Leader>fp",
+  "<CMD>lua require('telescope.builtin').find_files({ cwd = require('lazy.core.config').options.root, desc = 'Plugins'})<CR>",
+  -- "<CMD>lua require'tele-git_find_file-config'.project_files()<CR>",
+  { noremap = true, silent = true, desc = "Find 'plugins' files" }
+)
+-- map Leader-Space to telscoping projects
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader><Space>",
+  "<cmd>lua require'telescope'.extensions.project.project{}<CR>",
+  { noremap = true, silent = true, desc = "Show projects" }
+)
 
 -- add a telescope lsp keymap and which-key group
 local wk = require("which-key")
@@ -104,6 +113,38 @@ wk.register({
     -- l = { builtin.lsp_reference, "Lsp reference" }, -- not owrking correctly - TBD
   },
 }, { prefix = "<leader>" })
+
+-- chatigpt mappings
+local chatgpt = require("chatgpt")
+wk.register({
+  mode = { "v", "n" },
+  prefix = "<leader>",
+  p = {
+    name = "ChatGPT",
+    e = {
+      function()
+        chatgpt.edit_with_instructions()
+      end,
+      "Edit with instructions",
+    },
+    c = {
+      name = "ChatGPT",
+      c = { "<cmd>ChatGPT<CR>", "ChatGPT" },
+      e = { "<cmd>ChatGPTEditWithInstruction<CR>", "Edit with instruction", mode = { "n", "v" } },
+      g = { "<cmd>ChatGPTRun grammar_correction<CR>", "Grammar Correction", mode = { "n", "v" } },
+      t = { "<cmd>ChatGPTRun translate<CR>", "Translate", mode = { "n", "v" } },
+      k = { "<cmd>ChatGPTRun keywords<CR>", "Keywords", mode = { "n", "v" } },
+      d = { "<cmd>ChatGPTun docstring<CR>", "Docstring", mode = { "n", "v" } },
+      a = { "<cmd>ChatGPTRun add_tests<CR>", "Add Tests", mode = { "n", "v" } },
+      o = { "<cmd>ChatGPTRun optimize_code<CR>", "Optimize Code", mode = { "n", "v" } },
+      s = { "<cmd>ChatGPTRun summarize<CR>", "Summarize", mode = { "n", "v" } },
+      f = { "<cmd>ChatGPTRun fix_bugs<CR>", "Fix Bugs", mode = { "n", "v" } },
+      x = { "<cmd>ChatGPTRun explain_code<CR>", "Explain Code", mode = { "n", "v" } },
+      r = { "<cmd>ChatGPTRun roxygen_edit<CR>", "Roxygen Edit", mode = { "n", "v" } },
+      l = { "<cmd>ChatGPTRun code_readability_analysis<CR>", "Code Readability Analysis", mode = { "n", "v" } },
+    },
+  },
+})
 
 -- OLD STYLE DEFINTIONS w/o local map
 -- map Ctrl-PgUp/PgDown to move between buffers in NORMAL mode

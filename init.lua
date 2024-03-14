@@ -11,7 +11,7 @@ if vim.g.vscode then
   require("config/options") -- this makes H/L move to prev/mext line, etc
   -- require("config/keymaps")
   -- require("")
-  vim.cmd([[source $HOME\AppData\Local\nvim\vscode\settings.vim]])
+  vim.cmd([[source $HOME\AppData\Local\nvim\vscode\vsc_settings.vim]])
 else
   print("=== Sourcing " .. os.getenv("USERPROFILE") .. "/init.lua " .. os.getenv("USERNAME") .. " part =====")
   -- I am gonna ride with SPACE as LEADER for now to test the feeling
@@ -21,7 +21,7 @@ else
   -- set colorcolumns
   vim.cmd("set colorcolumn=80,120")
   -- set a dedicated python3 host
-  vim.cmd("let g:python3_host_prog='C:/python311/python'") --set python3 host to avoid surprises
+  vim.cmd("let g:python3_host_prog='E:/envs/conda/py311/python'") --set python3 host to avoid surprises
   -- ----------------------------------------------------------------------------
   -- Start the bootstrap of lazy.nvim, LazyVim and your plugins
   require("config.lazy")
@@ -30,19 +30,6 @@ else
   -- use tokyonight cs in telescope mod fashion - this will only work from her on since needs require call above to work
   -- vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
   -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
-  require("catppuccin").setup({
-    integrations = {
-      cmp = true,
-      nvimtree = true,
-      treesitter = true,
-      notify = false,
-      mason = true,
-      harpoon = true,
-      telekasten = true,
-      which_key = true,
-    },
-  })
-
   -- handle a weird path error in cse neovim is started in Git Bash
   if os.getenv("TERM") == "xterm-256color" and os.getenv("SHELL") == "C:\\Program Files\\Git\\usr\\bin\\bash.exe" then
     print("Neovim started in Git Bash? Modifying/Fixing SHELL env var!")

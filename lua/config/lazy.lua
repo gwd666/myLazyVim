@@ -33,7 +33,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "tokyonight", "habamax" } },
+  install = { colorscheme = { "tokyonight", "habamax", "onenord" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {
@@ -72,7 +72,7 @@ require("tokyonight").setup({
   end,
 })
 
--- make Telescope borderless
+-- make Telescope borderless with tokyonight cs
 require("tokyonight").setup({
   on_highlights = function(hl, c)
     local prompt = "#2d3149"
@@ -104,4 +104,19 @@ require("tokyonight").setup({
       fg = c.bg_dark,
     }
   end,
+})
+----------------
+require("catppuccin").setup({
+  transparent_background = true, --false, -- if true nvim will be transparent!
+  integrations = {
+    cmp = true,
+    nvimtree = true,
+    treesitter = true,
+    notify = false,
+    mason = true,
+    harpoon = true,
+    telescope = true,
+    telekasten = true,
+    which_key = true,
+  },
 })

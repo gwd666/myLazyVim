@@ -1,12 +1,15 @@
 -- Make telescope config load automatically loaded on the VeryLazy event
 local previewers = require("telescope.previewers")
 local plenarypath = vim.fn.stdpath("data") .. "/lazy/plenary.nvim"
+local project_actions = require("telescope._extensions.project.actions")
+local harpoon = require("harpoon")
+
 vim.opt.rtp:prepend(plenarypath)
 local Job = require("plenary.job")
 
 local new_maker = function(filepath, bufnr, opts)
   opts = opts or {}
-  Threshold = 1250000
+  Threshold = 1550000
   filepath = vim.fn.expand(filepath)
   Job:new({
     command = "C:\\Program Files\\Git\\usr\\bin\\file", -- do a check on this Git/bin/file path in case you copy to other machine!
@@ -51,7 +54,7 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
   defaults = {
     buffer_previewer_maker = new_maker, -- from funcs above
     layout_config = {
-      vertical = { width = 0.8 },
+      vertical = { width = 0.6 },
       horizontal = { height = 0.6 },
       prompt_position = "top", -- or "bottom"
     },
@@ -72,6 +75,13 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
         -- add mapping to toggle preview
         ["<M-p>"] = require("telescope.actions.layout").toggle_preview,
         ["<M-h>"] = "which_key",
+        ["cd"] = function(prompt_bufnr)
+          local selection = require("telescope.actions.state").get_selected_entry()
+          local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+          require("telescope.actions").close(prompt_bufnr)
+          -- Depending on what you want put `cd`, `lcd`, `tcd`
+          vim.cmd(string.format("silent lcd %s", dir))
+        end,
       },
       i = {
         -- map actions,which-key to <C-h> (defatult: <C-/>)
@@ -106,7 +116,7 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
       winblend = 15,
       sorting_strategy = "ascending",
     },
-    grep_string = {
+    live_grep = {
       layout_strategy = "horizontal",
       sorting_strategy = "descending",
       layout_config = {
@@ -114,6 +124,29 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
         preview_width = 0.6,
       },
       winblend = 10,
+    },
+  },
+  extensions = {
+    project = {
+      base_dirs = {
+        "~/OneDrive/Documents/DEV",
+        "~/devel@E",
+        -- { "~/dev/DEV@OneDrive", max_depth = 3 },
+        -- { path = "~/dev", max_depth = 2 },
+        -- { path = "~/dev/DEV@OneDrive/Sky_git/" },
+        -- { path = "~/dev", max_depth = 4 },
+      },
+      hidden_files = true, -- default: false
+      theme = "dropdown",
+      order_by = "asc",
+      search_by = "title",
+      sync_with_nvim_tree = true, -- default false
+      -- default for on_project_selected = find project files
+      on_project_selected = function(prompt_bufnr)
+        -- Do anything you want in here. For example:
+        project_actions.change_working_directory(prompt_bufnr, false)
+        require("harpoon.ui"):toggle_quick_menu(harpoon:list())
+      end,
     },
   },
   -- configuring prieviewer ... nope not yet working?
