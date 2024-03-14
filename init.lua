@@ -22,17 +22,19 @@ else
   -- set colorcolumns
   vim.cmd("set colorcolumn=80,120")
   --swet a dedicated python2 host
-  vim.cmd("let g:python3_host_prog='~/.mamba/envs/py311/bin/python'")
+  vim.cmd("let g:python3_host_prog='/mnt/e/envs/mamba/py311/bin/python'")
   -- telekasten require
   -- ----------------------------------------------------------------------------
   -- Start the bootstrap of lazy.nvim, LazyVim and your plugins
   -- bootstrap lazy.nvim, LazyVim and your plugins
   require("config.lazy")
-  -- moved all the colorscheme stuff to plugins/colorscheme.lua
   require("config.telescope")
+  require("config.chatgpt")
+  -- moved all the colorscheme stuff to plugins/colorscheme.lua
   -- define the colorscheme
-  -- vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
-  vim.api.nvim_command([[ colorscheme tokyonight-storm ]])
+  vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
+  -- vim.api.nvim_command([[ colorscheme tokyonight-storm ]])
+  -- vim.api.nvim_command([[ colorscheme catppuccin-macchiato ]])
   -- telekasten setpu
   require("telekasten").setup({
     home = vim.fn.expand("~/zettelkasten"), -- Put the name of your notes directory here

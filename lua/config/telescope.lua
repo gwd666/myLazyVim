@@ -1,6 +1,9 @@
 -- Make telescope config load automatically loaded on the VeryLazy event
 local previewers = require("telescope.previewers")
 local plenarypath = vim.fn.stdpath("data") .. "/lazy/plenary.nvim"
+local project_actions = require("telescope._extensions.project.actions")
+local harpoon = require("harpoon")
+
 vim.opt.rtp:prepend(plenarypath)
 local Job = require("plenary.job")
 
@@ -51,9 +54,9 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
   defaults = {
     buffer_previewer_maker = new_maker, -- from funcs above
     layout_config = {
-      vertical = { width = 0.8 },
+      vertical = { width = 0.6 },
       horizontal = { height = 0.6 },
-      prompt_position = "top", --or "bottom"
+      prompt_position = "bottom", --or "bottom"
     },
     sorting_strategy = "ascending",
     winblend = 5,
@@ -71,7 +74,15 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
       n = {
         -- add mapping to toggle preview
         ["<M-p>"] = require("telescope.actions.layout").toggle_preview,
+        -- add mapppings to show which-key mappings
         ["<M-h>"] = "which_key",
+        ["cd"] = function(prompt_bufnr)
+          local selection = require("telescope.actions.state").get_selected_entry()
+          local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+          require("telescope.actions").close(prompt_bufnr)
+          -- Depending on what you want put `cd`, `lcd`, `tcd`
+          vim.cmd(string.format("silent lcd %s", dir))
+        end,
       },
       i = {
         -- map actions,which-key to <C-h> (defatult: <C-/>)
@@ -90,14 +101,14 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
             local dir = vim.fn.fnamemodify(selection.path, ":p:h")
             require("telescope.actions").close(prompt_bufnr)
             -- deepending on yr pref put 'cd', 'lcd', 'tcs'
-            vim.cmd(string.format("silent lcd %s", dir))
+            vim.cmd(string.format("silent cd %s", dir))
           end,
         },
       },
       layout_strategy = "horizontal",
       layout_config = {
         prompt_position = "top",
-        preview_width = 0.7,
+        preview_width = 0.69,
       },
       winblend = 5,
     },
@@ -114,6 +125,29 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
         preview_width = 0.7,
       },
       winblend = 10,
+    },
+  },
+  extensions = {
+    project = {
+      base_dirs = {
+        "~/dev",
+        "~/dev/devel@E-drive",
+        -- { "~/dev/DEV@OneDrive", max_depth = 3 },
+        { path = "~/dev", max_depth = 2 },
+        -- { path = "~/dev/DEV@OneDrive/Sky_git/" },
+        -- { path = "~/dev", max_depth = 4 },
+      },
+      hidden_files = true, -- default: false
+      theme = "dropdown",
+      order_by = "asc",
+      search_by = "title",
+      sync_with_nvim_tree = true, -- default false
+      -- default for on_project_selected = find project files
+      on_project_selected = function(prompt_bufnr)
+        -- Do anything you want in here. For example:
+        project_actions.change_working_directory(prompt_bufnr, false)
+        require("harpoon.ui"):toggle_quick_menu(harpoon:list())
+      end,
     },
   },
   -- configuring prieviewer ... nope not yet working?
@@ -135,10 +169,13 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
   keys = {
     -- add a keymap to browse plugin files
     -- stylua: ignore
-    {
-      "<leader>fp",
-      function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
-      desc = "Find Plugin File",
-    },
+    -- { -- this is not working
+    --   "<leader>fp",
+    --   function() require("telescope.builtin").find_files({
+    --       cwh = require("lazy.core.config").options.root
+    --     })
+    --   end,
+    --   desc = "Find Plugin Files",
+    -- },
   },
 })

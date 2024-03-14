@@ -22,9 +22,11 @@ return {
             },
             python = {
               command = { "ipython" },
+              format = require("iron.fts.common").bracketed_paste,
             },
             r = {
-              command = { "radian" },
+              command = { "radian" }, -- or { "R" }
+              format = require("iron.fts.common").bracketed_paste,
             },
           },
           -- How the repl window will be displayed

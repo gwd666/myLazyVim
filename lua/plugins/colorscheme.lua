@@ -25,11 +25,11 @@ return {
   -- add tokyonight
   { "folke/tokyonight.nvim", priority = 1000, opts = { style = "storm" } }, -- available opts: style = moon|night|day|storm,
   -- configure LazyVim to load yr preferred colorscheme
-  {
-    "LazyVim/LazyVim", -- think this will override all of the above
-    opts = {
-      colorscheme = "tokyonight", -- "gruvbox", or "tokyonight",
-      style = "storm", -- "baby" or "material" for gruvbox -- "storm", ... for tokyonight, "frappe", ... for catppuccin
-    },
-  },
+  -- {
+  --   "LazyVim/LazyVim", -- think this will override all of the above
+  --   opts = {
+  --     colorscheme = "tokyonight", -- "gruvbox", or "tokyonight",
+  --     style = "storm", -- "baby" or "material" for gruvbox -- "storm", ... for tokyonight, "frappe", ... for catppuccin
+  --   },
+  -- },
 }
