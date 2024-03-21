@@ -6,7 +6,16 @@ return {
     keys[#keys + 1] = { "<C-k>", mode = "i", false }
     keys[#keys + 1] =
       { "<C-o>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "SignatureHelp" }
-
+    --  tyr to fix ""multiple different client offset_encodings detected" warning
+    local cmp_nvim_lsp = require("cmp_nvim_lsp")
+    require("lspconfig").clangd.setup({
+      on_attach = on_attach,
+      capabilities = cmp_nvim_lsp.default_capabilities(),
+      cmd = {
+        "clangd",
+        "--offset-encoding=utf-16",
+      },
+    })
     -- this commented out code below - breaks command completion in vim COMMAND mode/prompt
     -- '/' cmdline setup
     -- local cmp = require("cmp")
