@@ -1,6 +1,6 @@
 # 💤 LazyVim
 
-This represents the `main` (or default) branch and follows my xps13 Ubuntu 20.04 WSL2 setup for 
+This represents the `main` (or default) branch and follows my Ubuntu 20.04 WSL2 on my PCs setup for 
 [LazyVim](https://github.com/LazyVim/LazyVim).
 
 After removing the initial .git folder (from cloning the LazyVim/starter repo) this is now 
