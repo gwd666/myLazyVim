@@ -1,6 +1,6 @@
 # 💤 LazyVim
 
-My xps13 WINDOWS OS template for configuring [LazyVim](https://github.com/LazyVim/LazyVim) 
+My WINDOWS OS template for configuring [LazyVim](https://github.com/LazyVim/LazyVim) 
 mainly used with Powershell.
 After removing the initial .git folder (from cloning the LazyVim/starter repo) 
 this is now the git repo I wil push all my LazyVim WINDOWS OS config adjustments 
