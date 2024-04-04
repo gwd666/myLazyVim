@@ -9,7 +9,7 @@ local Job = require("plenary.job")
 
 local new_maker = function(filepath, bufnr, opts)
   opts = opts or {}
-  Threshold = 1550000
+  Threshold = 1024000
   filepath = vim.fn.expand(filepath)
   Job:new({
     command = "C:\\Program Files\\Git\\usr\\bin\\file", -- do a check on this Git/bin/file path in case you copy to other machine!
