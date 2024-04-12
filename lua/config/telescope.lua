@@ -131,11 +131,11 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
     project = {
       base_dirs = {
         "~/dev",
-        "~/dev/devel@E-drive",
+        "~/devel/devel@E-drive",
         -- { "~/dev/DEV@OneDrive", max_depth = 3 },
-        { path = "~/dev", max_depth = 2 },
-        -- { path = "~/dev/DEV@OneDrive/Sky_git/" },
-        -- { path = "~/dev", max_depth = 4 },
+        { path = "~/devel", max_depth = 2 },
+        -- { path = "~/devel/DEV@OneDrive/Sky_git/" },
+        -- { path = "~/devel", max_depth = 4 },
       },
       hidden_files = true, -- default: false
       theme = "dropdown",

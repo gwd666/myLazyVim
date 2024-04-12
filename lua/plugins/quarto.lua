@@ -8,7 +8,6 @@
 -- this takes your existings config and adds on top where necessary.
 
 return {
-
   -- this taps into vim.ui.select and vim.ui.input
   -- and in doing so currently breaks renaming in otter.nvim
   { "stevearc/dressing.nvim", enabled = false },
