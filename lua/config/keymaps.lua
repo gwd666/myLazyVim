@@ -53,7 +53,7 @@ map("n", "<F3>", ":Neotree toggle<CR>", { silent = true, desc = "NTree toggle" }
 map("n", "<F2>", ":Neotree buffers<CR>", { silent = true, desc = "NTree buffers" })
 
 -- map <comma>CD (upppercase CD) to change working dir to curr buffer parent dir
-map("n", ",CD", ":Neotree %:h<CR>", { silent = true, desc = "set NTree workdir to buffer dir" })
+map("n", "<leader>CD", ":Neotree %:h<CR>", { silent = true, desc = "Set NeoTree active dir to buffer's dir" })
 
 -- Map <leader>o & <leader>O to newline when in Normal mode ie w/o being followed by insert mode
 map(
