@@ -71,6 +71,14 @@ return {
       "nvim-telescope/telescope.nvim",
     },
   },
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+  },
   -- change mason config
   -- trying to change mason ui iconvs - naaa not working - todo
   {

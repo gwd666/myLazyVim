@@ -37,5 +37,9 @@ else
     print("Neovim started in Git Bash? Modifying/Fixing SHELL env var!")
     vim.cmd([[ let &shell = '"C:/Program Files/Git/usr/bin/bash.exe"']])
   end
+  -- telekasten setpu
+  require("telekasten").setup({
+    home = vim.fn.expand("C:/Users/gwd/Docs@OneDrive/zettelkasten"), -- Put the name of your notes directory here
+  })
   -- print("=== Finished " .. os.getenv("USERPROFILE") .. "/init.lua " .. os.getenv("USERNAME") .. " part =====")
 end
