@@ -25,6 +25,10 @@ map("n", ",ee", ":e! ~/.config/init.lua<CR>", { silent = false, desc = "Edit nvi
 -- map comma+c to 'close buffer'
 map("n", ",c", ":bd<CR>:bnext<CR>", { silent = true, desc = "Close current Buffer" })
 
+-- reset the <S-h> and <S-h> mappings to the default behaviour
+vim.keymap.del("n", "<S-h>")
+vim.keymap.del("n", "<S-l>")
+
 -- toggle paste
 map({ "n", "i", "v", "x" }, "<F6>", "<cmd>set invpaste<CR><cmd>set paste?<CR>", { desc = "Toggle PASTE mode" })
 
@@ -42,7 +46,7 @@ map("n", "#", "#zzz", { noremap = true, silent = true, desc = "Search word under
 map("n", "<C-o>", "<C-o>zz", { noremap = true, silent = true })
 
 -- remove WIN CRLF meta char when encoding get messed up
-map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "fix Windows CRLF meta chars" })
+map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "Fix Windows CRLF meta chars" })
 
 -- map jk to ESC
 map("i", "jk", "<ESC>", { noremap = true, silent = true })
