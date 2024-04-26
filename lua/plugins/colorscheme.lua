@@ -22,6 +22,10 @@ return {
   { "luisiacc/gruvbox-baby" },
   { "sainnhe/gruvbox-material" },
   { "ellisonleao/gruvbox.nvim" },
+  -- add matrix theme
+  { "iruzo/matrix-nvim" },
+  -- adding TJ colorbuddy
+  { "tjdevries/colorbuddy.vim" }, -- this now also includes gruvbuddy
   -- add tokyonight
   { "folke/tokyonight.nvim", priority = 1000, opts = { style = "storm" } }, -- available opts: style = moon|night|day|storm,
   -- configure LazyVim to load yr preferred colorscheme
