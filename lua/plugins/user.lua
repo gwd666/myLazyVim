@@ -9,9 +9,9 @@ return {
     event = "InsertEnter",
     config = function()
       require("copilot").setup({
-        suggestion = { enabled = true },
+        suggestion = { enabled = false },
         panel = {
-          -- enabled = false,
+          enabled = false,
           -- other options
           auto_refresh = true,
         },
@@ -27,23 +27,16 @@ return {
   },
   -- add lspkind for VSCode like pictograms
   { "onsails/lspkind.nvim" },
-  -- add iron.nvim TERM/REPL
-  { "hkupty/iron.nvim" },
+  -- add iron.nvim TERM/REPL - there's a seperate iron.lua file in plugings folder
   -- add some telescope extensions:
   { "nvim-telescope/telescope-project.nvim" },
   { "nvim-telescope/telescope-file-browser.nvim" },
   -- add send-to-term
   -- { "mtikekar/nvim-send-to-term" },
-  -- add vim.ai
-  -- { "madox2/vim-ai" },
   -- add folke zen instaead of goyo
   { "folke/zen-mode.nvim" },
   -- add vim-devicons
   { "ryanoasis/vim-devicons" },
-  -- add telekasten
-  { "renerocksai/telekasten.nvim", dependencies = "nvim-telescope/telescope.nvim" },
-  -- adding calendar to telekasten.nvim
-  { "renerocksai/calendar-vim" },
   -- add gruvbox themes
   { "luisiacc/gruvbox-baby" },
   { "sainnhe/gruvbox-material" },
@@ -58,6 +51,12 @@ return {
   { "nvim-tree/nvim-web-devicons", enabled = false },
   -- better whitespaces showing
   { "ntpeters/vim-better-whitespace" },
+  -- add telekasten
+  { "renerocksai/telekasten.nvim", dependencies = "nvim-telescope/telescope.nvim" },
+  -- adding calendar to telekasten.nvim
+  { "renerocksai/calendar-vim" },
+  -- add madox2/vim-ai
+  -- { "madox2/vim-ai"}
   {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
