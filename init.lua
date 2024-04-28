@@ -35,8 +35,12 @@ else
   -- define the colorscheme
   -- vim.api.nvim_command([[ colorscheme catppuccin-mocha ]])
   -- vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
-  vim.api.nvim_command([[ colorscheme tokyonight-storm ]])
+  -- vim.api.nvim_command([[ colorscheme tokyonight-storm ]])
+  -- vim.api.nvim_command([[ colorscheme gruvbuddy ]])
   -- vim.api.nvim_command([[ colorscheme onenord ]])
+  vim.api.nvim_command([[ colorscheme onedarker ]])
+  -- vim.api.nvim_command([[ colorscheme material-palenight ]])
+  -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
   -- telekasten setpu
   require("telekasten").setup({
     home = vim.fn.expand("~/zettelkasten"), -- Put the name of your notes directory here

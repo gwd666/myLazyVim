@@ -42,8 +42,6 @@ return {
       require("nnn").setup()
     end,
   },
-  -- add vim-ai -> switched to ChatGPT
-  -- { "madox2/vim-ai" },
   -- add folke zen instaead of goyo
   { "folke/zen-mode.nvim" },
   -- add vim-devicons
@@ -56,8 +54,8 @@ return {
   { "renerocksai/telekasten.nvim", dependencies = { "nvim-telescope/telescope.nvim" } },
   -- adding calendar to telekasten.nvim
   { "renerocksai/calendar-vim" },
-  -- change mason config
-  -- trying to change mason ui iconvs - naaa not working - todo
+  -- add madox2/vim-ai
+  -- { "madox2/vim-ai" },
   {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
@@ -71,6 +69,8 @@ return {
       "nvim-telescope/telescope.nvim",
     },
   },
+  -- change mason config
+  -- trying to change mason ui iconvs - naaa not working - todo
   {
     "mason.nvim",
     ui = {
