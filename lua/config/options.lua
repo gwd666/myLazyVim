@@ -18,8 +18,13 @@ vim.opt.whichwrap = "<>[],hl,b,s"
 -- activate nice arrows for linebreak
 vim.cmd("set listchars+=eol:↲")
 
+-- enable autocompletions as you type
+-- vim.opt.completion_enable_auto_popup = 1
+vim.cmd("let g:completion_enable_auto_popup=1")
+
 -- customize better ws
 vim.cmd("let g:better_whitespace_operator='_s'") -- <leader>s is alrealy takek in LazyVim
+
 -- menans you can do <numbber>_s<space> to strip ws on number lines, _s<motion> on lines affected by motion
 -- _sip will clean on current paragraph, etc
 vim.keymap.set("n", "_ws", ":ToggleWhitespace<CR>", { silent = false, desc = "Toggle show Whitespace" })
@@ -30,6 +35,19 @@ vim.cmd("let g:better_whitespace_skip_emptylines=1") -- don't  bother with empty
 -- highlight ws that precedes Tabs, plugin cannot remove those,
 -- BUT you can try to fix indentation by slecting and hitting '=' key!
 vim.cmd("let g:show_spaces_that_precede_tabs=1")
+
+-- need conceallevel of 1 or 2 for obsidian.nvim to manage format concealment
+vim.opt.conceallevel = 1
+
+-- madox2 vim-ai config
+-- vim.cmd([[[
+-- let g:vim_ai_chat = {
+-- \ "options": {
+-- \    "model": "gpt-4",
+-- \    "temperature": 0.1,
+-- \ },
+-- \}
+-- ]])
 
 -- send-to-term options for multiline text eg IPython etc
 -- vim.cmd([[
