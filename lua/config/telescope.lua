@@ -9,14 +9,16 @@ local Job = require("plenary.job")
 
 local new_maker = function(filepath, bufnr, opts)
   opts = opts or {}
-  Threshold = 1024000
+  Threshold = 120000 -- that is ~120 Kilobyte
   filepath = vim.fn.expand(filepath)
   Job:new({
-    command = "C:\\Program Files\\Git\\usr\\bin\\file", -- do a check on this Git/bin/file path in case you copy to other machine!
-    args = { "--mime-type", "-b", filepath },
+    command = "C:\\Program Files\\Git\\usr\\bin\\file.exe", -- do a check on this Git/bin/file path in case you copy to other machine!
+    args = { "-i", "-k", "-b", filepath }, -- -i is same as -mime-type -k tells it to keep going and this then also icludes plain/text for laszy.lua, which was showing as application/javascript mime
     on_exit = function(j)
-      local mime_type = vim.split(j:result()[1], "/")[1]
-      if mime_type == "text" then
+      -- local mime_type = vim.split(j:result()[1], "/")[1]
+      local mime_type = j:result()[1]
+      -- if mime_type == "text" or mime_type == "application" then -- adding application in first attempt to fix some lua file mime type
+      if mime_type:find("text/plain") then -- returns true if search string is found in mime_type
         vim.loop.fs_stat(filepath, function(_, stat)
           if not stat then
             return
