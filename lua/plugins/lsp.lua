@@ -16,6 +16,7 @@ return {
         "--offset-encoding=utf-16",
       },
     })
+    require("lspconfig").zls.setup({}) -- this put HERE - made 'zls' workk!
     -- this commented out code below - breaks command completion in vim COMMAND mode/prompt
     -- '/' cmdline setup
     -- local cmp = require("cmp")
