@@ -210,6 +210,24 @@ vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
 map("n", "<C-M-n>", "<cmd>NnnExplorer %:p:h<CR>", { desc = "Open nnn Explorer in curr buffer" })
 map("n", "<C-M-p>", ":NnnPicker<CR>", { desc = "Open nnn Picker in curr buffer" })
 
+-- add some dbee keymaps
+map("n", "<leader>db", "<cmd>lua require('dbee').open()<CR>", { desc = "Open DB editor", silent = true })
+map(
+  "n",
+  "<leader>dc",
+  "<cmd>lua require('dbee').close()<CR>",
+  { desc = "Close DB editor(also press <leader>q", silent = true }
+)
+
+-- add some nvim-dbee keymaps
+-- map("n", "<leader>db", "<cmd>lua retuire('dbee').open()<CR>", { desc = "Open dbee DB editor", silent = true })
+-- map(
+--   "n",
+--   "<leader>dc",
+--   "<cmd>lua require('dbee').close())<CR>",
+--   { desc = "Close DB editor (also press leader-q)", silent = true }
+-- )
+
 -- send-to-term mappings
 -- map("n", "tl", "<plug>sendline", { silent = false, desc = "send line to term" })
 -- map("n", "ts", "<plug>send", { silent = false, desc = "send motion to term" })
