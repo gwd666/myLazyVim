@@ -181,6 +181,15 @@ vim.keymap.set("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
 vim.keymap.set("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
 vim.keymap.set("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
 
+-- add some dbee keymaps
+map("n", "<leader>db", "<cmd>lua require('dbee').open()<CR>", { desc = "Open DB editor", silent = true })
+map(
+  "n",
+  "<leader>dc",
+  "<cmd>lua require('dbee').close()<CR>",
+  { desc = "Close DB editor(also press <leader>q", silent = true }
+)
+
 -- Call insert link automatically when we start typing a link
 vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
 
