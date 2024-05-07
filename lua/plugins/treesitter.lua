@@ -7,6 +7,8 @@ return {
         "bash",
         "c",
         "cpp",
+        "elixir",
+        "go",
         "html",
         "javascript",
         "json",
