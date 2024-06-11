@@ -9,7 +9,7 @@ local Job = require("plenary.job")
 
 local new_maker = function(filepath, bufnr, opts)
   opts = opts or {}
-  Threshold = 1250000
+  Threshold = 1250000 -- 1.2 MB
   filepath = vim.fn.expand(filepath)
   Job:new({
     command = "/usr/bin/file", -- do a check on this /bin/file path in case you copy to other machine!

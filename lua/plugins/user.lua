@@ -42,6 +42,12 @@ return {
       require("nnn").setup()
     end,
   },
+  -- add zig.vim
+  { "ziglang/zig.vim" },
+  -- add rainbow-delimeters
+  { "HiPhish/rainbow-delimiters.nvim" },
+  -- add sql lsp extension
+  { "nanotee/sqls.nvim" },
   -- add folke zen instaead of goyo
   { "folke/zen-mode.nvim" },
   -- add vim-devicons

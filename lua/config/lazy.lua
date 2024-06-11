@@ -16,7 +16,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.ui.mini-animate" },
     { import = "lazyvim.plugins.extras.coding.copilot" },
     -- import/override with your plugins
-    { import = "plugins", concurrency = 10 },
+    { import = "plugins", concurrency = 30 },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
@@ -66,7 +66,9 @@ require("tokyonight").setup({
   end,
 })
 
+-- COMMENT OUT because of annoying warning about indent-blankline plugin
 -- make Telescope borderless with tokyonight cs
+
 require("tokyonight").setup({
   on_highlights = function(hl, c)
     local prompt = "#2d3149"

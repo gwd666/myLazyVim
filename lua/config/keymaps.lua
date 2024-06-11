@@ -211,16 +211,16 @@ map("n", "<C-M-n>", "<cmd>NnnExplorer %:p:h<CR>", { desc = "Open nnn Explorer in
 map("n", "<C-M-p>", ":NnnPicker<CR>", { desc = "Open nnn Picker in curr buffer" })
 
 -- add some dbee keymaps
-map("n", "<leader>db", "<cmd>lua require('dbee').open()<CR>", { desc = "Open DB editor", silent = true })
-map(
-  "n",
-  "<leader>dc",
-  "<cmd>lua require('dbee').close()<CR>",
-  { desc = "Close DB editor(also press <leader>q", silent = true }
-)
-
--- add some nvim-dbee keymaps
--- map("n", "<leader>db", "<cmd>lua retuire('dbee').open()<CR>", { desc = "Open dbee DB editor", silent = true })
+-- map("n", "<leader>db", "<cmd>lua require('dbee').open()<CR>", { desc = "Open DB editor", silent = true })
+-- map(
+--   "n",
+--   "<leader>dc",
+--   "<cmd>lua require('dbee').close()<CR>",
+--   { desc = "Close DB editor(also press <leader>q", silent = true }
+-- )
+--
+-- -- add some nvim-dbee keymaps
+-- map("n", "<leader>db", "<cmd>lua require('dbee').open()<CR>", { desc = "Open dbee DB editor", silent = true })
 -- map(
 --   "n",
 --   "<leader>dc",
