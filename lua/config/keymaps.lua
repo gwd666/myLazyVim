@@ -90,7 +90,7 @@ map("n", "<down>", ":tabprev<CR>", { noremap = true, silent = true })
 -- toggle zen mode w Comma-zz
 map("n", ",zz", ":ZenMode<CR>", { desc = "Toggle ZenMode" })
 
--- telscope mappings
+-- telescope mappings
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Tele find Files" })
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Tele grep Live" })
@@ -101,65 +101,87 @@ vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Tele 'n' mode kmaps
 vim.keymap.set("n", "<leader>fm", "<cmd>NoiceTelescope<CR>", { desc = "NoiceTelescope message/notifications" })
 
 -- find Lazy configuration files
-vim.api.nvim_set_keymap(
+vim.api.nvim_set_keymap({
   "n",
   "<Leader>fp",
   "<CMD>lua require('telescope.builtin').find_files({ cwd = require('lazy.core.config').options.root, desc = 'Plugins'})<CR>",
   -- "<CMD>lua require'tele-git_find_file-config'.project_files()<CR>",
-  { noremap = true, silent = true, desc = "Find 'plugins' files" }
-)
+  { noremap = true, silent = true, desc = "Find 'plugins' files" },
+})
 
 vim.api.nvim_set_keymap(
   "n",
   "<leader><Space>",
   "<cmd>lua require'telescope'.extensions.project.project{}<CR>",
   { noremap = true, silent = true, desc = "Show projects" }
+)( -- add a telescope lsp keymap and which-key group
+  -- local wk = require("which-key")
+  -- wk.register({
+  --   t = {
+  --     name = "T-kasten/TSitter/Lsp",
+  --     d = { builtin.lsp_definitions, "Lsp Definitions" },
+  --     s = { builtin.lsp_document_symbols, "Lsp Docu Symbols" },
+  --     x = { builtin.treesitter, "TreeSitter Funcs/Vars Ref" },
+  --     -- l = { builtin.lsp_reference, "Lsp reference" }, -- not owrking correctly - TBD
+  --   },
+  -- }, { prefix = "<leader>" })(
+  {
+    { "<leader>t", group = "T-kasten/TSitter/Lsp" },
+    { "<leader>td", builtin.lsp_definitions, desc = "Lsp Definitions" },
+    { "<leader>ts", builtin.lsp_document_symbols, desc = "Lsp Docu Symbols" },
+    { "<leader>tx", builtin.treesitter, desc = "TreeSitter Funcs/Vars Ref" },
+  }
 )
-
--- add a telescope lsp keymap and which-key group
-local wk = require("which-key")
-wk.register({
-  t = {
-    name = "T-kasten/TSitter/Lsp",
-    d = { builtin.lsp_definitions, "Lsp Definitions" },
-    s = { builtin.lsp_document_symbols, "Lsp Docu Symbols" },
-    x = { builtin.treesitter, "TreeSitter Funcs/Vars Ref" },
-    -- l = { builtin.lsp_reference, "Lsp reference" }, -- not owrking correctly - TBD
-  },
-}, { prefix = "<leader>" })
-
--- chatigpt mappings
-local chatgpt = require("chatgpt")
-wk.register({
-  prefix = "<leader>",
-  mode = { "v", "n" },
-  p = {
-    name = "ChatGPT",
-    e = {
-      function()
-        chatgpt.edit_with_instructions()
-      end,
-      "Edit with instructions",
-    },
-    c = {
-      name = "ChatGPT",
-      a = { "<cmd>ChatGPTRun add_tests<CR>", "Add Tests", mode = { "n", "v" } },
-      c = { "<cmd>ChatGPT<CR>", "ChatGPT" },
-      d = { "<cmd>ChatGPTun docstring<CR>", "Docstring", mode = { "n", "v" } },
-      e = { "<cmd>ChatGPTEditWithInstruction<CR>", "Edit with instruction", mode = { "n", "v" } },
-      f = { "<cmd>ChatGPTRun fix_bugs<CR>", "Fix Bugs", mode = { "n", "v" } },
-      g = { "<cmd>ChatGPTRun grammar_correction<CR>", "Grammar Correction", mode = { "n", "v" } },
-      k = { "<cmd>ChatGPTRun keywords<CR>", "Keywords", mode = { "n", "v" } },
-      l = { "<cmd>ChatGPTRun code_readability_analysis<CR>", "Code Readability Analysis", mode = { "n", "v" } },
-      o = { "<cmd>ChatGPTRun optimize_code<CR>", "Optimize Code", mode = { "n", "v" } },
-      r = { "<cmd>ChatGPTRun roxygen_edit<CR>", "Roxygen Edit", mode = { "n", "v" } },
-      s = { "<cmd>ChatGPTRun summarize<CR>", "Summarize", mode = { "n", "v" } },
-      t = { "<cmd>ChatGPTRun translate<CR>", "Translate", mode = { "n", "v" } },
-      x = { "<cmd>ChatGPTRun explain_code<CR>", "Explain Code", mode = { "n", "v" } },
-    },
-  },
-})
-
+-- chatgpt mappings
+local chatgpt = require("chatgpt")( -- wk.register({
+  --   prefix = "<leader>",
+  --   mode = { "v", "n" },
+  --   p = {
+  --     name = "ChatGPT",
+  --     e = {
+  --       function()
+  --         chatgpt.edit_with_instructions()
+  --       end,
+  --       "Edit with instructions",
+  --     },
+  --     c = {
+  --       name = "ChatGPT",
+  --       a = { "<cmd>ChatGPTRun add_tests<CR>", "Add Tests", mode = { "n", "v" } },
+  --       c = { "<cmd>ChatGPT<CR>", "ChatGPT" },
+  --       d = { "<cmd>ChatGPTun docstring<CR>", "Docstring", mode = { "n", "v" } },
+  --       e = { "<cmd>ChatGPTEditWithInstruction<CR>", "Edit with instruction", mode = { "n", "v" } },
+  --       f = { "<cmd>ChatGPTRun fix_bugs<CR>", "Fix Bugs", mode = { "n", "v" } },
+  --       g = { "<cmd>ChatGPTRun grammar_correction<CR>", "Grammar Correction", mode = { "n", "v" } },
+  --       k = { "<cmd>ChatGPTRun keywords<CR>", "Keywords", mode = { "n", "v" } },
+  --       l = { "<cmd>ChatGPTRun code_readability_analysis<CR>", "Code Readability Analysis", mode = { "n", "v" } },
+  --       o = { "<cmd>ChatGPTRun optimize_code<CR>", "Optimize Code", mode = { "n", "v" } },
+  --       r = { "<cmd>ChatGPTRun roxygen_edit<CR>", "Roxygen Edit", mode = { "n", "v" } },
+  --       s = { "<cmd>ChatGPTRun summarize<CR>", "Summarize", mode = { "n", "v" } },
+  --       t = { "<cmd>ChatGPTRun translate<CR>", "Translate", mode = { "n", "v" } },
+  --       x = { "<cmd>ChatGPTRun explain_code<CR>", "Explain Code", mode = { "n", "v" } },
+  --     },
+  --   },
+  -- })
+  {
+    mode = { "n", "v" },
+    { "<leader>p", group = "ChatGPT" },
+    { "<leader>pc", group = "ChatGPT" },
+    { "<leader>pca", "<cmd>ChatGPTRun add_tests<CR>", desc = "Add Tests" },
+    { "<leader>pcc", "<cmd>ChatGPT<CR>", desc = "ChatGPT" },
+    { "<leader>pcd", "<cmd>ChatGPTun docstring<CR>", desc = "Docstring" },
+    { "<leader>pce", "<cmd>ChatGPTEditWithInstruction<CR>", desc = "Edit with instruction" },
+    { "<leader>pcf", "<cmd>ChatGPTRun fix_bugs<CR>", desc = "Fix Bugs" },
+    { "<leader>pcg", "<cmd>ChatGPTRun grammar_correction<CR>", desc = "Grammar Correction" },
+    { "<leader>pck", "<cmd>ChatGPTRun keywords<CR>", desc = "Keywords" },
+    { "<leader>pcl", "<cmd>ChatGPTRun code_readability_analysis<CR>", desc = "Code Readability Analysis" },
+    { "<leader>pco", "<cmd>ChatGPTRun optimize_code<CR>", desc = "Optimize Code" },
+    { "<leader>pcr", "<cmd>ChatGPTRun roxygen_edit<CR>", desc = "Roxygen Edit" },
+    { "<leader>pcs", "<cmd>ChatGPTRun summarize<CR>", desc = "Summarize" },
+    { "<leader>pct", "<cmd>ChatGPTRun translate<CR>", desc = "Translate" },
+    { "<leader>pcx", "<cmd>ChatGPTRun explain_code<CR>", desc = "Explain Code" },
+    { "<leader>pe", "<cmd>ChatGPTEditWithInstruction<CR>", desc = "Edit with instructions" },
+  }
+)
 -- map("n", "<leader>aa", ":AI<CR>", { desc = "Complete text on current line or selection" })
 -- map("x", "<leader>aa", ":AI<CR>", { desc = "Complete text on current line or selection" })
 
