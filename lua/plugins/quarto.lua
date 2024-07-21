@@ -95,9 +95,14 @@ return {
       vim.g.slime_target = "neovim"
       vim.g.slime_python_ipython = 1
 
+      -- keybindings
+      -- {
+      --   { "<leader>cm", mark_terminal, desc = "mark terminal" },
+      --   { "<leader>cs", set_terminal, desc = "set terminal" }
+      -- }
       require("which-key").register({
-        ["<leader>cm"] = { mark_terminal, "mark terminal" },
-        ["<leader>cs"] = { set_terminal, "set terminal" },
+        ["<leader>cm"] = { mark_terminal, "mark quarto terminal" },
+        ["<leader>cs"] = { set_terminal, "set quarto terminal" },
       })
     end,
   },

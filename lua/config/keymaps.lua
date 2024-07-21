@@ -30,7 +30,12 @@ vim.keymap.del("n", "<S-h>")
 vim.keymap.del("n", "<S-l>")
 
 -- toggle paste
-map({ "n", "i", "v", "x" }, "<F6>", "<cmd>set invpaste<CR><cmd>set paste?<CR>", { desc = "Toggle PASTE mode" })
+map(
+  { "n", "i", "v", "x" },
+  "<F6>",
+  "<cmd>set invpaste<CR><cmd>set paste?<CR>",
+  { silent = false, desc = "Toggle PASTE mode" }
+)
 
 -- map jk to switch to Normal mode in Terminal
 map("t", "jk", [[<C-\><C-n>]], { silent = true })
@@ -92,96 +97,83 @@ map("n", ",zz", ":ZenMode<CR>", { desc = "Toggle ZenMode" })
 
 -- telescope mappings
 local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Tele find Files" })
-vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Tele grep Live" })
-vim.keymap.set("n", "<leader>fs", builtin.grep_string, { desc = "Tele grep String (under cursor)" })
-vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Tele Buffers" })
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Tele Help tags" })
-vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Tele 'n' mode kmaps" })
+vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Tscope find Files" })
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Tsceop grep Live" })
+vim.keymap.set("n", "<leader>fs", builtin.grep_string, { desc = "Tscope grep String (under cursor)" })
+vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Tscope Buffers" })
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Tscope Help tags" })
+vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Tscope 'n' mode kmaps" })
+
 vim.keymap.set("n", "<leader>fm", "<cmd>NoiceTelescope<CR>", { desc = "NoiceTelescope message/notifications" })
 
 -- find Lazy configuration files
-vim.api.nvim_set_keymap({
+vim.keymap.set(
   "n",
-  "<Leader>fp",
-  "<CMD>lua require('telescope.builtin').find_files({ cwd = require('lazy.core.config').options.root, desc = 'Plugins'})<CR>",
-  -- "<CMD>lua require'tele-git_find_file-config'.project_files()<CR>",
-  { noremap = true, silent = true, desc = "Find 'plugins' files" },
-})
+  "<leader>fp",
+  "<cmd>lua require('telescope.builtin').find_files({ cwd = require('lazy.core.config').options.root, desc = 'Plugins'})<CR>",
+  -- "<cmd>lua require'tele-git_find_file-config'.project_files()<CR>",
+  { noremap = true, silent = true, desc = "Find 'plugins' files" }
+)
 
-vim.api.nvim_set_keymap(
+vim.keymap.set( -- vim.keymap.set is non-recursive by default so noemrap is not needed
   "n",
-  "<leader><Space>",
+  "<leader>P",
   "<cmd>lua require'telescope'.extensions.project.project{}<CR>",
-  { noremap = true, silent = true, desc = "Show projects" }
-)( -- add a telescope lsp keymap and which-key group
-  -- local wk = require("which-key")
-  -- wk.register({
-  --   t = {
-  --     name = "T-kasten/TSitter/Lsp",
-  --     d = { builtin.lsp_definitions, "Lsp Definitions" },
-  --     s = { builtin.lsp_document_symbols, "Lsp Docu Symbols" },
-  --     x = { builtin.treesitter, "TreeSitter Funcs/Vars Ref" },
-  --     -- l = { builtin.lsp_reference, "Lsp reference" }, -- not owrking correctly - TBD
-  --   },
-  -- }, { prefix = "<leader>" })(
-  {
-    { "<leader>t", group = "T-kasten/TSitter/Lsp" },
-    { "<leader>td", builtin.lsp_definitions, desc = "Lsp Definitions" },
-    { "<leader>ts", builtin.lsp_document_symbols, desc = "Lsp Docu Symbols" },
-    { "<leader>tx", builtin.treesitter, desc = "TreeSitter Funcs/Vars Ref" },
-  }
+  { silent = true, desc = "Show projects" }
 )
 -- chatgpt mappings
-local chatgpt = require("chatgpt")( -- wk.register({
-  --   prefix = "<leader>",
-  --   mode = { "v", "n" },
-  --   p = {
-  --     name = "ChatGPT",
-  --     e = {
-  --       function()
-  --         chatgpt.edit_with_instructions()
-  --       end,
-  --       "Edit with instructions",
-  --     },
-  --     c = {
-  --       name = "ChatGPT",
-  --       a = { "<cmd>ChatGPTRun add_tests<CR>", "Add Tests", mode = { "n", "v" } },
-  --       c = { "<cmd>ChatGPT<CR>", "ChatGPT" },
-  --       d = { "<cmd>ChatGPTun docstring<CR>", "Docstring", mode = { "n", "v" } },
-  --       e = { "<cmd>ChatGPTEditWithInstruction<CR>", "Edit with instruction", mode = { "n", "v" } },
-  --       f = { "<cmd>ChatGPTRun fix_bugs<CR>", "Fix Bugs", mode = { "n", "v" } },
-  --       g = { "<cmd>ChatGPTRun grammar_correction<CR>", "Grammar Correction", mode = { "n", "v" } },
-  --       k = { "<cmd>ChatGPTRun keywords<CR>", "Keywords", mode = { "n", "v" } },
-  --       l = { "<cmd>ChatGPTRun code_readability_analysis<CR>", "Code Readability Analysis", mode = { "n", "v" } },
-  --       o = { "<cmd>ChatGPTRun optimize_code<CR>", "Optimize Code", mode = { "n", "v" } },
-  --       r = { "<cmd>ChatGPTRun roxygen_edit<CR>", "Roxygen Edit", mode = { "n", "v" } },
-  --       s = { "<cmd>ChatGPTRun summarize<CR>", "Summarize", mode = { "n", "v" } },
-  --       t = { "<cmd>ChatGPTRun translate<CR>", "Translate", mode = { "n", "v" } },
-  --       x = { "<cmd>ChatGPTRun explain_code<CR>", "Explain Code", mode = { "n", "v" } },
-  --     },
-  --   },
-  -- })
-  {
-    mode = { "n", "v" },
-    { "<leader>p", group = "ChatGPT" },
-    { "<leader>pc", group = "ChatGPT" },
-    { "<leader>pca", "<cmd>ChatGPTRun add_tests<CR>", desc = "Add Tests" },
-    { "<leader>pcc", "<cmd>ChatGPT<CR>", desc = "ChatGPT" },
-    { "<leader>pcd", "<cmd>ChatGPTun docstring<CR>", desc = "Docstring" },
-    { "<leader>pce", "<cmd>ChatGPTEditWithInstruction<CR>", desc = "Edit with instruction" },
-    { "<leader>pcf", "<cmd>ChatGPTRun fix_bugs<CR>", desc = "Fix Bugs" },
-    { "<leader>pcg", "<cmd>ChatGPTRun grammar_correction<CR>", desc = "Grammar Correction" },
-    { "<leader>pck", "<cmd>ChatGPTRun keywords<CR>", desc = "Keywords" },
-    { "<leader>pcl", "<cmd>ChatGPTRun code_readability_analysis<CR>", desc = "Code Readability Analysis" },
-    { "<leader>pco", "<cmd>ChatGPTRun optimize_code<CR>", desc = "Optimize Code" },
-    { "<leader>pcr", "<cmd>ChatGPTRun roxygen_edit<CR>", desc = "Roxygen Edit" },
-    { "<leader>pcs", "<cmd>ChatGPTRun summarize<CR>", desc = "Summarize" },
-    { "<leader>pct", "<cmd>ChatGPTRun translate<CR>", desc = "Translate" },
-    { "<leader>pcx", "<cmd>ChatGPTRun explain_code<CR>", desc = "Explain Code" },
-    { "<leader>pe", "<cmd>ChatGPTEditWithInstruction<CR>", desc = "Edit with instructions" },
-  }
-)
+-- local wk = require("which-key")
+-- local chatgpt = require("chatgpt")
+--
+-- wk.register({
+--      prefix = "<leader>",
+--      mode = { "v", "n" },
+--      p = {
+--        name = "ChatGPT",
+--        e = {
+--          function()
+--            chatgpt.edit_with_instructions()
+--          end,
+--          "Edit with instructions",
+--        },
+--        c = {
+--          name = "ChatGPT",
+--          a = { "<cmd>ChatGPTRun add_tests<CR>", "Add Tests", mode = { "n", "v" } },
+--          c = { "<cmd>ChatGPT<CR>", "ChatGPT" },
+--          d = { "<cmd>ChatGPTun docstring<CR>", "Docstring", mode = { "n", "v" } },
+--          e = { "<cmd>ChatGPTEditWithInstruction<CR>", "Edit with instruction", mode = { "n", "v" } },
+--          f = { "<cmd>ChatGPTRun fix_bugs<CR>", "Fix Bugs", mode = { "n", "v" } },
+--          g = { "<cmd>ChatGPTRun grammar_correction<CR>", "Grammar Correction", mode = { "n", "v" } },
+--          k = { "<cmd>ChatGPTRun keywords<CR>", "Keywords", mode = { "n", "v" } },
+--          l = { "<cmd>ChatGPTRun code_readability_analysis<CR>", "Code Readability Analysis", mode = { "n", "v" } },
+--          o = { "<cmd>ChatGPTRun optimize_code<CR>", "Optimize Code", mode = { "n", "v" } },
+--          r = { "<cmd>ChatGPTRun roxygen_edit<CR>", "Roxygen Edit", mode = { "n", "v" } },
+--          s = { "<cmd>ChatGPTRun summarize<CR>", "Summarize", mode = { "n", "v" } },
+--          t = { "<cmd>ChatGPTRun translate<CR>", "Translate", mode = { "n", "v" } },
+--          x = { "<cmd>ChatGPTRun explain_code<CR>", "Explain Code", mode = { "n", "v" } },
+--        },
+--      },
+--    })
+-- {
+--   mode = { "n", "v" },
+--   { "<leader>p", group = "ChatGPT" },
+--   { "<leader>pc", group = "ChatGPT" },
+--   { "<leader>pca", "<cmd>ChatGPTRun add_tests<CR>", desc = "Add Tests" },
+--   { "<leader>pcc", "<cmd>ChatGPT<CR>", desc = "ChatGPT" },
+--   { "<leader>pcd", "<cmd>ChatGPTun docstring<CR>", desc = "Docstring" },
+--   { "<leader>pce", "<cmd>ChatGPTEditWithInstruction<CR>", desc = "Edit with instruction" },
+--   { "<leader>pcf", "<cmd>ChatGPTRun fix_bugs<CR>", desc = "Fix Bugs" },
+--   { "<leader>pcg", "<cmd>ChatGPTRun grammar_correction<CR>", desc = "Grammar Correction" },
+--   { "<leader>pck", "<cmd>ChatGPTRun keywords<CR>", desc = "Keywords" },
+--   { "<leader>pcl", "<cmd>ChatGPTRun code_readability_analysis<CR>", desc = "Code Readability Analysis" },
+--   { "<leader>pco", "<cmd>ChatGPTRun optimize_code<CR>", desc = "Optimize Code" },
+--   { "<leader>pcr", "<cmd>ChatGPTRun roxygen_edit<CR>", desc = "Roxygen Edit" },
+--   { "<leader>pcs", "<cmd>ChatGPTRun summarize<CR>", desc = "Summarize" },
+--   { "<leader>pct", "<cmd>ChatGPTRun translate<CR>", desc = "Translate" },
+--   { "<leader>pcx", "<cmd>ChatGPTRun explain_code<CR>", desc = "Explain Code" },
+--   { "<leader>pe", "<cmd>ChatGPTEditWithInstruction<CR>", desc = "Edit with instructions" },
+-- }
+
 -- map("n", "<leader>aa", ":AI<CR>", { desc = "Complete text on current line or selection" })
 -- map("x", "<leader>aa", ":AI<CR>", { desc = "Complete text on current line or selection" })
 
@@ -204,13 +196,20 @@ vim.keymap.set("i", "<C-PageUp>", ":bp<CR>", { silent = true })
 vim.keymap.set("i", "<C-PageDown>", ":bn<CR>", { silent = true })
 -- map <leader><Space> to remove search hhighlighting
 vim.keymap.set("n", ",<Space>", ":nohls<CR>", { silent = true, desc = "Remove highlighting on search results" })
-
 -- iron.nvim REPL has a bunch of commands,
 -- see :h iron-commands for all available commands you might wanna map
-vim.keymap.set("n", "<leader>rs", "<cmd>IronRepl<cr>", { desc = "IronRepl start" })
-vim.keymap.set("n", "<leader>rr", "<cmd>IronRestart<cr>", { desc = "IronRepl restart" })
-vim.keymap.set("n", "<leader>rf", "<cmd>IronFocus<cr>", { desc = "IronRepl focus" })
--- vim.keymap.set("n", "<leader>rh", "<cmd>IronHide<cr>", { desc = "IronRepl hide" })
+-- vim.keymap.set("n", "<leader>rs", "<cmd>IronRepl<cr>", { desc = "IronRepl start" })
+-- vim.keymap.set("n", "<leader>rr", "<cmd>IronRestart<cr>", { desc = "IronRepl restart" })
+-- vim.keymap.set("n", "<leader>rf", "<cmd>IronFocus<cr>", { desc = "IronRepl focus" })( -- vim.keymap.set("n", "<leader>rh", "<cmd>IronHide<cr>", { desc = "IronRepl hide" })
+-- ({
+--   {
+--     mode = { "n" },
+--     { "<leader>r", group = "IronRepl", desc = "IronRepl" },
+--     { "<leader>rs", "<cmd>IronRepl<cr>", desc = "IronRepl start" },
+--     { "<leader>rr", "<cmd>IronRestart<cr>", desc = "IronRepl restart" },
+--     { "<leader>rf", "<cmd>IronFocus<cr>", desc = "IronRepl focus" },
+--   },
+-- })
 
 -- telekasten mappings
 -- Launch panel if nothing is typed after <leader>z
@@ -231,7 +230,6 @@ vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
 -- nnn.nvim bindings currenly only in Ubuntu
 map("n", "<C-M-n>", "<cmd>NnnExplorer %:p:h<CR>", { desc = "Open nnn Explorer in curr buffer" })
 map("n", "<C-M-p>", ":NnnPicker<CR>", { desc = "Open nnn Picker in curr buffer" })
-
 -- add some dbee keymaps
 -- map("n", "<leader>db", "<cmd>lua require('dbee').open()<CR>", { desc = "Open DB editor", silent = true })
 -- map(
@@ -249,9 +247,17 @@ map("n", "<C-M-p>", ":NnnPicker<CR>", { desc = "Open nnn Picker in curr buffer" 
 --   "<cmd>lua require('dbee').close())<CR>",
 --   { desc = "Close DB editor (also press leader-q)", silent = true }
 -- )
-
 -- send-to-term mappings
 -- map("n", "tl", "<plug>sendline", { silent = false, desc = "send line to term" })
 -- map("n", "ts", "<plug>send", { silent = false, desc = "send motion to term" })
 -- map("v", "ts", "<plug>send", { silent = false, desc = "send visual to term" })
 -- map("n", "ts", "ts$")
+
+-- ( -- Telekasten and TreeSitter group
+--   {
+--     { "<leader>t", group = "T-kasten/TSitter/Lsp" },
+--     { "<leader>td", require("telescope.builtin").lsp_definitions, desc = "Lsp Definitions" },
+--     { "<leader>ts", require("telescope.builtin").lsp_document_symbols, desc = "Lsp Docu Symbols" },
+--     { "<leader>tx", require("telescope.builtin").treesitter, desc = "TreeSitter Funcs/Vars Ref" },
+--   }
+-- )
