@@ -17,7 +17,7 @@ require("chatgpt").setup({ -- for the below to work you need to run gpg -d secre
   chat = {
     welcome_message = WELCOME_MESSAGE,
     keymaps = {
-      toggle_help = "<M-h>", -- I changed it from <C-g> to <M-g> ie ALt+g like for other Telescope windows
+      toggle_help = "<M-h>", -- I changed it from <C-g> to <M-h> ie ALt+g like for other Telescope windows
       select_session = "<Space>a",
     },
   },

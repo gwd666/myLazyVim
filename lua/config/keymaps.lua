@@ -98,7 +98,7 @@ map("n", ",zz", ":ZenMode<CR>", { desc = "Toggle ZenMode" })
 -- telescope mappings
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Tscope find Files" })
-vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Tsceop grep Live" })
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Tscope grep Live" })
 vim.keymap.set("n", "<leader>fs", builtin.grep_string, { desc = "Tscope grep String (under cursor)" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Tscope Buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Tscope Help tags" })
