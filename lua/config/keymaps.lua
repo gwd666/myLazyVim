@@ -108,6 +108,17 @@ vim.api.nvim_set_keymap(
 
 -- add a telescope lsp keymap and which-key group
 local wk = require("which-key")
+
+-- (
+--   --- suggested new spec - accordding to checkhealth which-key
+--   {
+--     { "<leader>t", group = "Telekasten/TSitter/Lsp" },
+--     { "<leader>td", builtin.lsp_definitions, desc = "Lsp Definitions" },
+--     { "<leader>ts", builtin.lsp_document_symbols, desc = "Lsp Docu Symbols" },
+--     { "<leader>tx", builtin.treesitter, desc = "TreeSitter Funcs/Vars Ref" },
+--   }
+-- )
+
 wk.register({
   t = {
     name = "Telekasten/TSitter/Lsp",
@@ -117,7 +128,6 @@ wk.register({
     -- l = { builtin.lsp_reference, "Lsp reference" }, -- not owrking correctly - TBD
   },
 }, { prefix = "<leader>" })
-
 -- chatigpt mappings
 local chatgpt = require("chatgpt")
 wk.register({

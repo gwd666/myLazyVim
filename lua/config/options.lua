@@ -39,6 +39,9 @@ vim.cmd("let g:show_spaces_that_precede_tabs=1")
 -- need conceallevel of 1 or 2 for obsidian.nvim to manage format concealment
 vim.opt.conceallevel = 1
 
+-- for use of ocp-indent package in ocaml
+vim.cmd("set rtp^='C:UsersgwdAppDataLocalopam-testingdefaultshare/ocp-indent/vim'")
+
 -- madox2 vim-ai config
 -- vim.cmd([[[
 -- let g:vim_ai_chat = {
