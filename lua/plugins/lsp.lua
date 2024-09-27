@@ -9,6 +9,14 @@ return {
     --  tyr to fix ""multiple different client offset_encodings detected" warning
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
+    opts = { -- some lines to fix mason and lsp conflicts for rust-analyzer
+      setup = {
+        rust_analyzer = function()
+          return true
+        end,
+      },
+    }
+
     require("lspconfig").clangd.setup({
       on_attach = on_attach,
       capabilities = cmp_nvim_lsp.default_capabilities(),
