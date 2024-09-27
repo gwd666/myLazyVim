@@ -28,9 +28,15 @@ nnoremap == <Cmd>call VSCodeCall('editor.action.formatSelection')<CR>
 
 " try to make VS Code switch between realative in normal and absolute in
 " insert mode line numbers
+" augroup ToggleRelLineNumbers
+"   autocmd InsertLeave * call VSCodeNotify('settings.cycle.ToggleLineNumbers')
+"   autocmd InsertEnter * call VSCodeNotify('settings.cycle.ToggleLineNumbers')
+" augroup END
+
+" new method no longer needing settings.cycle.ToggleLineNumbers
 augroup ToggleRelLineNumbers
-  autocmd InsertLeave * call VSCodeNotify('settings.cycle.ToggleLineNumbers')
-  autocmd InsertEnter * call VSCodeNotify('settings.cycle.ToggleLineNumbers')
+  autocmd InsertLeave lua.require('vscode').update_config("editor.lineNumbers", "relative", "global")
+  autocmd InsertEnter lua.require('vscode').update_config("editor.lineNumbers", "on", "global")
 augroup END
 
 " Toggle zen mode with comma zz
