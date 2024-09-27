@@ -31,6 +31,9 @@ map("t", "<M-[>", [[<C-\><C-n>]], {})
 map("t", "<C-w>", [[<C-\><C-n><C-w>]], {})
 map("t", "<M-r>", [['<C-\><C-N>"'.nr2char(getchar()).'pi']], { expr = true })
 
+-- new terminal in normal mode below current window size 25
+map("n", "<leader>Tt", ":botright 25sp<CR><C-w>:term<CR><C-w>J", { silent = true, desc = "New Terminal below" })
+
 -- Keep matches center screen when cycling with n|N etc.
 map("n", "n", "nzzzv", { noremap = true, desc = "Fwd  search '/' or '?'" })
 map("n", "N", "Nzzzv", { noremap = true, desc = "Back search '/' or '?'" })
