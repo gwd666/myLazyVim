@@ -60,3 +60,5 @@ vim.cmd("set rtp^='C:UsersgwdAppDataLocalopam-testingdefaultshare/ocp-indent/vim
 --   \    'jl': {'begin':"\e[200~", 'end':"\e[201~\n", 'newline':"\n"},
 --   \}
 -- ]])
+-- set pwsh to be default shell
+vim.opt.shell = "pwsh"
