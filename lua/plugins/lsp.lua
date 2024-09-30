@@ -11,6 +11,14 @@ return {
       filetypes = { "r", "R", "rmd" },
       -- root_dir = lpsconfig.util.root_pattern(".git", vim.fn.getcwd()),
     })
+    lspconfig.powershell_es.setup({
+      filetypes = { "ps1", "psm1", "psd1" },
+      bundle_path = "~/AppData/Local/nvim-data/mason/packages/powershell-editor-services",
+      settings = { powershell = { codeFormatting = { Preset = "OTBS" } } },
+      init_options = {
+        enableProfileLoading = false, -- this is important otherwise it will load the profile and not work as expected!
+      },
+    })
     keys[#keys + 1] = { "<C-k>", mode = "i", false }
     keys[#keys + 1] =
       { "<C-o>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "SignatureHelp" }
