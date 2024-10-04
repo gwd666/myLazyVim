@@ -12,6 +12,19 @@ augroup numbertoggle
 augroup END
 ]])
 
+-- set terminal options to make it more like a terminal
+vim.cmd([[
+augroup neovim_terminal
+    autocmd!
+    " Enter Terminal-mode (insert) automatically
+    autocmd TermOpen * startinsert
+    " Disables number lines on terminal buffers
+    autocmd TermOpen * :set nonumber norelativenumber
+    " allows you to use Ctrl-c on terminal window
+    autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
+augroup END
+]])
+
 -- make j and l move to prev/next line
 vim.opt.whichwrap = "<>[],hl,b,s"
 
