@@ -45,7 +45,8 @@ map("t", "<C-w>", [[<C-\><C-n><C-w>]], {})
 map("t", "<M-r>", [['<C-\><C-N>"'.nr2char(getchar()).'pi']], { expr = true })
 
 -- new terminal in normal mode below current window size 25
-map("n", "<leader>Tt", ":below 25sp term://zsh<CR>", { silent = true, desc = "New terminal below" })
+map("n", "<leader>Tb", ":below 25sp term://zsh<CR>", { silent = true, desc = "New terminal below" })
+map("n", "<leader>Tr", ":rightb :vert :term<CR>", { silent = true, desc = "New terminal vertical split on right" })
 
 -- Keep matches center screen when cycling with n|N etc.
 map("n", "n", "nzzzv", { noremap = true, desc = "Fwd  search '/' or '?'" })
