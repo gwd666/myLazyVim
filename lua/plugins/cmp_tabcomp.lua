@@ -20,6 +20,8 @@ return {
       { name = "nvim_lsp", group_index = 2 },
       -- { name = "path", group_index = 2 },
       { name = "luasnip", group_index = 2 },
+      -- R-nvim/cmp-R
+      { name = "cmp_r", group_index = 2 },
     },
     -- local lspkind = require("lspkind")
     -- formatting = {
