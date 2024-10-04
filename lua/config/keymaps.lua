@@ -45,6 +45,7 @@ map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "Fix Windows CRLF me
 
 -- map jk to ESC
 map("i", "jk", "<ESC>", { silent = true })
+map("i", "jj", "<ESC>", { silent = true })
 
 -- map F3 [no longer <C-t>] to toggle Neotree
 map("n", "<F3>", ":Neotree toggle<CR>", { silent = true, desc = "NTree toggle" })
