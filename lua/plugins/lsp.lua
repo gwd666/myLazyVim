@@ -24,7 +24,7 @@ return {
       { "<C-o>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "SignatureHelp" }
     -- include folliwing lines to avoid scanning C:\Users\gwd ie the home dir
     root_dir = function(fname)
-      local root_pattern = lsp.util.root_pattern(".git")(fname)
+      local root_pattern = lspconfig.util.root_pattern(".git")(fname)
       if fname == vim.loop.os_homedir() then
         return nil
       end
