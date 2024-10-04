@@ -1,5 +1,4 @@
 -- add Primeagens harpoon
-
 return {
   "ThePrimeagen/harpoon",
   branch = "harpoon2",
@@ -43,13 +42,5 @@ return {
     vim.keymap.set("n", "<M-p>", function()
       harpoon:list():prev()
     end, { silent = true, desc = "Goto previous Harpoon mark" })
-
-    -- deprecated harpoon 1 keymaps you can tell by not being funcion() calls
-    vim.keymap.set(
-      "n",
-      "<M-0>",
-      ':lua require("harpoon.term").gotoTerminal(1)<CR>',
-      { silent = true, desc = "Goto Terminal 1 create if not" }
-    )
   end,
 }
