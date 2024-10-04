@@ -2,6 +2,7 @@ return {
   -- add more treesitter parsers
   {
     "nvim-treesitter/nvim-treesitter",
+    run = ":TSUpdate",
     opts = {
       ensure_installed = {
         "bash",
@@ -30,5 +31,13 @@ return {
         "zig",
       },
     },
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "markdown", "markdown_inline", "r", "rnoweb", "yaml" },
+        highlight = {
+          enable = true,
+        },
+      })
+    end,
   },
 }
