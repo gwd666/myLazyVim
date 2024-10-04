@@ -37,9 +37,11 @@ else
   -- vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
   -- vim.api.nvim_command([[ colorscheme tokyonight-storm ]])
   -- vim.api.nvim_command([[ colorscheme gruvbuddy ]])
-  vim.api.nvim_command([[ colorscheme onenord ]])
+  -- vim.api.nvim_command([[ colorscheme onenord ]])
   -- vim.api.nvim_command([[ colorscheme onedarker ]])
   -- vim.api.nvim_command([[ colorscheme material-palenight ]])
+  vim.api.nvim_command([[ colorscheme monokai-pro-machine ]])
+  -- vim.api.nvim_command([[ colorscheme monokai-pro-octagon ]])
   -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
   -- telekasten setup
   require("telekasten").setup({
