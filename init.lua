@@ -4,14 +4,22 @@
 -- => General
 -- ==========================================--
 
+-- in case of vscode-neovim, set clipboard to unnamedplus
 if vim.g.vscode then
   -- VSC extension
-  print("Looks like you're starting Neovim for VSC reading init from WSL!")
+  print("Looks like you're starting Neovim for VSC reading init.lua from WSL!")
   -- local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-  require("config/options") -- this makes H/L move to prev/next line etc
   -- require("config/keymaps")
   -- require("")
+  -- https://github.com/vscode-neovim/vscode-neovim/issues/298
+  -- vim.opt.clipboard:append("unnamedplus")
+  print("Running clipboard setting for vscode-neovim")
   vim.cmd([[source /home/gwd/.config/nvim/vscode/vsc_settings.vim]])
+  --- ignorecase and unnamedplus are found in option.lua
+  -- vim.opt.clipboard:append("unnamedplus")
+  -- vim.cmd("set clipboard=unnamedplus")
+  -- vim.cmd("set ignorecase") -- ignore case when searching
+  require("config/options")
 else
   -- print("=== Sourcing " .. os.getenv("HOME") .. ".config/nvim/init.lua " .. " part =====")
   -- I am gonna ride with SPACE as LEADER for now to test the feeling

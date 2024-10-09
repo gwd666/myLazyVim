@@ -44,10 +44,6 @@ map("t", "<M-[>", [[<C-\><C-n>]], {})
 map("t", "<C-w>", [[<C-\><C-n><C-w>]], {})
 map("t", "<M-r>", [['<C-\><C-N>"'.nr2char(getchar()).'pi']], { expr = true })
 
--- new terminal in normal mode below current window size 25
-map("n", "<leader>Tb", ":below 25sp term://zsh<CR>", { silent = true, desc = "New terminal below" })
-map("n", "<leader>Tr", ":rightb :vert :term<CR>", { silent = true, desc = "New terminal vertical split on right" })
-
 -- Keep matches center screen when cycling with n|N etc.
 map("n", "n", "nzzzv", { noremap = true, desc = "Fwd  search '/' or '?'" })
 map("n", "N", "Nzzzv", { noremap = true, desc = "Back search '/' or '?'" })
@@ -126,61 +122,64 @@ vim.keymap.set( -- vim.keymap.set is non-recursive by default so noemrap is not 
   { silent = true, desc = "Show projects" }
 )
 -- chatgpt mappings
--- local wk = require("which-key")
--- local chatgpt = require("chatgpt")
---
--- wk.register({
---      prefix = "<leader>",
---      mode = { "v", "n" },
---      p = {
---        name = "ChatGPT",
---        e = {
---          function()
---            chatgpt.edit_with_instructions()
---          end,
---          "Edit with instructions",
---        },
---        c = {
---          name = "ChatGPT",
---          a = { "<cmd>ChatGPTRun add_tests<CR>", "Add Tests", mode = { "n", "v" } },
---          c = { "<cmd>ChatGPT<CR>", "ChatGPT" },
---          d = { "<cmd>ChatGPTun docstring<CR>", "Docstring", mode = { "n", "v" } },
---          e = { "<cmd>ChatGPTEditWithInstruction<CR>", "Edit with instruction", mode = { "n", "v" } },
---          f = { "<cmd>ChatGPTRun fix_bugs<CR>", "Fix Bugs", mode = { "n", "v" } },
---          g = { "<cmd>ChatGPTRun grammar_correction<CR>", "Grammar Correction", mode = { "n", "v" } },
---          k = { "<cmd>ChatGPTRun keywords<CR>", "Keywords", mode = { "n", "v" } },
---          l = { "<cmd>ChatGPTRun code_readability_analysis<CR>", "Code Readability Analysis", mode = { "n", "v" } },
---          o = { "<cmd>ChatGPTRun optimize_code<CR>", "Optimize Code", mode = { "n", "v" } },
---          r = { "<cmd>ChatGPTRun roxygen_edit<CR>", "Roxygen Edit", mode = { "n", "v" } },
---          s = { "<cmd>ChatGPTRun summarize<CR>", "Summarize", mode = { "n", "v" } },
---          t = { "<cmd>ChatGPTRun translate<CR>", "Translate", mode = { "n", "v" } },
---          x = { "<cmd>ChatGPTRun explain_code<CR>", "Explain Code", mode = { "n", "v" } },
---        },
---      },
---    })
--- {
---   mode = { "n", "v" },
---   { "<leader>p", group = "ChatGPT" },
---   { "<leader>pc", group = "ChatGPT" },
---   { "<leader>pca", "<cmd>ChatGPTRun add_tests<CR>", desc = "Add Tests" },
---   { "<leader>pcc", "<cmd>ChatGPT<CR>", desc = "ChatGPT" },
---   { "<leader>pcd", "<cmd>ChatGPTun docstring<CR>", desc = "Docstring" },
---   { "<leader>pce", "<cmd>ChatGPTEditWithInstruction<CR>", desc = "Edit with instruction" },
---   { "<leader>pcf", "<cmd>ChatGPTRun fix_bugs<CR>", desc = "Fix Bugs" },
---   { "<leader>pcg", "<cmd>ChatGPTRun grammar_correction<CR>", desc = "Grammar Correction" },
---   { "<leader>pck", "<cmd>ChatGPTRun keywords<CR>", desc = "Keywords" },
---   { "<leader>pcl", "<cmd>ChatGPTRun code_readability_analysis<CR>", desc = "Code Readability Analysis" },
---   { "<leader>pco", "<cmd>ChatGPTRun optimize_code<CR>", desc = "Optimize Code" },
---   { "<leader>pcr", "<cmd>ChatGPTRun roxygen_edit<CR>", desc = "Roxygen Edit" },
---   { "<leader>pcs", "<cmd>ChatGPTRun summarize<CR>", desc = "Summarize" },
---   { "<leader>pct", "<cmd>ChatGPTRun translate<CR>", desc = "Translate" },
---   { "<leader>pcx", "<cmd>ChatGPTRun explain_code<CR>", desc = "Explain Code" },
---   { "<leader>pe", "<cmd>ChatGPTEditWithInstruction<CR>", desc = "Edit with instructions" },
--- }
+local wk = require("which-key")
+-- local gpt = require("chatgpt")
+wk.add( --  a shot at adding GPT group
+  -- {
+  -- prefix = "<leader>",
+  -- mode = { "v", "n" },
+  -- G = {
+  --   name = "ChatGPT",
+  --   e = {
+  --     function()
+  --       gpt.edit_with_instructions()
+  --     end,
+  --     "Edit with instructions",
+  --   }
+  -- },
+  --     c = {
+  --       name = "ChatGPT",
+  --       a = { "<cmd>ChatGPTRun add_tests<CR>", "Add Tests", mode = { "n", "v" } },
+  --       c = { "<cmd>ChatGPT<CR>", "ChatGPT" },
+  --       d = { "<cmd>ChatGPTun docstring<CR>", "Docstring", mode = { "n", "v" } },
+  --       e = { "<cmd>ChatGPTEditWithInstruction<CR>", "Edit with instruction", mode = { "n", "v" } },
+  --       f = { "<cmd>ChatGPTRun fix_bugs<CR>", "Fix Bugs", mode = { "n", "v" } },
+  --       g = { "<cmd>ChatGPTRun grammar_correction<CR>", "Grammar Correction", mode = { "n", "v" } },
+  --       k = { "<cmd>ChatGPTRun keywords<CR>", "Keywords", mode = { "n", "v" } },
+  --       l = { "<cmd>ChatGPTRun code_readability_analysis<CR>", "Code Readability Analysis", mode = { "n", "v" } },
+  --       o = { "<cmd>ChatGPTRun optimize_code<CR>", "Optimize Code", mode = { "n", "v" } },
+  --       r = { "<cmd>ChatGPTRun roxygen_edit<CR>", "Roxygen Edit", mode = { "n", "v" } },
+  --       s = { "<cmd>ChatGPTRun summarize<CR>", "Summarize", mode = { "n", "v" } },
+  --       t = { "<cmd>ChatGPTRun translate<CR>", "Translate", mode = { "n", "v" } },
+  --       x = { "<cmd>ChatGPTRun explain_code<CR>", "Explain Code", mode = { "n", "v" } },
+  --     },
+  --   },
+  -- }
+  { -- with mode as a predefined table upfront
+    mode = { "n", "v" },
+    { "<leader>G", group = "ChatGPT" },
+    { "<leader>Gc", group = "ChatGPT" },
+    { "<leader>Gca", "<cmd>ChatGPTRun add_tests<CR>", desc = "Add Tests" },
+    { "<leader>Gcc", "<cmd>ChatGPT<CR>", desc = "ChatGPT" },
+    { "<leader>Gcd", "<cmd>ChatGPTRun docstring<CR>", desc = "Docstring" },
+    { "<leader>Gce", "<cmd>ChatGPTEditWithInstruction<CR>", desc = "Edit with instruction" },
+    { "<leader>Gcf", "<cmd>ChatGPTRun fix_bugs<CR>", desc = "Fix Bugs" },
+    { "<leader>Gcg", "<cmd>ChatGPTRun grammar_correction<CR>", desc = "Grammar Correction" },
+    { "<leader>Gck", "<cmd>ChatGPTRun keywords<CR>", desc = "Keywords" },
+    { "<leader>Gcl", "<cmd>ChatGPTRun code_readability_analysis<CR>", desc = "Code Readability Analysis" },
+    { "<leader>Gco", "<cmd>ChatGPTRun optimize_code<CR>", desc = "Optimize Code" },
+    { "<leader>Gcr", "<cmd>ChatGPTRun roxygen_edit<CR>", desc = "Roxygen Edit" },
+    { "<leader>Gcs", "<cmd>ChatGPTRun summarize<CR>", desc = "Summarize" },
+    { "<leader>Gct", "<cmd>ChatGPTRun translate<CR>", desc = "Translate" },
+    { "<leader>Gcx", "<cmd>ChatGPTRun explain_code<CR>", desc = "Explain Code" },
+    { "<leader>Gce", "<cmd>ChatGPTEditWithInstruction<CR>", desc = "Edit with instruction" },
+  }
+)
 
+-- some AI mappings - not used currently, since I am not using AI plugins anymore
 -- map("n", "<leader>aa", ":AI<CR>", { desc = "Complete text on current line or selection" })
 -- map("x", "<leader>aa", ":AI<CR>", { desc = "Complete text on current line or selection" })
-
+--
 -- map("n", "<leader>as", ":AIEdit fix grammar and spelling<CR>", { desc = "Edit text with a custom prompt" })
 -- map("x", "<leader>as", ":AIEdit fix grammar and spelling<CR>", { desc = "Edit text with a custom prompt" })
 --
@@ -216,9 +215,8 @@ vim.keymap.set("n", ",<Space>", ":nohls<CR>", { silent = true, desc = "Remove hi
 -- })
 
 -- telekasten mappings
--- Launch panel if nothing is typed after <leader>z
+-- Launch panel if nothing is typed after <leader>t
 vim.keymap.set("n", "<leader>t", "<cmd>Telekasten panel<CR>")
-
 -- Most used Telekasten functions
 vim.keymap.set("n", "<leader>tf", "<cmd>Telekasten find_notes<CR>")
 vim.keymap.set("n", "<leader>tg", "<cmd>Telekasten search_notes<CR>")
@@ -226,14 +224,18 @@ vim.keymap.set("n", "<leader>tt", "<cmd>Telekasten goto_today<CR>")
 vim.keymap.set("n", "<leader>tz", "<cmd>Telekasten follow_link<CR>")
 vim.keymap.set("n", "<leader>tn", "<cmd>Telekasten new_note<CR>")
 vim.keymap.set("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
+vim.keymap.set("n", "<leader>tq", "<cmd>bw!<CR>", { desc = "Close Calendar panel." })
 vim.keymap.set("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
 vim.keymap.set("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
 -- Call insert link automatically when we start typing a link
 vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
+-- Calendar keybindings
+-- vim.keymap.set("n", "<C-Right>", "<cmd>lua require('telekasten').goto_next_month()<CR>")
 
 -- nnn.nvim bindings currenly only in Ubuntu
 map("n", "<C-M-n>", "<cmd>NnnExplorer %:p:h<CR>", { desc = "Open nnn Explorer in curr buffer" })
 map("n", "<C-M-p>", ":NnnPicker<CR>", { desc = "Open nnn Picker in curr buffer" })
+
 -- add some dbee keymaps
 -- map("n", "<leader>db", "<cmd>lua require('dbee').open()<CR>", { desc = "Open DB editor", silent = true })
 -- map(
@@ -257,11 +259,13 @@ map("n", "<C-M-p>", ":NnnPicker<CR>", { desc = "Open nnn Picker in curr buffer" 
 -- map("v", "ts", "<plug>send", { silent = false, desc = "send visual to term" })
 -- map("n", "ts", "ts$")
 
--- ( -- Telekasten and TreeSitter group
---   {
---     { "<leader>t", group = "T-kasten/TSitter/Lsp" },
---     { "<leader>td", require("telescope.builtin").lsp_definitions, desc = "Lsp Definitions" },
---     { "<leader>ts", require("telescope.builtin").lsp_document_symbols, desc = "Lsp Docu Symbols" },
---     { "<leader>tx", require("telescope.builtin").treesitter, desc = "TreeSitter Funcs/Vars Ref" },
---   }
--- )
+-- ( -- Terminal and Lsp/TreeSitter group
+wk.add({
+  { "<leader>T", group = "Terminal/TSitter/Lsp" },
+  -- new terminal in normal mode below current window size 25
+  { "<leader>Tb", "<cmd>below 25sp term://zsh<CR>", desc = "New terminal below" },
+  { "<leader>Tr", "<cmd>rightb :vert :term<CR>", desc = "New terminal vertical split on right" },
+  { "<leader>Td", require("telescope.builtin").lsp_definitions, desc = "Lsp Definitions" },
+  { "<leader>Ts", require("telescope.builtin").lsp_document_symbols, desc = "Lsp Docu Symbols" },
+  { "<leader>Tx", require("telescope.builtin").treesitter, desc = "TreeSitter Funcs/Vars Ref" },
+})

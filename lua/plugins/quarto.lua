@@ -100,9 +100,11 @@ return {
       --   { "<leader>cm", mark_terminal, desc = "mark terminal" },
       --   { "<leader>cs", set_terminal, desc = "set terminal" }
       -- }
-      require("which-key").register({
-        ["<leader>cm"] = { mark_terminal, "mark quarto terminal" },
-        ["<leader>cs"] = { set_terminal, "set quarto terminal" },
+      require("which-key").add({ -- instead of .register use .add now
+        { "<leader>cm", mark_terminal, desc = "mark terminal" }, --new way to add keybindings
+        { "<leader>cs", set_terminal, desc = "set terminal" },
+        -- ["<leader>cm"] = { mark_terminal, "mark quarto terminal" },
+        -- ["<leader>cs"] = { set_terminal, "set quarto terminal" },
       })
     end,
   },

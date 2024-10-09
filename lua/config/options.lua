@@ -12,6 +12,15 @@ augroup numbertoggle
 augroup END
 ]])
 
+-- share clipboard with system clipboard
+vim.opt.clipboard = "unnamedplus"
+-- ignore case when searching
+vim.cmd("set ignorecase")
+
+-- disable the calendar.vim keybindings - b/c of conflicts with code mappings
+-- therefore the bindings are all set in hte keybindings.lua file
+vim.cmd("let g:calendar_no_mappings = 1")
+
 -- set terminal options to make it more like a terminal
 vim.cmd([[
 augroup neovim_terminal
