@@ -31,9 +31,6 @@ map("t", "<M-[>", [[<C-\><C-n>]], {})
 map("t", "<C-w>", [[<C-\><C-n><C-w>]], {})
 map("t", "<M-r>", [['<C-\><C-N>"'.nr2char(getchar()).'pi']], { expr = true })
 
--- new terminal in normal mode below current window size 25
-map("n", "<leader>Tt", ":botright 25sp<CR><C-w>:term<CR><C-w>J", { silent = true, desc = "New Terminal below" })
-
 -- Keep matches center screen when cycling with n|N etc.
 map("n", "n", "nzzzv", { noremap = true, desc = "Fwd  search '/' or '?'" })
 map("n", "N", "Nzzzv", { noremap = true, desc = "Back search '/' or '?'" })
@@ -76,10 +73,10 @@ map("i", "<C-k>", "<up>", { noremap = true, silent = true })
 map("i", "<C-u>", "<C-g>u<C-u>", { noremap = true, silent = true })
 
 -- remap arrow keys deactivate movements in buffer all together
-map("n", "<left>", ":bp<CR>", { noremap = true, silent = true })
-map("n", "<right>", ":bn<CR>", { noremap = true, silent = true })
-map("n", "<up>", ":tabnext<CR>", { noremap = true, silent = true })
-map("n", "<down>", ":tabprev<CR>", { noremap = true, silent = true })
+map("n", "<left>", ":bp<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
+map("n", "<right>", ":bn<CR>", { noremap = true, silent = true, desc = "Next buffer" })
+map("n", "<up>", ":tabnext<CR>", { noremap = true, silent = true, desc = "Next tab" })
+map("n", "<down>", ":tabprev<CR>", { noremap = true, silent = true, desc = "Previous tab" })
 
 -- toggle zen mode w Comma-zz
 map("n", ",zz", ":ZenMode<CR>", { noremap = true, silent = true, desc = "Toggle ZenMode" })
@@ -112,7 +109,6 @@ vim.api.nvim_set_keymap(
 
 -- add a telescope lsp keymap and which-key group
 local wk = require("which-key")
-
 -- (
 --   --- suggested new spec - accordding to checkhealth which-key
 --   {
@@ -123,45 +119,25 @@ local wk = require("which-key")
 --   }
 -- )
 
-wk.register({
-  t = {
-    name = "Telekasten/TSitter/Lsp",
-    d = { builtin.lsp_definitions, "Lsp Definitions" },
-    s = { builtin.lsp_document_symbols, "Lsp Docu Symbols" },
-    x = { builtin.treesitter, "TreeSitter Funcs/Vars Ref" },
-    -- l = { builtin.lsp_reference, "Lsp reference" }, -- not owrking correctly - TBD
-  },
-}, { prefix = "<leader>" })
 -- chatigpt mappings
-local chatgpt = require("chatgpt")
-wk.register({
+wk.add({
   mode = { "v", "n" },
-  prefix = "<leader>",
-  p = {
-    name = "ChatGPT",
-    e = {
-      function()
-        chatgpt.edit_with_instructions()
-      end,
-      "Edit with instructions",
-    },
-    c = {
-      name = "ChatGPT",
-      c = { "<cmd>ChatGPT<CR>", "ChatGPT" },
-      e = { "<cmd>ChatGPTEditWithInstruction<CR>", "Edit with instruction", mode = { "n", "v" } },
-      g = { "<cmd>ChatGPTRun grammar_correction<CR>", "Grammar Correction", mode = { "n", "v" } },
-      t = { "<cmd>ChatGPTRun translate<CR>", "Translate", mode = { "n", "v" } },
-      k = { "<cmd>ChatGPTRun keywords<CR>", "Keywords", mode = { "n", "v" } },
-      d = { "<cmd>ChatGPTun docstring<CR>", "Docstring", mode = { "n", "v" } },
-      a = { "<cmd>ChatGPTRun add_tests<CR>", "Add Tests", mode = { "n", "v" } },
-      o = { "<cmd>ChatGPTRun optimize_code<CR>", "Optimize Code", mode = { "n", "v" } },
-      s = { "<cmd>ChatGPTRun summarize<CR>", "Summarize", mode = { "n", "v" } },
-      f = { "<cmd>ChatGPTRun fix_bugs<CR>", "Fix Bugs", mode = { "n", "v" } },
-      x = { "<cmd>ChatGPTRun explain_code<CR>", "Explain Code", mode = { "n", "v" } },
-      r = { "<cmd>ChatGPTRun roxygen_edit<CR>", "Roxygen Edit", mode = { "n", "v" } },
-      l = { "<cmd>ChatGPTRun code_readability_analysis<CR>", "Code Readability Analysis", mode = { "n", "v" } },
-    },
-  },
+  { "<leader>G", group = "ChatGPT" },
+  { "<leader>Gc", group = "ChatGPT" },
+  { "<leader>Gca", "<cmd>ChatGPTRun add_tests<CR>", desc = "Add Tests" },
+  { "<leader>Gcc", "<cmd>ChatGPT<CR>", desc = "ChatGPT" },
+  { "<leader>Gcd", "<cmd>ChatGPTRun docstring<CR>", desc = "Docstring" },
+  { "<leader>Gce", "<cmd>ChatGPTEditWithInstruction<CR>", desc = "Edit with instruction" },
+  { "<leader>Gcf", "<cmd>ChatGPTRun fix_bugs<CR>", desc = "Fix Bugs" },
+  { "<leader>Gcg", "<cmd>ChatGPTRun grammar_correction<CR>", desc = "Grammar Correction" },
+  { "<leader>Gck", "<cmd>ChatGPTRun keywords<CR>", desc = "Keywords" },
+  { "<leader>Gcl", "<cmd>ChatGPTRun code_readability_analysis<CR>", desc = "Code Readability Analysis" },
+  { "<leader>Gco", "<cmd>ChatGPTRun optimize_code<CR>", desc = "Optimize Code" },
+  { "<leader>Gcr", "<cmd>ChatGPTRun roxygen_edit<CR>", desc = "Roxygen Edit" },
+  { "<leader>Gcs", "<cmd>ChatGPTRun summarize<CR>", desc = "Summarize" },
+  { "<leader>Gct", "<cmd>ChatGPTRun translate<CR>", desc = "Translate" },
+  { "<leader>Gcx", "<cmd>ChatGPTRun explain_code<CR>", desc = "Explain Code" },
+  { "<leader>Gce", "<cmd>ChatGPTEditWithInstruction<CR>", desc = "Edit with instruction" },
 })
 
 -- OLD STYLE DEFINTIONS w/o local map
@@ -184,7 +160,6 @@ vim.keymap.set("n", "<leader>rh", "<cmd>IronHide<cr>", { desc = "IronRepl hide" 
 -- telekasten mappings
 -- Launch panel if nothing is typed after <leader>z
 vim.keymap.set("n", "<leader>t", "<cmd>Telekasten panel<CR>")
-
 -- Most used functions
 vim.keymap.set("n", "<leader>tf", "<cmd>Telekasten find_notes<CR>")
 vim.keymap.set("n", "<leader>tg", "<cmd>Telekasten search_notes<CR>")
@@ -192,8 +167,11 @@ vim.keymap.set("n", "<leader>tt", "<cmd>Telekasten goto_today<CR>")
 vim.keymap.set("n", "<leader>tz", "<cmd>Telekasten follow_link<CR>")
 vim.keymap.set("n", "<leader>tn", "<cmd>Telekasten new_note<CR>")
 vim.keymap.set("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
+vim.keymap.set("n", "<leader>tq", "<cmd>bw!<CR>", { desc = "Close Calendar panel." })
 vim.keymap.set("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
 vim.keymap.set("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
+-- Call insert link automatically when we start typing a link
+vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
 
 -- add some dbee keymaps
 map("n", "<leader>db", "<cmd>lua require('dbee').open()<CR>", { desc = "Open DB editor", silent = true })
@@ -204,11 +182,19 @@ map(
   { desc = "Close DB editor(also press <leader>q", silent = true }
 )
 
--- Call insert link automatically when we start typing a link
-vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
-
 -- send-to-term mappings
-map("n", "Tl", "<Plug>SendLine", { silent = false, desc = "Send line to Term" })
-map("n", "Ts", "<Plug>Send", { silent = false, desc = "Send motion to Term" })
-map("v", "Ts", "<Plug>Send", { silent = false, desc = "Send visual to Term" })
+-- map("n", "Tl", "<Plug>SendLine", { silent = false, desc = "Send line to Term" })
+-- map("n", "Ts", "<Plug>Send", { silent = false, desc = "Send motion to Term" })
+-- map("v", "Ts", "<Plug>Send", { silent = false, desc = "Send visual to Term" })
+
+-- ( -- Terminal and Lsp/TreeSitter group
+wk.add({
+  { "<leader>T", group = "Terminal/TSitter/Lsp" },
+  -- new terminal in normal mode below current window size 25
+  { "<leader>Tb", "<cmd>below 25sp term://zsh<CR>", desc = "New terminal below" },
+  { "<leader>Tr", "<cmd>rightb :vert :term<CR>", desc = "New terminal vertical split on right" },
+  { "<leader>Td", require("telescope.builtin").lsp_definitions, desc = "Lsp Definitions" },
+  { "<leader>Ts", require("telescope.builtin").lsp_document_symbols, desc = "Lsp Docu Symbols" },
+  { "<leader>Tx", require("telescope.builtin").treesitter, desc = "TreeSitter Funcs/Vars Ref" },
+})
 map("n", "TS", "ts$")

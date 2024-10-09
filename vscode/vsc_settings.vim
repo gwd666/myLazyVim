@@ -39,12 +39,14 @@ augroup ToggleRelLineNumbers
   autocmd InsertEnter lua.require('vscode').update_config("editor.lineNumbers", "on", "global")
 augroup END
 
-" Toggle zen mode with comma zz
-nnoremap <silent> ,zz :call VSCodeNotify('workbench.action.toggleZenMode')<CR>
+" Toggle zen mode with comma zz - added this in VSC in the keybindings.json
+" there as a {"keys": "oem_comma+zz", ...} bingding in VSC on Winodws now
+" still keeping this here as well does not seem to harm anything
+nnoremap <silent> ,zz <Cmd>call VSCodeCall('workbench.action.toggleZenMode')<CR>
 
-" some lines ie calling the vim.api.exec incl last line after augroup 
+" some lines ie calling the vim.api.exec incl last line after augroup
 " don't go too well in VSC on WINdows! but this way it doesn't error in VSC,
-" so fine with mw to keep it this way here
+" so fine with me to keep it this way here
 " vim.api.nvim_exec([[
 " THEME CHANGER
 function! SetCursorLineNrColorInsert(mode)

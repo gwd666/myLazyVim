@@ -6,11 +6,16 @@
 
 if vim.g.vscode then
   -- VSC extension
-  print("Looks like you're starting Neovim for VSC reading from WINDOWS!")
+  print("Looks like you're starting Neovim for VSC reading from WINDOWS init.lua!")
   -- local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
   require("config/options") -- this makes H/L move to prev/mext line, etc
   -- require("config/keymaps")
   -- ...
+  -- https://github.com/vscode-neovim/vscode-neovim/issues/298
+  print("Running clipboard setting for vscode-neovim")
+  vim.opt.clipboard:append("unnamedplus")
+  -- vim.cmd("set clipboard=unnamedplus")
+  vim.cmd("set ignorecase") -- Ignore case when searching
   vim.cmd([[source $HOME\AppData\Local\nvim\vscode\vsc_settings.vim]])
 else
   -- print("=== Sourcing " .. os.getenv("USERPROFILE") .. "/init.lua " .. os.getenv("USERNAME") .. " part =====")

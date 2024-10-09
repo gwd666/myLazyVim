@@ -52,9 +52,12 @@ return {
   -- better whitespaces showing
   { "ntpeters/vim-better-whitespace" },
   -- add telekasten
-  { "renerocksai/telekasten.nvim", dependencies = "nvim-telescope/telescope.nvim" },
+  { "nvim-telekasten/telekasten.nvim", dependencies = { "nvim-telescope/telescope.nvim" } },
   -- adding calendar to telekasten.nvim
-  { "renerocksai/calendar-vim" },
+  {
+    "nvim-telekasten/calendar-vim",
+    after = "telekasten.nvim",
+  },
   -- add madox2/vim-ai
   -- { "madox2/vim-ai"}
   {

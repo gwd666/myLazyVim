@@ -1,5 +1,4 @@
 -- add Primeagens harpoon
-
 return {
   "ThePrimeagen/harpoon",
   branch = "harpoon2",
