@@ -3,8 +3,9 @@
 -- Add any additional keymaps here
 
 local map = vim.keymap.set
+local wk = require("which-key")
 
-vim.keymap.set("n", "<leader><leader>", function()
+map("n", "<leader><leader>", function()
   local is_git = os.execute("git") == 0
   if is_git then
     require("telescope.builtin").git_files()
@@ -20,7 +21,7 @@ vim.cmd([[
 autocmd! bufwritepost ~/.config/nvim/init.lua source ~/.config/nvim/init.lua
 ]])
 
-map("n", ",ee", ":e! ~/.config/init.lua<CR>", { silent = false, desc = "Edit nvim/init.lua file" })
+map("n", ",ee", ":e! ~/.config/nvim/init.lua<CR>", { silent = false, desc = "Edit nvim/init.lua file" })
 
 -- map comma+c to 'close buffer'
 map("n", ",c", ":bd<CR>:bnext<CR>", { silent = true, desc = "Close current Buffer" })
@@ -97,17 +98,17 @@ map("n", ",zz", ":ZenMode<CR>", { desc = "Toggle ZenMode" })
 
 -- telescope mappings
 local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Tscope find Files" })
-vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Tscope grep Live" })
-vim.keymap.set("n", "<leader>fs", builtin.grep_string, { desc = "Tscope grep String (under cursor)" })
-vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Tscope Buffers" })
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Tscope Help tags" })
-vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Tscope 'n' mode kmaps" })
+map("n", "<leader>ff", builtin.find_files, { desc = "Tscope find Files" })
+map("n", "<leader>fg", builtin.live_grep, { desc = "Tscope grep Live" })
+map("n", "<leader>fs", builtin.grep_string, { desc = "Tscope grep String (under cursor)" })
+map("n", "<leader>fb", builtin.buffers, { desc = "Tscope Buffers" })
+map("n", "<leader>fh", builtin.help_tags, { desc = "Tscope Help tags" })
+map("n", "<leader>fk", builtin.keymaps, { desc = "Tscope 'n' mode kmaps" })
 
-vim.keymap.set("n", "<leader>fm", "<cmd>NoiceTelescope<CR>", { desc = "NoiceTelescope message/notifications" })
+map("n", "<leader>fm", "<cmd>NoiceTelescope<CR>", { desc = "NoiceTelescope message/notifications" })
 
 -- find Lazy configuration files
-vim.keymap.set(
+map(
   "n",
   "<leader>fp",
   "<cmd>lua require('telescope.builtin').find_files({ cwd = require('lazy.core.config').options.root, desc = 'Plugins'})<CR>",
@@ -115,14 +116,13 @@ vim.keymap.set(
   { noremap = true, silent = true, desc = "Find 'plugins' files" }
 )
 
-vim.keymap.set( -- vim.keymap.set is non-recursive by default so noemrap is not needed
+map( -- vim.keymap.set is non-recursive by default so noemrap is not needed
   "n",
   "<leader>P",
   "<cmd>lua require'telescope'.extensions.project.project{}<CR>",
   { silent = true, desc = "Show projects" }
 )
 -- chatgpt mappings
-local wk = require("which-key")
 -- local gpt = require("chatgpt")
 wk.add( --  a shot at adding GPT group
   -- {
@@ -190,20 +190,25 @@ wk.add( --  a shot at adding GPT group
 
 -- OLD STYLE DEFINTIONS w/o local map
 -- map leader-c to close buffer
--- vim.keymap.set("n", "<leader>c", ":bd<CR>")
+-- map("n", "<leader>c", ":bd<CR>")
 -- map Ctrl-PgUp/PgDown to move between buffers in NORMAL mode
-vim.keymap.set("n", "<C-PageUp>", ":bp<CR>", { silent = true, desc = "Prev buff" })
-vim.keymap.set("n", "<C-PageDown>", ":bn<CR>", { silent = true, desc = "Next buff" })
+map("n", "<C-PageUp>", ":bp<CR>", { silent = true, desc = "Prev buff" })
+map("n", "<C-PageDown>", ":bn<CR>", { silent = true, desc = "Next buff" })
 -- also in INSERT mode
-vim.keymap.set("i", "<C-PageUp>", ":bp<CR>", { silent = true })
-vim.keymap.set("i", "<C-PageDown>", ":bn<CR>", { silent = true })
+map("i", "<C-PageUp>", ":bp<CR>", { silent = true })
+map("i", "<C-PageDown>", ":bn<CR>", { silent = true })
 -- map <leader><Space> to remove search hhighlighting
-vim.keymap.set("n", ",<Space>", ":nohls<CR>", { silent = true, desc = "Remove highlighting on search results" })
+map("n", ",<Space>", ":nohls<CR>", { silent = true, desc = "Remove highlighting on search results" })
+
+-- mappaig Meta+minus to insert <- in insert mode
+map("i", "<M-->", " <- ", { noremap = true, silent = true })
+map("i", "<C-_>", " -> ", { noremap = true, silent = true }) -- Meta+Shit+minus opens Terminal below?
+
 -- iron.nvim REPL has a bunch of commands,
 -- see :h iron-commands for all available commands you might wanna map
--- vim.keymap.set("n", "<leader>rs", "<cmd>IronRepl<cr>", { desc = "IronRepl start" })
--- vim.keymap.set("n", "<leader>rr", "<cmd>IronRestart<cr>", { desc = "IronRepl restart" })
--- vim.keymap.set("n", "<leader>rf", "<cmd>IronFocus<cr>", { desc = "IronRepl focus" })( -- vim.keymap.set("n", "<leader>rh", "<cmd>IronHide<cr>", { desc = "IronRepl hide" })
+-- map("n", "<leader>rs", "<cmd>IronRepl<cr>", { desc = "IronRepl start" })
+-- map("n", "<leader>rr", "<cmd>IronRestart<cr>", { desc = "IronRepl restart" })
+-- map("n", "<leader>rf", "<cmd>IronFocus<cr>", { desc = "IronRepl focus" })( -- map("n", "<leader>rh", "<cmd>IronHide<cr>", { desc = "IronRepl hide" })
 -- ({
 --   {
 --     mode = { "n" },
@@ -216,21 +221,21 @@ vim.keymap.set("n", ",<Space>", ":nohls<CR>", { silent = true, desc = "Remove hi
 
 -- telekasten mappings
 -- Launch panel if nothing is typed after <leader>t
-vim.keymap.set("n", "<leader>t", "<cmd>Telekasten panel<CR>")
+map("n", "<leader>t", "<cmd>Telekasten panel<CR>")
 -- Most used Telekasten functions
-vim.keymap.set("n", "<leader>tf", "<cmd>Telekasten find_notes<CR>")
-vim.keymap.set("n", "<leader>tg", "<cmd>Telekasten search_notes<CR>")
-vim.keymap.set("n", "<leader>tt", "<cmd>Telekasten goto_today<CR>")
-vim.keymap.set("n", "<leader>tz", "<cmd>Telekasten follow_link<CR>")
-vim.keymap.set("n", "<leader>tn", "<cmd>Telekasten new_note<CR>")
-vim.keymap.set("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
-vim.keymap.set("n", "<leader>tq", "<cmd>bw!<CR>", { desc = "Close Calendar panel." })
-vim.keymap.set("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
-vim.keymap.set("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
+map("n", "<leader>tf", "<cmd>Telekasten find_notes<CR>")
+map("n", "<leader>tg", "<cmd>Telekasten search_notes<CR>")
+map("n", "<leader>tt", "<cmd>Telekasten goto_today<CR>")
+map("n", "<leader>tz", "<cmd>Telekasten follow_link<CR>")
+map("n", "<leader>tn", "<cmd>Telekasten new_note<CR>")
+map("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
+map("n", "<leader>tq", "<cmd>bw!<CR>", { desc = "Close Calendar panel." })
+map("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
+map("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
 -- Call insert link automatically when we start typing a link
-vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
+map("i", "[[", "<cmd>Telekasten insert_link<CR>")
 -- Calendar keybindings
--- vim.keymap.set("n", "<C-Right>", "<cmd>lua require('telekasten').goto_next_month()<CR>")
+-- map("n", "<C-Right>", "<cmd>lua require('telekasten').goto_next_month()<CR>")
 
 -- nnn.nvim bindings currenly only in Ubuntu
 map("n", "<C-M-n>", "<cmd>NnnExplorer %:p:h<CR>", { desc = "Open nnn Explorer in curr buffer" })
