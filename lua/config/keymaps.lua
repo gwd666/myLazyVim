@@ -4,6 +4,8 @@
 
 local map = vim.keymap.set
 
+local wk = require("which-key")
+
 -- vim.g.mapleader = "," -- Make sure to set `mapleader` before lazy so your mappings are correct
 -- fast editing and reloading of init.lua config embed vimscript code in vim.cmd(.....)
 -- use vim.cmd([[   ]]) for multi-line
@@ -38,7 +40,7 @@ map("n", "#", "#zzz", { noremap = true, silent = true, desc = "Search word under
 map("n", "<C-o>", "<C-o>zz", { noremap = true, silent = true })
 
 -- remove WIN CRLF meta char when encoding get messed up
-map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "Fix Windows CRLF meta chars" })
+map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "Fix ^M or Windows CRLF meta chars in file" })
 
 -- map jk to ESC
 map("i", "jk", "<ESC>", { silent = true })
@@ -83,13 +85,13 @@ map("n", ",zz", ":ZenMode<CR>", { noremap = true, silent = true, desc = "Toggle 
 
 -- telscope mappings
 local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Tele find Files" })
-vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Tele grep Live" })
-vim.keymap.set("n", "<leader>fs", builtin.grep_string, { desc = "Tele grep String (under cursor)" })
-vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Tele Buffers" })
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Tele Help tags" })
-vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Tele 'n' mode kmaps" })
-vim.keymap.set("n", "<leader>fm", "<cmd>NoiceTelescope<CR>", { desc = "NoiceTelescope messages/notificatons" })
+map("n", "<leader>ff", builtin.find_files, { desc = "Tele find Files" })
+map("n", "<leader>fg", builtin.live_grep, { desc = "Tele grep Live" })
+map("n", "<leader>fs", builtin.grep_string, { desc = "Tele grep String (under cursor)" })
+map("n", "<leader>fb", builtin.buffers, { desc = "Tele Buffers" })
+map("n", "<leader>fh", builtin.help_tags, { desc = "Tele Help tags" })
+map("n", "<leader>fk", builtin.keymaps, { desc = "Tele 'n' mode kmaps" })
+map("n", "<leader>fm", "<cmd>NoiceTelescope<CR>", { desc = "NoiceTelescope messages/notificatons" })
 
 -- find Lazy configuration files
 vim.api.nvim_set_keymap(
@@ -108,7 +110,6 @@ vim.api.nvim_set_keymap(
 )
 
 -- add a telescope lsp keymap and which-key group
-local wk = require("which-key")
 -- (
 --   --- suggested new spec - accordding to checkhealth which-key
 --   {
@@ -142,36 +143,40 @@ wk.add({
 
 -- OLD STYLE DEFINTIONS w/o local map
 -- map Ctrl-PgUp/PgDown to move between buffers in NORMAL mode
-vim.keymap.set("n", "<C-PageUp>", ":bp<CR>", { silent = true, desc = "Prev buff" })
-vim.keymap.set("n", "<C-PageDown>", ":bn<CR>", { silent = true, desc = "Next buff" })
+map("n", "<C-PageUp>", ":bp<CR>", { silent = true, desc = "Prev buff" })
+map("n", "<C-PageDown>", ":bn<CR>", { silent = true, desc = "Next buff" })
 -- also in INSERT mode
-vim.keymap.set("i", "<C-PageUp>", ":bp<CR>", { silent = true })
-vim.keymap.set("i", "<C-PageDown>", ":bn<CR>", { silent = true })
+map("i", "<C-PageUp>", ":bp<CR>", { silent = true })
+map("i", "<C-PageDown>", ":bn<CR>", { silent = true })
 -- map <leader><Space> to remove search hhighlighting
-vim.keymap.set("n", ",<Space>", ":nohls<CR>", { silent = true, desc = "Remove highlighting on search results" })
+map("n", ",<Space>", ":nohls<CR>", { silent = true, desc = "Remove highlighting on search results" })
+
+-- mappaig Meta+minus to insert <- in insert mode
+map("i", "<M-->", " <- ", { noremap = true, silent = true })
+map("i", "<C-_>", " -> ", { noremap = true, silent = true }) -- Meta+Shift+minus opens terminal below
 
 -- iron.nvim REPL has a bunch of commands,
 -- see :h iron-commands for all available commands you might wanna map
-vim.keymap.set("n", "<leader>rs", "<cmd>IronRepl<cr>", { desc = "IronRepl start" })
-vim.keymap.set("n", "<leader>rr", "<cmd>IronRestart<cr>", { desc = "IronRepl restart" })
-vim.keymap.set("n", "<leader>rf", "<cmd>IronFocus<cr>", { desc = "IronRepl focus" })
-vim.keymap.set("n", "<leader>rh", "<cmd>IronHide<cr>", { desc = "IronRepl hide" })
+map("n", "<leader>rs", "<cmd>IronRepl<cr>", { desc = "IronRepl start" })
+map("n", "<leader>rr", "<cmd>IronRestart<cr>", { desc = "IronRepl restart" })
+map("n", "<leader>rf", "<cmd>IronFocus<cr>", { desc = "IronRepl focus" })
+map("n", "<leader>rh", "<cmd>IronHide<cr>", { desc = "IronRepl hide" })
 
 -- telekasten mappings
 -- Launch panel if nothing is typed after <leader>z
-vim.keymap.set("n", "<leader>t", "<cmd>Telekasten panel<CR>")
+map("n", "<leader>t", "<cmd>Telekasten panel<CR>")
 -- Most used functions
-vim.keymap.set("n", "<leader>tf", "<cmd>Telekasten find_notes<CR>")
-vim.keymap.set("n", "<leader>tg", "<cmd>Telekasten search_notes<CR>")
-vim.keymap.set("n", "<leader>tt", "<cmd>Telekasten goto_today<CR>")
-vim.keymap.set("n", "<leader>tz", "<cmd>Telekasten follow_link<CR>")
-vim.keymap.set("n", "<leader>tn", "<cmd>Telekasten new_note<CR>")
-vim.keymap.set("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
-vim.keymap.set("n", "<leader>tq", "<cmd>bw!<CR>", { desc = "Close Calendar panel." })
-vim.keymap.set("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
-vim.keymap.set("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
+map("n", "<leader>tf", "<cmd>Telekasten find_notes<CR>")
+map("n", "<leader>tg", "<cmd>Telekasten search_notes<CR>")
+map("n", "<leader>tt", "<cmd>Telekasten goto_today<CR>")
+map("n", "<leader>tz", "<cmd>Telekasten follow_link<CR>")
+map("n", "<leader>tn", "<cmd>Telekasten new_note<CR>")
+map("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
+map("n", "<leader>tq", "<cmd>bw!<CR>", { desc = "Close Calendar panel." })
+map("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
+map("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
 -- Call insert link automatically when we start typing a link
-vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
+map("i", "[[", "<cmd>Telekasten insert_link<CR>")
 
 -- add some dbee keymaps
 map("n", "<leader>db", "<cmd>lua require('dbee').open()<CR>", { desc = "Open DB editor", silent = true })
