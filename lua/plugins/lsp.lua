@@ -81,11 +81,11 @@ return {
 
     lspconfig = require("lspconfig")
 
-    lspconfig.julials.setup({
-      on_attach = on_attach,
-      -- handlers = handlers,
-      root_dir = lspconfig.util.root_pattern("Project.toml", "JuliaProject.toml", ".git", vim.fn.getcwd()),
-    })
+    -- lspconfig.julials.setup({
+    --   on_attach = on_attach,
+    --   -- handlers = handlers,
+    --   root_dir = lspconfig.util.root_pattern("Project.toml", "JuliaProject.toml", ".git", vim.fn.getcwd()),
+    -- })
 
     require("lspconfig").clangd.setup({
       on_attach = on_attach,
