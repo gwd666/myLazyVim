@@ -4,13 +4,24 @@ return {
   "neovim/nvim-lspconfig",
   init = function()
     local keys = require("lazyvim.plugins.lsp.keymaps").get()
+
     local lspconfig = require("lspconfig")
+
+    -- LSP settings (for overriding per client) -
+    -- start by defining a local handler table
+    local handlers = {
+      ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+      ["textDocmumen/functionInfo"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+      ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+    }
+
     -- modify R languageserver call since R is mapped to Invoke-History in PShell
     lspconfig.r_language_server.setup({
       cmd = { "R.exe", "--slave", "-e", "languageserver::run()" },
       filetypes = { "r", "R", "rmd" },
       -- root_dir = lpsconfig.util.root_pattern(".git", vim.fn.getcwd()),
     })
+
     lspconfig.powershell_es.setup({
       filetypes = { "ps1", "psm1", "psd1" },
       bundle_path = "~/AppData/Local/nvim-data/mason/packages/powershell-editor-services",
@@ -19,10 +30,25 @@ return {
         enableProfileLoading = false, -- this is important otherwise it will load the profile and not work as expected!
       },
     })
+
+    -- lspconfig.julials.setup({
+    --   filetypes = {
+    --     "julia",
+    --     "juliamarkdown",
+    --     "juliamarkdown.pandoc",
+    --     "juliamarkdown.latex",
+    --     "juliamarkdown.html",
+    --   },
+    --   on_attach = on_attach,
+    --   handlers = handlers,
+    --   root_dir = lspconfig.util.root_pattern("Project.toml", "JuliaProject.toml", ".git", vim.fn.getcwd()),
+    -- })
+
     keys[#keys + 1] = { "<C-k>", mode = "i", false }
     keys[#keys + 1] =
       { "<C-o>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "SignatureHelp" }
-    -- include folliwing lines to avoid scanning C:\Users\gwd ie the home dir
+
+    -- include folloiwing lines to avoid scanning C:\Users\gwd ie the home dir
     root_dir = function(fname)
       local root_pattern = lspconfig.util.root_pattern(".git")(fname)
       if fname == vim.loop.os_homedir() then
