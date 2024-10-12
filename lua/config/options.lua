@@ -12,6 +12,9 @@ augroup numbertoggle
 augroup END
 ]])
 
+-- adding this based on ocaml update infos
+vim.cmd("set rtp^='/home/gwd/.opam/default/share/ocp-indent/vim'")
+
 -- share clipboard with system clipboard
 vim.opt.clipboard = "unnamedplus"
 -- ignore case when searching
