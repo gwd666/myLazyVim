@@ -2,12 +2,12 @@
 return {
   "neovim/nvim-lspconfig",
   init = function()
+    lspconfig = require("lspconfig")
+
     local keys = require("lazyvim.plugins.lsp.keymaps").get()
     keys[#keys + 1] = { "<C-k>", mode = "i", false }
     keys[#keys + 1] =
       { "<C-o>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "SignatureHelp" }
-    --  tyr to fix ""multiple different client offset_encodings detected" warning for clangd lsp
-    local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
     opts = { -- some lines to fix mason and lsp conflicts for rust-analyzer
       setup = {
@@ -17,7 +17,7 @@ return {
       },
     }
 
-    -- include folliwing lines to avoid scanning C:\Users\gwd ie the home dir
+    -- include following lines to avoid scanning the home dir or C:\Users\gwd
     root_dir = function(fname)
       local root_pattern = lspconfig.util.root_pattern(".git")(fname)
       if fname == vim.loop.os_homedir() then
@@ -33,23 +33,24 @@ return {
 
     -- To instead override globally
     local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+
     function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
       opts = opts or {}
       opts.border = opts.border or border
       return orig_util_open_floating_preview(contents, syntax, opts, ...)
     end
 
-    local border = {
-      { "🭽", "FloatBorder" },
+    local border = { -- you need to decide on round bullet or question mark corners!
+      -- { "🭽", "FloatBorder" }, -- commenting these corners
       { "●", "FloatBorder" },
       { "▔", "FloatBorder" },
-      { "🭾", "FloatBorder" },
+      -- { "🭾", "FloatBorder" },
       { "●", "FloatBorder" },
       { "▕", "FloatBorder" },
-      { "🭿", "FloatBorder" },
+      -- { "🭿", "FloatBorder" },
       { "●", "FloatBorder" },
       { "▁", "FloatBorder" },
-      { "🭼", "FloatBorder" },
+      -- { "🭼", "FloatBorder" },
       { "●", "FloatBorder" },
       { "▏", "FloatBorder" },
     }
@@ -66,8 +67,8 @@ return {
     -- }
 
     -- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
-    local lsp = vim.lsp
-    lsp.handlers["textDocument/hover"] = lsp.with(vim.lsp.handlers.hover, {
+    -- local lsp = vim.lsp -- comment this out and use vim.lsp instead
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
       border = "rounded",
     })
 
@@ -79,15 +80,24 @@ return {
       ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
     }
 
-    lspconfig = require("lspconfig")
+    lspconfig.julials.setup({
+      filetypes = {
+        "julia",
+        "juliamarkdown",
+        -- "juliamarkdown.pandoc",
+        -- "juliamarkdown.latex",
+        -- "juliamarkdown.html",
+      },
+      on_attach = on_attach,
+      handlers = handlers,
+      -- commenting out root-dir for julia lsp semme to work without it
+      -- and it seems to be causing issues with other functionnality
+      -- root_dir = lspconfig.util.root_pattern("Project.toml", "JuliaProject.toml", ".git", vim.fn.getcwd()),
+    })
 
-    -- lspconfig.julials.setup({
-    --   on_attach = on_attach,
-    --   -- handlers = handlers,
-    --   root_dir = lspconfig.util.root_pattern("Project.toml", "JuliaProject.toml", ".git", vim.fn.getcwd()),
-    -- })
-
-    require("lspconfig").clangd.setup({
+    --  try to fix ""multiple different client offset_encodings detected" warning for clangd lsp
+    local cmp_nvim_lsp = require("cmp_nvim_lsp")
+    lspconfig.clangd.setup({
       on_attach = on_attach,
       capabilities = cmp_nvim_lsp.default_capabilities(),
       cmd = {
@@ -122,9 +132,9 @@ return {
     })
 
     -- Do not forget to use the on_attach function
-    require("lspconfig").zls.setup({
+    lspconfig.zls.setup({
       on_attach = on_attach,
-      -- handlers = handlers,
+      handlers = handlers,
       cmd = { "zls" },
       filetypes = { "zig", "zlr" },
       root_dir = lspconfig.util.root_pattern(".git", "build.zig", vim.fn.getcwd()),
