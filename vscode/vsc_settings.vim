@@ -44,6 +44,8 @@ augroup END
 " still keeping this here as well does not seem to harm anything
 nnoremap <silent> ,zz <Cmd>call VSCodeCall('workbench.action.toggleZenMode')<CR>
 
+" close buffer with comma-c
+nnoremap <silent> ,c <Cmd>call VSCodeCall('workbench.action.closeActiveEditor')<CR>
 " some lines ie calling the vim.api.exec incl last line after augroup
 " don't go too well in VSC on WINdows! but this way it doesn't error in VSC,
 " so fine with me to keep it this way here
