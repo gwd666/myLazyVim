@@ -42,8 +42,8 @@ else
   -- moved all the colorscheme stuff to plugins/colorscheme.lua
   -- define the colorscheme
   -- vim.api.nvim_command([[ colorscheme catppuccin-mocha ]])
-  -- vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
-  vim.api.nvim_command([[ colorscheme tokyonight-storm ]])
+  vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
+  -- vim.api.nvim_command([[ colorscheme tokyonight-storm ]])
   -- vim.api.nvim_command([[ colorscheme gruvbuddy ]])
   -- vim.api.nvim_command([[ colorscheme onenord ]])
   -- vim.api.nvim_command([[ colorscheme onedarker ]])
