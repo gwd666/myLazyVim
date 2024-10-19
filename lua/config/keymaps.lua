@@ -4,6 +4,7 @@
 
 local map = vim.keymap.set
 local wk = require("which-key")
+local opt = { silent = true }
 
 map("n", "<leader><leader>", function()
   local is_git = os.execute("git") == 0
@@ -50,6 +51,12 @@ map("n", "n", "nzzzv", { noremap = true, desc = "Fwd  search '/' or '?'" })
 map("n", "N", "Nzzzv", { noremap = true, desc = "Back search '/' or '?'" })
 map("n", "#", "#zzz", { noremap = true, silent = true, desc = "Search word under cursor and center" })
 map("n", "<C-o>", "<C-o>zz", { noremap = true, silent = true })
+
+-- Replace All - original from: https://gist.github.com/GllmR/80de5fb8824a758bafdb390e0a471480
+-- that giist is a sinvgle file init.lua ... but ut has lazy and all of it included as well
+-- vim.keymap.set("n", "<leader>ra", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+-- Replace All - my mapping to CTRL-H since that resembles Windows and Notepad replacel
+vim.keymap.set("n", "<C-h>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- remove WIN CRLF meta char when encoding get messed up
 map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "Fix Windows CRLF meta chars" })
@@ -122,6 +129,12 @@ map( -- vim.keymap.set is non-recursive by default so noemrap is not needed
   "<cmd>lua require'telescope'.extensions.project.project{}<CR>",
   { silent = true, desc = "Show projects" }
 )
+
+-- before the whole ChatGPT group below is added here is a simple quock CopilotChat mappings
+-- on thos of the default ones you get after hitting <leader>a (for AI I guess)
+-- CopilotChat since leader+cc is recerved for Run-Codelens use Capital C's
+vim.keymap.set("n", "<leader>CC", ":CopilotChatToggle<CR>", opt)
+
 -- chatgpt mappings
 -- local gpt = require("chatgpt")
 wk.add( --  a shot at adding GPT group
