@@ -2,11 +2,11 @@
 return {
   -- add github/copilot
   -- { "github/copilot.vim" },
-  -- add zbirenbaum copilot.lua
+  -- add zbirenbaum copilot.lua seems to be the better one
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
-    event = "InsertEnter",
+    event = "InsertEnter", --  INFO: the CopilotChat is is managed in the Neovim EXTRAS!
     config = function()
       require("copilot").setup({
         suggestion = { enabled = false },

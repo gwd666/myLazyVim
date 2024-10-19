@@ -24,7 +24,7 @@ vim.cmd("set ignorecase")
 -- therefore the bindings are all set in hte keybindings.lua file
 vim.cmd("let g:calendar_no_mappings = 1")
 
--- set terminal options to make it more like a terminal
+-- set terminal options to make it look more like a terminal ie no line numbers
 vim.cmd([[
 augroup neovim_terminal
     autocmd!
