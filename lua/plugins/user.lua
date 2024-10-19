@@ -6,7 +6,7 @@ return {
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
-    event = "InsertEnter",
+    event = "InsertEnter", -- CopilotChat is managed in Neovim EXTRAS!
     config = function()
       require("copilot").setup({
         suggestion = { enabled = false },

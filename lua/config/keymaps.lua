@@ -3,8 +3,8 @@
 -- Add any additional keymaps here
 
 local map = vim.keymap.set
-
 local wk = require("which-key")
+local opt = { silent = true }
 
 -- vim.g.mapleader = "," -- Make sure to set `mapleader` before lazy so your mappings are correct
 -- fast editing and reloading of init.lua config embed vimscript code in vim.cmd(.....)
@@ -38,6 +38,11 @@ map("n", "n", "nzzzv", { noremap = true, desc = "Fwd  search '/' or '?'" })
 map("n", "N", "Nzzzv", { noremap = true, desc = "Back search '/' or '?'" })
 map("n", "#", "#zzz", { noremap = true, silent = true, desc = "Search word under cursor and center" })
 map("n", "<C-o>", "<C-o>zz", { noremap = true, silent = true })
+
+-- Replace All - original from: https://gist.github.com/GllmR/80de5fb8824a758bafdb390e0a471480
+-- that giist is a sinvgle file init.lua ... but ut has lazy and all of it included as well
+-- Replace All - my mapping to CTRL-H since that resembles Windows and Notepad replacel
+vim.keymap.set("n", "<C-h>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- remove WIN CRLF meta char when encoding get messed up
 map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "Fix ^M or Windows CRLF meta chars in file" })
@@ -119,6 +124,11 @@ vim.api.nvim_set_keymap(
 --     { "<leader>tx", builtin.treesitter, desc = "TreeSitter Funcs/Vars Ref" },
 --   }
 -- )
+
+-- before the whole ChatGPT group below is added here is a simple quock CopilotChat mappings
+-- on thos of the default ones you get after hitting <leader>a (for AI I guess)
+-- CopilotChat since leader+cc is recerved for Run-Codelens use Capital C's
+vim.keymap.set("n", "<leader>CC", ":CopilotChatToggle<CR>", opt)
 
 -- chatigpt mappings
 wk.add({
