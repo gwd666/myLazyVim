@@ -53,12 +53,12 @@ map("n", "#", "#zzz", { noremap = true, silent = true, desc = "Search word under
 map("n", "<C-o>", "<C-o>zz", { noremap = true, silent = true })
 
 -- Replace All - original from: https://gist.github.com/GllmR/80de5fb8824a758bafdb390e0a471480
--- that giist is a sinvgle file init.lua ... but ut has lazy and all of it included as well
+-- that giist is a single file init.lua ... but ut has lazy and all of it included as well
 vim.keymap.set(
   "n",
-  "<leader>ra",
+  "<leader>h",
   [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-  { noremap = true, desc = "Sed/Replace globally" }
+  { noremap = true, desc = "Sed/Replace global" }
 )
 
 -- remove WIN CRLF meta char when encoding get messed up
@@ -365,7 +365,7 @@ vim.keymap.set("n", "<M-Q>", ":Telescope harpoon marks<CR>", { silent = false, d
 -- -- add harpoons
 vim.keymap.set("n", "<M-a>", function()
   harpoon:list():add()
-end, { silent = false, desc = "Add Harpoon file mark" }),
+end, { silent = false, desc = "Add Harpoon file mark" })
 -- -- switch to M-N uppercase since lowercase acts like C-n
 vim.keymap.set("n", "<M-N>", function()
   harpoon:list():next()
