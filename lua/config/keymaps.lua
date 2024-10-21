@@ -54,9 +54,12 @@ map("n", "<C-o>", "<C-o>zz", { noremap = true, silent = true })
 
 -- Replace All - original from: https://gist.github.com/GllmR/80de5fb8824a758bafdb390e0a471480
 -- that giist is a sinvgle file init.lua ... but ut has lazy and all of it included as well
--- vim.keymap.set("n", "<leader>ra", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
--- Replace All - my mapping to CTRL-H since that resembles Windows and Notepad replacel
-vim.keymap.set("n", "<C-h>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set(
+  "n",
+  "<leader>ra",
+  [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+  { noremap = true, desc = "Sed/Replace globally" }
+)
 
 -- remove WIN CRLF meta char when encoding get messed up
 map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "Fix Windows CRLF meta chars" })
@@ -213,7 +216,7 @@ map("i", "<C-PageDown>", ":bn<CR>", { silent = true })
 -- map <leader><Space> to remove search hhighlighting
 map("n", ",<Space>", ":nohls<CR>", { silent = true, desc = "Remove highlighting on search results" })
 
--- mappaig Meta+minus to insert <- in insert mode
+-- mapping Meta+minus to insert <- in insert mode
 map("i", "<M-->", " <- ", { noremap = true, silent = true })
 map("i", "<C-_>", " -> ", { noremap = true, silent = true }) -- Meta+Shit+minus opens Terminal below?
 
@@ -287,3 +290,88 @@ wk.add({
   { "<leader>Ts", require("telescope.builtin").lsp_document_symbols, desc = "Lsp Docu Symbols" },
   { "<leader>Tx", require("telescope.builtin").treesitter, desc = "TreeSitter Funcs/Vars Ref" },
 })
+
+-- keymaps for HARPOON - all starting with M- (Alt) key
+-- and UPPERCASE letters except for M-q to toggle the harpoon quick menu
+local harpoon = require("harpoon")
+wk.add({
+  { "<leader>H", group = "Harpoon" },
+  -- { "<leader>Hq", "<cmd>lua require'harpoon.ui'.toggle_quick_menu()<CR>", desc = "Harpoon QuickMenu" },
+  { "<leader>HT", "<cmd>Telescope harpoon marks<CR>", desc = "Telescope Harpoon marks" },
+  {
+    "<leader>Ha",
+    function()
+      harpoon:list():add()
+    end,
+    desc = "Add Harpoon mark",
+  },
+  {
+    "<leader>Hq",
+    function()
+      harpoon.ui:toggle_quick_menu(harpoon:list())
+    end,
+    desc = "Harpoon QuickMenu",
+  },
+  {
+    "<leader>H1",
+    function()
+      harpoon:list():select(1)
+    end,
+    desc = "Goto File 1",
+  },
+  {
+    "<leader>H2",
+    function()
+      harpoon:list():select(2)
+    end,
+    desc = "Goto File 2",
+  },
+  {
+    "<leader>H3",
+    function()
+      harpoon:list():select(3)
+    end,
+    desc = "Goto File 3",
+  },
+  {
+    "<leader>H4",
+    function()
+      harpoon:list():select(4)
+    end,
+    desc = "Goto File 4",
+  },
+  {
+    "<leader>Hn",
+    function()
+      harpoon:list():next()
+    end,
+    desc = "Goto next Harpoon mark",
+  },
+  {
+    "<leader>Hp",
+    function()
+      harpoon:list():prev()
+    end,
+    desc = "Goto previous Harpoon mark",
+  },
+})
+-- here are some additional real harpoon "shortcuts" ie just two keys at most, but w/o the which-key group
+-- toggle the Harpoon QuickMenu with M-q ie Alt-q
+vim.keymap.set("n", "<M-q>", function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end, { silent = true, desc = "Toggle Harpoon QuickMenu" })
+-- -- show harpoon marks in Telescope w M-Q
+vim.keymap.set("n", "<M-Q>", ":Telescope harpoon marks<CR>", { silent = false, desc = "Telescope Harpoon marks" })
+-- -- add harpoons
+vim.keymap.set("n", "<M-a>", function()
+  harpoon:list():add()
+end, { silent = false, desc = "Add Harpoon file mark" }),
+-- -- switch to M-N uppercase since lowercase acts like C-n
+vim.keymap.set("n", "<M-N>", function()
+  harpoon:list():next()
+end, { silent = true, desc = "Goto next Harpoon mark" })
+-- switch to M-N uppercase since lowercase M-n acts like C-p
+vim.keymap.set("n", "<M-P>", function()
+  harpoon:list():prev()
+end, { silent = true, desc = "Goto previous Harpoon mark" })
+-- end of keymaps.lua

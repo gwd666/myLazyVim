@@ -1,46 +1,19 @@
 -- add Primeagens harpoon
 return {
-  "ThePrimeagen/harpoon",
-  branch = "harpoon2",
-  requires = { { "nvim-lua//plenary.nvim" } },
-  -- REQUIRED
-  -- REQUIRED
-  init = function()
-    local harpoon = require("harpoon")
-    harpoon:setup()
-    require("telescope").load_extension("harpoon")
-    -- keymaps
-    vim.keymap.set("n", "<M-Q>", ":Telescope harpoon marks<CR>", { silent = false, desc = "Telescope Harpoon marks" })
-    vim.keymap.set("n", "<M-q>", function()
-      harpoon.ui:toggle_quick_menu(harpoon:list())
-    end, { silent = true, desc = "Toggle Harpoon QuickMenu" })
-
-    vim.keymap.set("n", "<M-a>", function()
-      harpoon:list():append()
-    end, { silent = false, desc = "Add Harpoon file mark" })
-
-    vim.keymap.set("n", "<M-1>", function()
-      harpoon:list():select(1)
-    end, { silent = true, desc = "Goto File 1" })
-
-    vim.keymap.set("n", "<M-2>", function()
-      harpoon:list():select(2)
-    end, { silent = true, desc = "Goto File 2" })
-
-    vim.keymap.set("n", "<M-3>", function()
-      harpoon:list():select(3)
-    end, { silent = true, desc = "Goto File 3" })
-
-    vim.keymap.set("n", "<M-4>", function()
-      harpoon:list():select(4)
-    end, { silent = true, desc = "Goto File 4" })
-
-    vim.keymap.set("n", "<M-n>", function()
-      harpoon:list():next()
-    end, { silent = true, desc = "Goto next Harpoon mark" })
-
-    vim.keymap.set("n", "<M-p>", function()
-      harpoon:list():prev()
-    end, { silent = true, desc = "Goto previous Harpoon mark" })
-  end,
+  {
+    "ThePrimeagen/harpoon",
+    config = function()
+      require("harpoon").setup()
+      require("telescope").load_extension("harpoon")
+    end,
+  },
+  -- }  "ThePrimeagen/harpoon",
+  -- local harpoon=require("harpoon")
+  --
+  --   init = function()
+  --     harpoon:setup()
+  --     require("telescope").load_extension("harpoon")
+  --   end,
 }
+-- on the difference between config and init see:
+-- https://www.reddit.com/r/neovim/comments/17f9pqi/comment/k68ea52/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button

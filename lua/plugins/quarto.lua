@@ -7,11 +7,11 @@
 -- Thus, instead of having to change your configuration entirely,
 -- this takes your existings config and adds on top where necessary.
 
+local wk = require("which-key")
 return {
   -- this taps into vim.ui.select and vim.ui.input
   -- and in doing so currently breaks renaming in otter.nvim
   { "stevearc/dressing.nvim", enabled = false },
-
   {
     "quarto-dev/quarto-nvim",
     opts = {
@@ -21,23 +21,26 @@ return {
     },
     ft = "quarto",
     keys = {
-      { "<leader>Qa", ":QuartoActivate<cr>", desc = "quarto activate" },
-      { "<leader>Qp", ":lua require'quarto'.quartoPreview()<cr>", desc = "quarto preview" },
-      { "<leader>Qq", ":lua require'quarto'.quartoClosePreview()<cr>", desc = "quarto close" },
-      { "<leader>Qh", ":QuartoHelp ", desc = "quarto help" },
-      { "<leader>Qe", ":lua require'otter'.export()<cr>", desc = "quarto export" },
-      { "<leader>QE", ":lua require'otter'.export(true)<cr>", desc = "quarto export overwrite" },
-      { "<leader>Qrr", ":QuartoSendAbove<cr>", desc = "quarto run to cursor" },
-      { "<leader>Qra", ":QuartoSendAll<cr>", desc = "quarto run all" },
-      { "<leader><cr>", ":SlimeSend<cr>", desc = "send code chunk" },
-      { "<c-cr>", ":SlimeSend<cr>", desc = "send code chunk" },
-      { "<c-cr>", "<esc>:SlimeSend<cr>i", mode = "i", desc = "send code chunk" },
-      { "<c-cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "send code chunk" },
-      { "<cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "send code chunk" },
-      { "<leader>ctr", ":split term://R<cr>", desc = "terminal: R" },
-      { "<leader>cti", ":split term://ipython<cr>", desc = "terminal: ipython" },
-      { "<leader>ctp", ":split term://python<cr>", desc = "terminal: python" },
-      { "<leader>ctj", ":split term://julia<cr>", desc = "terminal: julia" },
+      wk.add({
+        { "<leader>Q", group = "Quarto" },
+        { "<leader>Qa", ":QuartoActivate<cr>", desc = "quarto activate" },
+        { "<leader>Qp", ":lua require'quarto'.quartoPreview()<cr>", desc = "quarto preview" },
+        { "<leader>Qq", ":lua require'quarto'.quartoClosePreview()<cr>", desc = "quarto close" },
+        { "<leader>Qh", ":QuartoHelp ", desc = "quarto help" },
+        { "<leader>Qe", ":lua require'otter'.export()<cr>", desc = "quarto export" },
+        { "<leader>QE", ":lua require'otter'.export(true)<cr>", desc = "quarto export overwrite" },
+        { "<leader>Qrr", ":QuartoSendAbove<cr>", desc = "quarto run to cursor" },
+        { "<leader>Qra", ":QuartoSendAll<cr>", desc = "quarto run all" },
+        { "<leader><cr>", ":SlimeSend<cr>", desc = "send code chunk" },
+        { "<c-cr>", ":SlimeSend<cr>", desc = "send code chunk" },
+        { "<c-cr>", "<esc>:SlimeSend<cr>i", mode = "i", desc = "send code chunk" },
+        { "<c-cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "send code chunk" },
+        { "<cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "send code chunk" },
+        { "<leader>ctr", ":split term://R<cr>", desc = "terminal: R" },
+        { "<leader>cti", ":split term://ipython<cr>", desc = "terminal: ipython" },
+        { "<leader>ctp", ":split term://python<cr>", desc = "terminal: python" },
+        { "<leader>ctj", ":split term://julia<cr>", desc = "terminal: julia" },
+      }),
     },
   },
 

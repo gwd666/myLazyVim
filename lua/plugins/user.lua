@@ -42,6 +42,12 @@ return {
       require("nnn").setup()
     end,
   },
+  -- adding harpoon
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    requires = { { "nvim-lua//plenary.nvim" }, { "nvim-telescope/telescope.nvim" } },
+  },
   -- add zig.vim
   { "ziglang/zig.vim" },
   -- add rainbow-delimeters
