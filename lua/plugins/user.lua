@@ -6,7 +6,7 @@ return {
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
-    event = "InsertEnter", --  INFO: the CopilotChat is is managed in the Neovim EXTRAS!
+    event = "InsertEnter", --  INFO: the CopilotChat is managed in the Neovim EXTRAS!
     config = function()
       require("copilot").setup({
         suggestion = { enabled = false },
@@ -42,24 +42,69 @@ return {
       require("nnn").setup()
     end,
   },
-  -- adding harpoon
+  -- adding harpoon - this is the original repo
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     requires = { { "nvim-lua//plenary.nvim" }, { "nvim-telescope/telescope.nvim" } },
+    config = function()
+      require("harpoon").setup()
+      require("telescope").load_extension("harpoon")
+    end,
   },
+  -- { -- this is my fork with slightly diff keymappings
+  --   "gwd666/harpoon", -- switch to my fork to avoid C-d mapping
+  --   branch = "harpoon2",
+  --   requires = { { "nvim-lua//plenary.nvim" }, { "nvim-telescope/telescope.nvim" } },
+  --   config = function()
+  --     require("harpoon").setup()
+  --     require("telescope").load_extension("harpoon")
+  --   end,
+  -- },
   -- add zig.vim
   { "ziglang/zig.vim" },
   -- add rainbow-delimeters
-  { "HiPhish/rainbow-delimiters.nvim" },
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    lazy = false,
+    config = function()
+      local rainbow = require("rainbow-delimiters")
+      require("rainbow-delimiters.setup").setup({
+        strategy = {
+          [""] = rainbow.strategy["global"],
+          vim = rainbow.strategy["local"],
+        },
+        query = {
+          [""] = "rainbow-delimiters",
+          lua = "rainbow-blocks",
+          python = "rainbow-blocks",
+          r = "rainbow-blocks",
+          -- julia = "rainbow-delimiters",
+          julia = "rainbow-blocks",
+        },
+        highlight = {
+          "RainbowDelimiterRed",
+          "RainbowDelimiterYellow",
+          "RainbowDelimiterBlue",
+          "RainbowDelimiterOrange",
+          "RainbowDelimiterGreen",
+          "RainbowDelimiterViolet",
+          "RainbowDelimiterCyan",
+        },
+        blacklist = { "cpp" },
+      })
+    end,
+  },
+  -- add nvim-treesitter-textobjects
+  { "nvim-treesitter/nvim-treesitter-textobjects" },
   -- add sql lsp extension
   { "nanotee/sqls.nvim" },
   -- add folke zen instaead of goyo
   { "folke/zen-mode.nvim" },
   -- add vim-devicons
-  { "ryanoasis/vim-devicons" },
-  -- add web-devicons
-  -- { "nvim-tree/nvim-web-devicons", enabled = false },
+  -- { "ryanoasis/vim-devicons" },
+  -- add web-devicons for neo-tree
+  { "nvim-tree/nvim-web-devicons", enabled = true },
   -- better whitespaces showing
   { "ntpeters/vim-better-whitespace" },
   -- add telekasten

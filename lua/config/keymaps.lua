@@ -27,7 +27,9 @@ map("n", ",ee", ":e! ~/.config/nvim/init.lua<CR>", { silent = false, desc = "Edi
 -- map comma+c to 'close buffer'
 map("n", ",c", ":bd<CR>:bnext<CR>", { silent = true, desc = "Close current Buffer" })
 
--- reset the <S-h> and <S-h> mappings to the default behaviour
+-- reset or umnap the <S-h> and <S-h> mappings to some default behaviour
+-- ie Shift H to move to top and Shift L to move to bottom
+-- some plugin hijacked these keys
 vim.keymap.del("n", "<S-h>")
 vim.keymap.del("n", "<S-l>")
 
@@ -210,10 +212,10 @@ wk.add( --  a shot at adding GPT group
 -- map Ctrl-PgUp/PgDown to move between buffers in NORMAL mode
 map("n", "<C-PageUp>", ":bp<CR>", { silent = true, desc = "Prev buff" })
 map("n", "<C-PageDown>", ":bn<CR>", { silent = true, desc = "Next buff" })
--- also in INSERT mode
-map("i", "<C-PageUp>", ":bp<CR>", { silent = true })
-map("i", "<C-PageDown>", ":bn<CR>", { silent = true })
--- map <leader><Space> to remove search hhighlighting
+-- also in INSERT mode - does not work in ISNERT mode - comment out!
+-- map("i", "<C-PageUp>", ":bp<CR>", { silent = true, desc = "previous buffer" })
+-- map("i", "<C-PageDown>", ":bn<CR>", { silent = true, desc = "next buffer" })
+-- map <leader><Space> to remove search highlightings
 map("n", ",<Space>", ":nohls<CR>", { silent = true, desc = "Remove highlighting on search results" })
 
 -- mapping Meta+minus to insert <- in insert mode
@@ -374,4 +376,15 @@ end, { silent = true, desc = "Goto next Harpoon mark" })
 vim.keymap.set("n", "<M-P>", function()
   harpoon:list():prev()
 end, { silent = true, desc = "Goto previous Harpoon mark" })
+
+-- workaruond from here: https://github.com/ThePrimeagen/harpoon/issues/178#issuecomment-1174520639
+map(
+  "n",
+  "<leader>hh",
+  "<cmd>lua require('telescope').extensions.harpoon.marks({attach_mappings=function(_, map) map('i', '<c-d>', require('telescope.actions').preview_scrolling_down) return true end})<CR>",
+  { noremap = true, desc = "Remap harpoon preview screen to scroll down" }
+)
+
+-- vim.keymap.set("n", "<leader>fH", "<cmd>Telescope harpoon marks<CR>", { desc = "Open Telescope harpoon window" })
+
 -- end of keymaps.lua
