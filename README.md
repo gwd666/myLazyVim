@@ -8,3 +8,5 @@ the git repo I wil push all my Ubuntu distro LazyVim config adjustments to in
 order tp keep track of and share it via my GH/gwd666/myLazyVim repo.
 
 Refer to the [documentation](https://lazyvim.github.io/installation) to read more.
+
+Added lots of various additional extensions to personalize further.
