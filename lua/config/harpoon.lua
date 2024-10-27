@@ -10,13 +10,12 @@ local function toggle_telescope(harpoon_files)
     table.insert(file_paths, item.value)
   end
   -- print the file paths to the console
-  print(vim.inspect(file_paths)) -- this gets printed as "keymaps.lua" ie the file in harpoon list
+  -- print(vim.inspect(file_paths)) -- this gets printed as "keymaps.lua" ie the file in harpoon list
   require("telescope.pickers")
     .new({}, {
-      prompt_title = "TS harpoon marks",
+      prompt_title = "My harpoon marks",
       finder = require("telescope.finders").new_table({
         results = file_paths,
-        width = 0.7,
       }),
       previewer = conf.file_previewer({}),
       sorter = conf.generic_sorter({}),
