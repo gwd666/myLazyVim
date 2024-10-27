@@ -2,9 +2,12 @@ return {
   -- add Monokai, Material, OneNord, OneDark Pro and Atom themes
   { "loctvl842/monokai-pro.nvim" },
   { "marko-cerovac/material.nvim" },
-  -- add onedark
-  { "rmehri01/onenord.nvim", name = "onenord" },
+  -- add nord theme
+  { "shaunsingh/nord.nvim" },
+  -- add onenord
+  { "rmehri01/onenord.nvim", branch = "main", name = "onenord" },
   {
+    -- add onedark
     "navarasu/onedark.nvim",
     -- priority = 1000, -- Ensure it loads first
   },

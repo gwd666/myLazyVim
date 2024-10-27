@@ -25,7 +25,7 @@ autocmd! bufwritepost ~/.config/nvim/init.lua source ~/.config/nvim/init.lua
 map("n", ",ee", ":e! ~/.config/nvim/init.lua<CR>", { silent = false, desc = "Edit nvim/init.lua file" })
 
 -- map comma+c to 'close buffer'
-map("n", ",c", ":bd<CR>:bnext<CR>", { silent = true, desc = "Close current Buffer" })
+map("n", ",c", ":bd<CR>:bnext<CR>:Neotree show<CR>", { silent = true, desc = "Close current Buffer" })
 
 -- reset or umnap the <S-h> and <S-h> mappings to some default behaviour
 -- ie Shift H to move to top and Shift L to move to bottom
@@ -70,9 +70,11 @@ map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "Fix Windows CRLF me
 map("i", "jk", "<ESC>", { noremap = true, silent = true })
 map("i", "jj", "<ESC>", { noremap = true, silent = true })
 
--- map F3 [no longer <C-t>] to toggle Neotree
-map("n", "<F3>", ":Neotree toggle<CR>", { silent = true, desc = "NTree toggle" })
-map("n", "<F2>", ":Neotree buffers<CR>", { silent = true, desc = "NTree buffers" })
+-- map F2-4 [no longer <C-t>] to toggle Neotree
+-- note: you can switch between those Neotree tabs 'Files', 'Buffers', 'Git' with "<" and ">" key
+map("n", "<F2>", ":Neotree show source=filesystem toggle=true<CR>", { silent = true, desc = "NTree toggle" })
+map("n", "<F3>", ":Neotree source=buffers toggle=true<CR>", { silent = true, desc = "NTree buffers" })
+map("n", "<F4>", ":Neotree source=git_status float toggle=true<CR>", { silent = true, desc = "NTree git_status" })
 
 -- map <comma>CD (upppercase CD) to change working dir to curr buffer parent dir
 map("n", "<leader>CD", ":Neotree %:h<CR>", { silent = true, desc = "Set NeoTree active dir to buffer's dir" })

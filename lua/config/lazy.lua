@@ -67,8 +67,8 @@ require("tokyonight").setup({
 })
 
 -- COMMENT OUT because of annoying warning about indent-blankline plugin
+--
 -- make Telescope borderless with tokyonight cs
-
 require("tokyonight").setup({
   on_highlights = function(hl, c)
     local prompt = "#2d3149"

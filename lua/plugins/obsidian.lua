@@ -24,7 +24,7 @@ return {
       },
       {
         name = "job",
-        path = "/mnt/d/OneDrive/Documents/zettelkasten/job",
+        path = "/mnt/d/OneDrive/Documents/zettelkasten/NOTES/JOB",
       },
     },
     -- additional Options

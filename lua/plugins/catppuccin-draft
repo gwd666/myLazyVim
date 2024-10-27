@@ -1,13 +1,15 @@
 -- taken from: .config/nvim/lua/setup/catppuccin.lua on github: https://github.com/augustocdias/dotfiles.git
+-- modified by: gwd
+-- last modified: 2021-09-27
+-- Purpose: setup catppuccin theme
 
 return {
-
+  "catppuccin/nvim",
   pallete = function(flavour)
     return require("catppuccin.palettes").get_palette(flavour)
   end,
-
-  setup = function()
-    local colors = require("catppuccin.palettes").get_palette()
+  setup = function(flavour)
+    local colors = require("catppuccin.palettes").get_palette(flavour)
     local ucolors = require("catppuccin.utils.colors")
     local telescope_prompt = ucolors.darken(colors.crust, 0.95, "#000000")
     local telescope_results = ucolors.darken(colors.mantle, 0.95, "#000000")
@@ -15,6 +17,8 @@ return {
     local telescope_prompt_title = colors.sky
     local telescope_preview_title = colors.teal
     local lualine_bg = colors.mantle
+    local noice_mini_bg = ucolors.lighten(colors.flamingo, 0.1, "#FFFFFF")
+    local mini_modified_bg = ucolors.lighten(colors.flamingo, 0.3, "#FFFFFF")
     require("catppuccin").setup({
       flavour = flavour,
       dim_inactive = {
@@ -62,6 +66,9 @@ return {
         leap = true,
         lsp_trouble = true,
         markdown = true,
+        mini = {
+          enabled = true,
+        },
         native_lsp = {
           enabled = true,
           virtual_text = {
@@ -100,11 +107,23 @@ return {
       },
       highlight_overrides = {
         all = {
-          NoiceCmdlinePopup = { bg = ucolors.lighten(colors.flamingo, 0.1, "#FFFFFF") },
+          NoiceCmdlinePopup = { bg = noice_mini_bg },
           NoiceMini = { bg = colors.mantle },
+          MiniFilesBorder = { bg = noice_mini_bg, fg = noice_mini_bg },
+          MiniFilesBorderModified = { bg = mini_modified_bg, fg = mini_modified_bg },
+          MiniFilesNormal = { bg = noice_mini_bg },
+          MiniFilesModified = { bg = mini_modified_bg },
+          MiniFilesCursorLine = { bg = ucolors.lighten(colors.mantle, 0.1, "#FFFFFF") },
+          MiniFilesTitle = { fg = colors.base, bg = telescope_prompt_title },
+          MiniFilesTitleFocused = { fg = colors.base, bg = telescope_prompt_title },
+          NoiceConfirmBorder = { fg = telescope_prompt, bg = telescope_prompt },
+          NoiceFormatConfirm = { fg = telescope_prompt, bg = telescope_prompt_title },
+          NoiceFormatConfirmDefault = { fg = telescope_prompt, bg = telescope_prompt_title },
+          NoiceConfirm = { bg = telescope_prompt },
+          InputDressing = { bg = noice_mini_bg },
+          DapSign = { fg = colors.flamingo },
+          DapLineStopped = { bg = noice_mini_bg },
           WinBar = { bg = lualine_bg },
-          WinBarSigActParm = { fg = colors.blue, bg = lualine_bg },
-          WinBarSignature = { fg = colors.flamingo, bg = lualine_bg },
           -- dims the text so that the hits are more visible
           LeapBackdrop = { fg = colors.flamingo },
           TelescopeBorder = { bg = telescope_results, fg = telescope_results },
@@ -133,6 +152,7 @@ return {
         },
       },
     })
-    vim.cmd("colorscheme catppuccin-frappe")
+
+    vim.cmd("colorscheme catppuccin")
   end,
 }

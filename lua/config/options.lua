@@ -19,6 +19,8 @@ vim.cmd("set rtp^='/home/gwd/.opam/default/share/ocp-indent/vim'")
 vim.opt.clipboard = "unnamedplus"
 -- ignore case when searching
 vim.cmd("set ignorecase")
+-- ignore cse if pattern is only lowercase - if there's a capital letter in the search, it's case-sensitive
+vim.cmd("set smartcase")
 
 -- disable the calendar.vim keybindings - b/c of conflicts with code mappings
 -- therefore the bindings are all set in hte keybindings.lua file

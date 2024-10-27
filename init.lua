@@ -38,20 +38,25 @@ else
   require("config.lazy")
   -- load telescope config
   require("config.telescope")
+  -- load chatgpt config
   require("config.chatgpt")
+  require("config.harpoon")
   -- moved all the colorscheme stuff to plugins/colorscheme.lua
-  -- define the colorscheme
+  -- choose a colorscheme
+  -- vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
   -- vim.api.nvim_command([[ colorscheme catppuccin-mocha ]])
-  vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
-  -- vim.api.nvim_command([[ colorscheme tokyonight-storm ]])
-  -- vim.api.nvim_command([[ colorscheme gruvbuddy ]])
-  -- vim.api.nvim_command([[ colorscheme onenord ]])
-  -- vim.api.nvim_command([[ colorscheme onedarker ]])
-  -- vim.api.nvim_command([[ colorscheme material-palenight ]])
+  -- vim.api.nvim_command([[ colorscheme gruvbox ]])
   -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
+  -- -- vim.api.nvim_command([[ colorscheme gruvbox-baby ]])
+  -- -- vim.api.nvim_command([[ colorscheme gruvbuddy ]])
+  vim.api.nvim_command([[ colorscheme nord ]])
+  -- vim.api.nvim_command([[ colorscheme onedarker ]])
+  -- vim.api.nvim_command([[ colorscheme onenord ]])
+  -- vim.api.nvim_command([[ colorscheme material-palenight ]])
   -- vim.api.nvim_command([[ colorscheme monokai-pro-machine ]])
   -- vim.api.nvim_command([[ colorscheme monokai-pro-octagon ]])
-  -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
+  -- vim.api.nvim_command([[ colorscheme tokyonight-storm ]])
+  -- require("nord").set()
   -- telekasten setup
   require("telekasten").setup({
     home = vim.fn.expand("~/zettelkasten"), -- Put the name of your notes directory here
