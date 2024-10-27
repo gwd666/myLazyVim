@@ -12,7 +12,7 @@ local function toggle_telescope(harpoon_files)
   -- print the file paths to the console
   -- print(vim.inspect(file_paths)) -- this gets printed as "keymaps.lua" ie the file in harpoon list
   require("telescope.pickers")
-    .new({}, {
+    .new({ layout_config = { preview_width = 0.55 } }, {
       prompt_title = "My harpoon marks",
       finder = require("telescope.finders").new_table({
         results = file_paths,
