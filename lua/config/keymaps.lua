@@ -359,6 +359,7 @@ wk.add({
     desc = "Goto previous Harpoon mark",
   },
 })
+
 -- here are some additional real harpoon "shortcuts" ie just two keys at most, but w/o the which-key group
 -- toggle the Harpoon QuickMenu with M-q ie Alt-q
 vim.keymap.set("n", "<M-q>", function()
@@ -382,7 +383,7 @@ end, { silent = true, desc = "Goto previous Harpoon mark" })
 -- workaruond from here: https://github.com/ThePrimeagen/harpoon/issues/178#issuecomment-1174520639
 map(
   "n",
-  "<leader>hh",
+  "<leader>Hh",
   "<cmd>lua require('telescope').extensions.harpoon.marks({attach_mappings=function(_, map) map('i', '<c-d>', require('telescope.actions').preview_scrolling_down) return true end})<CR>",
   { noremap = true, desc = "Remap harpoon preview screen to scroll down" }
 )

@@ -41,6 +41,7 @@ else
   -- load chatgpt config
   require("config.chatgpt")
   require("config.harpoon")
+  -- require("config/lualine")
   -- moved all the colorscheme stuff to plugins/colorscheme.lua
   -- choose a colorscheme
   -- vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])

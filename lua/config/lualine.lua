@@ -8,14 +8,25 @@
 require("lualine").setup({
   -- options = { theme = "onelight" },
   -- options = { theme = "onenord" },
-  -- options = { theme = "nord" },
+  options = { theme = "nord" },
   -- options = { theme = custom_nord },
   -- options = { theme = "material" },
-  options = { theme = "gruvbox" },
+  -- options = { theme = "gruvbox" },
   -- options = { theme = "gruvbox_dark" },
   -- options = { theme = "gruvbox_light" },
   -- options = { theme = "gruvbox-material" },
   -- options = { theme = custom_gruvbox },
+  sections = {
+    lualine_a = { "mode" },
+    lualine_b = { "branch" },
+    lualine_c = { "filename" },
+    lualine_d = { { lsp_progress = { spinner = "⠋" } } },
+    lualine_e = { { "diagnostics", sources = { "nvim" } } },
+    -- lualine_d = { "lsp_progress" },
+    lualine_x = { "encoding", "fileformat", "filetype" },
+    lualine_y = { "progress" },
+    lualine_z = { "location" },
+  },
 })
 
 -- Example config for nord theme - in lua
