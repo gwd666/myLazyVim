@@ -25,12 +25,89 @@ return {
       require("copilot_cmp").setup()
     end,
   },
+  -- add rainbow-delimeters
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    lazy = false,
+    config = function()
+      local rainbow = require("rainbow-delimiters")
+      require("rainbow-delimiters.setup").setup({
+        strategy = {
+          [""] = rainbow.strategy["global"],
+          vim = rainbow.strategy["local"],
+        },
+        query = {
+          [""] = "rainbow-delimiters",
+          lua = "rainbow-blocks",
+          python = "rainbow-blocks",
+          r = "rainbow-blocks",
+          julia = "rainbow-blocks",
+        },
+        highlight = {
+          "RainbowDelimiterRed",
+          "RainbowDelimiterYellow",
+          "RainbowDelimiterBlue",
+          "RainbowDelimiterOrange",
+          "RainbowDelimiterGreen",
+          "RainbowDelimiterViolet",
+          "RainbowDelimiterCyan",
+        },
+        blacklist = { "cpp" },
+      })
+    end,
+  },
   -- add lspkind for VSCode like pictograms
   { "onsails/lspkind.nvim" },
   -- add iron.nvim TERM/REPL - there's a seperate iron.lua file in plugings folder
   -- add some telescope extensions:
   { "nvim-telescope/telescope-project.nvim" },
   { "nvim-telescope/telescope-file-browser.nvim" },
+  -- add nvim-treesitter-textobjects
+  { "nvim-treesitter/nvim-treesitter-textobjects" },
+  -- adding harpoon - this is the original repo
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    requires = { { "nvim-lua//plenary.nvim" }, { "nvim-telescope/telescope.nvim" } },
+    init = function()
+      -- require("harpoon").setup()
+      require("telescope").load_extension("harpoon")
+    end,
+  },
+  -- add zig.vim
+  { "ziglang/zig.vim" },
+  -- add rainbow-delimeters
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    lazy = false,
+    config = function()
+      local rainbow = require("rainbow-delimiters")
+      require("rainbow-delimiters.setup").setup({
+        strategy = {
+          [""] = rainbow.strategy["global"],
+          vim = rainbow.strategy["local"],
+        },
+        query = {
+          [""] = "rainbow-delimiters",
+          lua = "rainbow-blocks",
+          python = "rainbow-blocks",
+          r = "rainbow-blocks",
+          -- julia = "rainbow-delimiters",
+          julia = "rainbow-blocks",
+        },
+        highlight = {
+          "RainbowDelimiterRed",
+          "RainbowDelimiterYellow",
+          "RainbowDelimiterBlue",
+          "RainbowDelimiterOrange",
+          "RainbowDelimiterGreen",
+          "RainbowDelimiterViolet",
+          "RainbowDelimiterCyan",
+        },
+        blacklist = { "cpp" },
+      })
+    end,
+  },
   -- add send-to-term
   -- { "mtikekar/nvim-send-to-term" },
   -- add folke zen instaead of goyo
