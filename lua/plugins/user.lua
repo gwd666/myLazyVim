@@ -42,6 +42,8 @@ return {
       require("nnn").setup()
     end,
   },
+  -- add lualine-lsp-progress
+  { "arkav/lualine-lsp-progress" },
   -- adding harpoon - this is the original repo
   {
     "ThePrimeagen/harpoon",
