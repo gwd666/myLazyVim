@@ -41,10 +41,13 @@ map("n", "<C-o>", "<C-o>zz", { noremap = true, silent = true })
 
 -- Replace All - original from: https://gist.github.com/GllmR/80de5fb8824a758bafdb390e0a471480
 -- that giist is a sinvgle file init.lua ... but ut has lazy and all of it included as well
--- Replace All - my mapping to CTRL-H since that resembles Windows and Notepad replacel
-vim.keymap.set("n", "<C-h>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set(
+  "n",
+  "<leader>h",
+  [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+  { noremap = true, desc = "Sed/Replace global" }
+)
 
--- remove WIN CRLF meta char when encoding get messed up
 map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "Fix ^M or Windows CRLF meta chars in file" })
 
 -- map jk to ESC
@@ -212,4 +215,99 @@ wk.add({
   { "<leader>Ts", require("telescope.builtin").lsp_document_symbols, desc = "Lsp Docu Symbols" },
   { "<leader>Tx", require("telescope.builtin").treesitter, desc = "TreeSitter Funcs/Vars Ref" },
 })
-map("n", "TS", "ts$")
+
+-- keymaps for HARPOON - all starting with M- (Alt) key
+-- and UPPERCASE letters except for M-q to toggle the harpoon quick menu
+local harpoon = require("harpoon")
+wk.add({
+  { "<leader>H", group = "Harpoon" },
+  -- { "<leader>Hq", "<cmd>lua require'harpoon.ui'.toggle_quick_menu()<CR>", desc = "Harpoon QuickMenu" },
+  { "<leader>HT", "<cmd>Telescope harpoon marks<CR>", desc = "Telescope Harpoon marks" },
+  {
+    "<leader>Ha",
+    function()
+      harpoon:list():add()
+    end,
+    desc = "Add Harpoon mark",
+  },
+  {
+    "<leader>Hq",
+    function()
+      harpoon.ui:toggle_quick_menu(harpoon:list())
+    end,
+    desc = "Harpoon QuickMenu",
+  },
+  {
+    "<leader>H1",
+    function()
+      harpoon:list():select(1)
+    end,
+    desc = "Goto File 1",
+  },
+  {
+    "<leader>H2",
+    function()
+      harpoon:list():select(2)
+    end,
+    desc = "Goto File 2",
+  },
+  {
+    "<leader>H3",
+    function()
+      harpoon:list():select(3)
+    end,
+    desc = "Goto File 3",
+  },
+  {
+    "<leader>H4",
+    function()
+      harpoon:list():select(4)
+    end,
+    desc = "Goto File 4",
+  },
+  {
+    "<leader>Hn",
+    function()
+      harpoon:list():next()
+    end,
+    desc = "Goto next Harpoon mark",
+  },
+  {
+    "<leader>Hp",
+    function()
+      harpoon:list():prev()
+    end,
+    desc = "Goto previous Harpoon mark",
+  },
+})
+-- here are some additional real harpoon "shortcuts" ie just two keys at most, but w/o the which-key group
+-- toggle the Harpoon QuickMenu with M-q ie Alt-q
+vim.keymap.set("n", "<M-q>", function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end, { silent = true, desc = "Toggle Harpoon QuickMenu" })
+-- -- show harpoon marks in Telescope w M-Q
+vim.keymap.set("n", "<M-Q>", ":Telescope harpoon marks<CR>", { silent = false, desc = "Telescope Harpoon marks" })
+-- -- add harpoons
+vim.keymap.set("n", "<M-a>", function()
+  harpoon:list():add()
+end, { silent = false, desc = "Add Harpoon file mark" })
+-- -- switch to M-N uppercase since lowercase acts like C-n
+vim.keymap.set("n", "<M-N>", function()
+  harpoon:list():next()
+end, { silent = true, desc = "Goto next Harpoon mark" })
+-- switch to M-N uppercase since lowercase M-n acts like C-p
+vim.keymap.set("n", "<M-P>", function()
+  harpoon:list():prev()
+end, { silent = true, desc = "Goto previous Harpoon mark" })
+
+-- workaruond from here: https://github.com/ThePrimeagen/harpoon/issues/178#issuecomment-1174520639
+map(
+  "n",
+  "<leader>Hh",
+  "<cmd>lua require('telescope').extensions.harpoon.marks({attach_mappings=function(_, map) map('i', '<c-d>', require('telescope.actions').preview_scrolling_down) return true end})<CR>",
+  { noremap = true, desc = "Remap harpoon preview screen to scroll down" }
+)
+
+-- vim.keymap.set("n", "<leader>fH", "<cmd>Telescope harpoon marks<CR>", { desc = "Open Telescope harpoon window" })
+
+-- end of keymaps.lua

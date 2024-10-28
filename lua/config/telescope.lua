@@ -2,7 +2,9 @@
 local previewers = require("telescope.previewers")
 local plenarypath = vim.fn.stdpath("data") .. "/lazy/plenary.nvim"
 local project_actions = require("telescope._extensions.project.actions")
+
 local harpoon = require("harpoon")
+harpoon:setup({})
 
 vim.opt.rtp:prepend(plenarypath)
 local Job = require("plenary.job")
@@ -147,7 +149,7 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
       on_project_selected = function(prompt_bufnr)
         -- Do anything you want in here. For example:
         project_actions.change_working_directory(prompt_bufnr, false)
-        require("harpoon.ui"):toggle_quick_menu(harpoon:list())
+        -- require("harpoon.ui"):toggle_quick_menu(harpoon:list())
       end,
     },
   },

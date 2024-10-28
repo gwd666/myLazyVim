@@ -33,6 +33,7 @@ else
   require("config.lazy")
   require("config.telescope")
   require("config.chatgpt")
+  require("config.harpoon")
   -- moved all the colorscheme stuff to plugins/colorscheme.lua
   -- define the colorscheme
   -- use tokyonight cs in telescope mod fashion - this will only work from her on since needs require call above to work
