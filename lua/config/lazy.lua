@@ -50,26 +50,37 @@ require("lazy").setup({
   },
 })
 
+-- set up indent-blankline
+require("config.ibl")
+-- require("config.lualine")
+require("config.lsp_status")
+
+-- SET UP SOME COLOR SCHEMES
 -- make some tokyonight setup mods
-require("tokyonight").setup({
-  -- use the night style
-  style = "storm",
-  -- disable italic for functions
-  styles = {
-    functions = {},
-  },
-  sidebars = { "qf", "vista_kind", "terminal", "packer" },
-  -- Change the "hint" color to the "orange" color, and make the "error" color bright red
-  on_colors = function(colors)
-    colors.hint = colors.orange
-    colors.error = "#ff0000" -- red
-  end,
-})
+-- require("tokyonight").setup({
+--   -- use the night style
+--   style = "storm",
+--   -- disable italic for functions
+--   styles = {
+--     functions = {},
+--   },
+--   sidebars = { "qf", "vista_kind", "terminal", "packer" },
+--   -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+--   on_colors = function(colors)
+--     colors.hint = colors.orange
+--     colors.error = "#ff0000" -- red
+--   end,
+-- })
 
 -- COMMENT OUT because of annoying warning about indent-blankline plugin
 --
 -- make Telescope borderless with tokyonight cs
 require("tokyonight").setup({
+  -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+  on_colors = function(colors)
+    colors.hint = colors.orange
+    colors.error = "#ff0000" -- red
+  end,
   on_highlights = function(hl, c)
     local prompt = "#2d3149"
     hl.TelescopeNormal = {

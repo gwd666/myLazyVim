@@ -17,8 +17,10 @@ vim.cmd("set rtp^='/home/gwd/.opam/default/share/ocp-indent/vim'")
 
 -- share clipboard with system clipboard
 vim.opt.clipboard = "unnamedplus"
+
 -- ignore case when searching
 vim.cmd("set ignorecase")
+
 -- ignore cse if pattern is only lowercase - if there's a capital letter in the search, it's case-sensitive
 vim.cmd("set smartcase")
 

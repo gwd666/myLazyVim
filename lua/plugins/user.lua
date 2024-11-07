@@ -44,6 +44,13 @@ return {
   },
   -- add lualine-lsp-progress
   { "arkav/lualine-lsp-progress" },
+  -- add lsp_staus
+  {
+    "nvim-lua/lsp-status.nvim",
+    -- config = function()
+    --   require("lsp-status").register_progress()
+    -- end,
+  },
   -- adding harpoon - this is the original repo
   {
     "ThePrimeagen/harpoon",
@@ -54,9 +61,20 @@ return {
       require("telescope").load_extension("harpoon")
     end,
   },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
+  },
   -- { -- this is my fork with slightly diff keymappings
   --   "gwd666/harpoon", -- switch to my fork to avoid C-d mapping
-  --   branch = "harpoon2",
+
+  on_colors = function(colors)
+    colors.hint = colors.orange
+    colors.error = "#ff0000" -- red
+  end, --   branch = "harpoon2",
   --   requires = { { "nvim-lua//plenary.nvim" }, { "nvim-telescope/telescope.nvim" } },
   --   config = function()
   --     require("harpoon").setup()
@@ -129,6 +147,22 @@ return {
       "nvim-lua/plenary.nvim",
       "folke/trouble.nvim",
       "nvim-telescope/telescope.nvim",
+    },
+  },
+  {
+    "Julian/lean.nvim", -- from: https://github.com/Julian/lean.nvim
+    event = { "BufReadPre *.lean", "BufNewFile *.lean" },
+
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "nvim-lua/plenary.nvim",
+      -- you also will likely want nvim-cmp or some completion engine
+    },
+
+    -- see details below for full configuration options
+    opts = {
+      lsp = {},
+      mappings = true, -- enables default key mappings
     },
   },
   -- change mason config

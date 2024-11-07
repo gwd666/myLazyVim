@@ -80,6 +80,7 @@ return {
       ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
     }
 
+    -- ############################################################################
     lspconfig.julials.setup({
       filetypes = {
         "julia",
@@ -95,17 +96,33 @@ return {
       -- root_dir = lspconfig.util.root_pattern("Project.toml", "JuliaProject.toml", ".git", vim.fn.getcwd()),
     })
 
+    -- ############################################################################
     --  try to fix ""multiple different client offset_encodings detected" warning for clangd lsp
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
+
     lspconfig.clangd.setup({
       on_attach = on_attach,
+      filetypes = { "c", "cpp", "objc", "objcpp" },
       capabilities = cmp_nvim_lsp.default_capabilities(),
       cmd = {
         "clangd",
-        "--offset-encoding=utf-16",
+        -- "--all-scopes-completion",
+        -- "--suggest-missing-includes",
+        -- "--background-index",
+        -- "--pch-storage=disk",
+        -- "--cross-file-rename",
+        -- "--log=info",
+        -- "--completion-style=detailed",
+        -- "--enable-config", -- clangd 11+ supports reading from .clangd configuration file
+        -- "--clang-tidy",
+        "--offset-encoding=utf-16", -- this is the line that should fix the warning
+        -- "--clang-tidy-checks=-*,llvm-*,clang-analyzer-*,modernize-*,-modernize-use-trailing-return-type",
+        -- "--fallback-style=Google",
+        -- "--header-insertion=never",
+        -- "--query-driver=<list-of-white-listed-compilers>"--offset-encoding=utf-16",
       },
     })
-
+    -- ############################################################################
     lspconfig.gopls.setup({
       on_attach = on_attach,
       filetypes = { "go", "gomod" },
@@ -121,6 +138,7 @@ return {
       root_dir = lspconfig.util.root_pattern("go.mod", ".git", vim.fn.getcwd()),
     })
 
+    -- ############################################################################
     lspconfig.powershell_es.setup({
       on_attach = on_attach,
       filetypes = { "ps1", "psm1", "psd1" },
@@ -131,6 +149,7 @@ return {
       },
     })
 
+    -- ############################################################################
     -- Do not forget to use the on_attach function
     lspconfig.zls.setup({
       on_attach = on_attach,
@@ -140,6 +159,16 @@ return {
       root_dir = lspconfig.util.root_pattern(".git", "build.zig", vim.fn.getcwd()),
     }) -- this put HERE - made 'zls' workk!
 
+    -- ############################################################################
+    -- lspconfig.ruff.setup({ -- you need to install ruff via pip install ruff before using this!
+    --   on_attach = on_attach,
+    --   handlers = handlers,
+    --   cmd = { "ruff" },
+    --   filetypes = { "ruff" },
+    --   root_dir = lspconfig.util.root_pattern(".git", "ruff.toml", vim.fn.getcwd()),
+    -- })
+
+    -- ############################################################################
     -- this commented out code below - breaks command completion in vim COMMAND mode/prompt
     -- '/' cmdline setup
     -- local cmp = require("cmp")
