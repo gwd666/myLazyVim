@@ -58,6 +58,9 @@ return {
     end
 
     require("neo-tree").setup({
+      -- opts = {
+      close_if_last_window = true, -- close Neo-tree if it's the last window left
+      -- },
       update_focused_file = { enable = true },
       event_handlers = {
         -- event handlers to hide cursor in neootree window - only see the line hgighlight
@@ -117,7 +120,7 @@ return {
           mappings = {
             ["tf"] = "telescope_find",
             ["tg"] = "telescope_grep",
-            ["o"] = "system_open", -- mapping for system_open command bdlow
+            ["o"] = "system_open", -- mapping for system_open command below
           },
         },
         components = {
@@ -131,20 +134,23 @@ return {
               if string.sub(item.value, 1, 1) ~= "/" then
                 value = harpoon_key .. "/" .. item.value
               end
+
               if value == path then
                 vim.print(path)
                 return {
-                  text = string.format(" ⥤ %d", i), -- <-- Add your favorite harpoon like arrow here
+                  text = string.format(" ⥤  %d", i), -- <-- Add your favorite harpoon like arrow here
                   highlight = config.highlight or "NeoTreeDirectoryIcon",
                 }
               end
             end
             return {} -- end of version 1
             -- version 2: alternative if aobove fails
+            -- local Marked = require("harpoon.mark")
+            -- local path = node:get_id()
             -- local success, index = pcall(Marked.get_index_of, path)
             -- if success and index and index > 0 then
             --   return {
-            --     text = string.format(" ⥤ %d", index), -- <-- Add your favorite harpoon like arrow here
+            --     text = string.format(" ⥤  %d", index), -- <-- Add your favorite harpoon like arrow here
             --     highlight = config.highlight or "NeoTreeDirectoryIcon",
             --   }
             -- else
@@ -153,17 +159,17 @@ return {
             --   }
             -- end -- end of version 2
           end,
-        },
+        }, -- end of components
+        renderers = { -- added for harpoon_index
+          file = {
+            { "icon" },
+            { "name", use_git_status_colors = true }, -- fiel name
+            { "harpoon_index" }, --> This is what actually adds the component in where you want it
+            { "diagnostics" },
+            { "git_status", highlight = "NeoTreeDimText" },
+          },
+        }, -- end of renderers
       }, -- end of filesystem
-      renderers = { -- added for harpoon_index
-        file = {
-          { "icon" },
-          { "name", use_git_status_colors = true },
-          { "harpoon_index" }, --> This is what actually adds the component in where you want it
-          { "diagnostics" },
-          { "git_status", highlight = "NeoTreeDimText" },
-        },
-      }, -- end of renderers
       icon = {
         folder_closed = "",
         folder_open = "",
