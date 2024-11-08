@@ -56,24 +56,32 @@ require("mason").setup({
   PATH = "prepend", -- "skip" seems to cause spwawning errors in CMD
 })
 
+-- set up indent-blankline
+require("config.ibl")
+
 -- make some tokyonight setup mods
+-- require("tokyonight").setup({
+--   -- use the night style
+--   style = "storm",
+--   -- disable italic for functions
+--   styles = {
+--     functions = {},
+--   },
+--   sidebars = { "qf", "vista_kind", "terminal", "packer" },
+--   -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+--   on_colors = function(colors)
+--     colors.hint = colors.orange
+--     colors.error = "#ff0000" -- red
+--   end,
+-- })
+
+-- make Telescope borderless with tokyonight cs
 require("tokyonight").setup({
-  -- use the night style
-  style = "storm",
-  -- disable italic for functions
-  styles = {
-    functions = {},
-  },
-  sidebars = { "qf", "vista_kind", "terminal", "packer" },
   -- Change the "hint" color to the "orange" color, and make the "error" color bright red
   on_colors = function(colors)
     colors.hint = colors.orange
     colors.error = "#ff0000" -- red
   end,
-})
-
--- make Telescope borderless with tokyonight cs
-require("tokyonight").setup({
   on_highlights = function(hl, c)
     local prompt = "#2d3149"
     hl.TelescopeNormal = {
