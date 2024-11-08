@@ -74,6 +74,13 @@ return {
       require("telescope").load_extension("harpoon")
     end,
   },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
+  },
   -- add zig.vim
   { "ziglang/zig.vim" },
   -- add rainbow-delimeters
