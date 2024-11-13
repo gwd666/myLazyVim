@@ -1,3 +1,4 @@
+-- Plugin: nvim-neo-tree/neo-tree.nvim
 return {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
@@ -33,7 +34,6 @@ return {
     vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
     vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
     vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
-
     -- define this loacl getTelesocpeOpts func to use in 'commands' config below
     local function getTelescopeOpts(state, path)
       return {
@@ -134,7 +134,6 @@ return {
               if string.sub(item.value, 1, 1) ~= "/" then
                 value = harpoon_key .. "/" .. item.value
               end
-
               if value == path then
                 vim.print(path)
                 return {
@@ -163,7 +162,7 @@ return {
         renderers = { -- added for harpoon_index
           file = {
             { "icon" },
-            { "name", use_git_status_colors = true }, -- fiel name
+            { "name", use_git_status_colors = true }, -- file name
             { "harpoon_index" }, --> This is what actually adds the component in where you want it
             { "diagnostics" },
             { "git_status", highlight = "NeoTreeDimText" },
