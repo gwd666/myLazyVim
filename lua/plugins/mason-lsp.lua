@@ -7,17 +7,17 @@ local servers = {
   "codelldb",
   "cpptools",
   "elixir-ls",
-  "flake8",
-  "gofumpt",
-  "goimports",
+  -- "flake8", -- tht's a linter and not a lsp
+  -- "gofumpt", -- not a lsp
+  -- "goimports", -- not a lsp
   "gopls",
-  "jq",
+  -- "jq", -- a formatter anf not a lsp
   "json-lsp",
   "julia-lsp",
   "lua-language-server",
-  "markdown-toc",
-  "markdownlint-cli2",
-  "marksman",
+  "markdown-toc", -- despite being a formatter it was possible to install it here?
+  "markdownlint-cli2", -- despite being a formatter it was possible to install it here?
+  "marksman", -- that is a markdown lsp
   "ocaml-lsp",
   "powershell-editor-services",
   "pyright",
@@ -28,22 +28,37 @@ local servers = {
   "shfmt",
   "sqls",
   "stylua",
-  "taplo",
+  "taplo", -- toml toolkit written in rust
   "zls",
 }
 
 return {
-  require("mason").setup({
-    ui = {
-      icons = {
-        package_installed = "✓",
-        package_pending = "➜",
-        package_uninstalled = "✗",
-      },
+  {
+    "williamboman/mason.nvim",
+    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+    build = ":MasonUpdate",
+    dependencies = {
+      "williamboman/mason-lspconfig.nvim",
     },
-  }),
-  require("mason-lspconfig").setup({
-    ensure_installed = servers,
-    automatic_installation = true,
-  }),
+    config = function()
+      require("mason").setup({
+        ui = {
+          icons = {
+            package_installed = "",
+            package_pending = "",
+            -- package_uninstalled = "",
+            -- alternavive icons
+            --       package_installed = "✓",
+            --       package_pending = "➜",
+            package_uninstalled = "✗",
+          },
+        },
+      })
+      -- require("mason-lspconfig").setup()
+      require("mason-lspconfig").setup({
+        ensure_installed = servers,
+        automatic_installation = true,
+      })
+    end,
+  },
 }
