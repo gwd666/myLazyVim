@@ -24,7 +24,7 @@ require("chatgpt").setup({ -- for the below to work you need to run gpg -d secre
   openai_params = {
     model = "gpt-4o",
     temperature = 0.1,
-    max_tokens = 300,
+    max_tokens = 400,
     frequency_penalty = 0,
     presence_penalty = 0,
     top_p = 1,
