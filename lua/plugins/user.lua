@@ -165,20 +165,9 @@ return {
       mappings = true, -- enables default key mappings
     },
   },
-  -- change mason config
-  -- trying to change mason ui iconvs - naaa not working - todo
-  {
-    "mason.nvim",
-    ui = {
-      icons = {
-        package_installed = "✓",
-        package_pending = "➜",
-        package_uninstalled = "✗",
-      },
-    },
-  },
-  {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    dependencies = { "mason.nvim" },
-  },
+  -- mason config is in lua/config/mason.lua
+  -- {
+  --   "WhoIsSethDaniel/mason-tool-installer.nvim",
+  --   dependencies = { "mason.nvim" },
+  -- },
 }
