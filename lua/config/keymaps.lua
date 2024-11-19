@@ -288,7 +288,8 @@ map("n", "<C-M-p>", ":NnnPicker<CR>", { desc = "Open nnn Picker in curr buffer" 
 wk.add({
   { "<leader>T", group = "Terminal/TSitter/Lsp" },
   -- new terminal in normal mode below current window size 25
-  { "<leader>Tb", "<cmd>below 25sp term://zsh<CR>", desc = "New terminal below" },
+  -- { "<leader>Tb", "<cmd>below 25sp term://zsh<CR>", desc = "New terminal below" },
+  { "<leader>Tb", "<cmd>lua Snacks.terminal()<CR>", desc = "New terminal below" },
   { "<leader>Tr", "<cmd>rightb :vert :term<CR>", desc = "New terminal vertical split on right" },
   { "<leader>Td", require("telescope.builtin").lsp_definitions, desc = "Lsp Definitions" },
   { "<leader>Ts", require("telescope.builtin").lsp_document_symbols, desc = "Lsp Docu Symbols" },
