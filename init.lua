@@ -40,7 +40,7 @@ else
   require("config.telescope")
   -- load chatgpt config
   require("config.chatgpt")
-  require("config.harpoon")
+  -- require("config.harpoon") -- now in lazy extras
   -- require("config/lualine")
   -- moved all the colorscheme stuff to plugins/colorscheme.lua
   -- choose a colorscheme
@@ -50,9 +50,9 @@ else
   -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
   -- -- vim.api.nvim_command([[ colorscheme gruvbox-baby ]])
   -- -- vim.api.nvim_command([[ colorscheme gruvbuddy ]])
-  vim.api.nvim_command([[ colorscheme nord ]])
+  -- vim.api.nvim_command([[ colorscheme nord ]])
   -- vim.api.nvim_command([[ colorscheme onedarker ]])
-  -- vim.api.nvim_command([[ colorscheme onenord ]])
+  vim.api.nvim_command([[ colorscheme onenord ]])
   -- vim.api.nvim_command([[ colorscheme material-palenight ]])
   -- vim.api.nvim_command([[ colorscheme monokai-pro-machine ]])
   -- vim.api.nvim_command([[ colorscheme monokai-pro-octagon ]])
