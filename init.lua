@@ -37,14 +37,14 @@ else
   -- bootstrap lazy.nvim, LazyVim and your plugins
   require("config.lazy")
   -- load telescope config
-  require("config.telescope")
+  -- require("config.telescope")
   -- load chatgpt config
   require("config.chatgpt")
   -- require("config.harpoon") -- now in lazy extras
   -- require("config/lualine")
   -- moved all the colorscheme stuff to plugins/colorscheme.lua
   -- choose a colorscheme
-  -- vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
+  vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
   -- vim.api.nvim_command([[ colorscheme catppuccin-mocha ]])
   -- vim.api.nvim_command([[ colorscheme gruvbox ]])
   -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
@@ -52,7 +52,7 @@ else
   -- -- vim.api.nvim_command([[ colorscheme gruvbuddy ]])
   -- vim.api.nvim_command([[ colorscheme nord ]])
   -- vim.api.nvim_command([[ colorscheme onedarker ]])
-  vim.api.nvim_command([[ colorscheme onenord ]])
+  -- vim.api.nvim_command([[ colorscheme onenord ]])
   -- vim.api.nvim_command([[ colorscheme material-palenight ]])
   -- vim.api.nvim_command([[ colorscheme monokai-pro-machine ]])
   -- vim.api.nvim_command([[ colorscheme monokai-pro-octagon ]])
@@ -62,6 +62,7 @@ else
   require("telekasten").setup({
     home = vim.fn.expand("~/zettelkasten"), -- Put the name of your notes directory here
   })
+  -- --------------------------------------------------------------------------  -- ----------------------------------------------------------------------------
   ------------------------------------------------------------------------------
   -- print("=== Finished " .. os.getenv("HOME") .. ".config/nvim/init.lua " .. " part =====")
 end

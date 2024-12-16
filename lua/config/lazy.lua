@@ -1,3 +1,4 @@
+-- start lazy.nvim load
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   -- bootstrap lazyj.nvim
@@ -14,7 +15,8 @@ require("lazy").setup({
     -- { import = "lazyvim.plugins.extras.lang.typescript" },
     -- { import = "lazyvim.plugins.extras.lang.json" },
     { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    { import = "lazyvim.plugins.extras.ai.copilot" },
+    -- { import = "lazyvim.plugins.extras.ai.copilot" },
+    -- { import = "lazyvim.plugins.extras.ai.copilot-chat" },
     -- import/override with your plugins
     { import = "plugins", concurrency = 30 },
   },
@@ -27,7 +29,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "tokyonight", "habamax", "gruvbox", "catppuccin" } },
+  install = { colorscheme = { "tokyonight", "habamax", "onenord", "gruvbox", "catppuccin" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {
@@ -39,7 +41,7 @@ require("lazy").setup({
         -- "netrwPlugin",
         "tarPlugin",
         "tohtml",
-        -- "tutor",
+        "tutor",
         "zipPlugin",
       },
     },
@@ -51,8 +53,13 @@ require("lazy").setup({
 })
 
 -- set up indent-blankline
-require("config.ibl")
+-- require("config.ibl")
+
+-- make bat default previewer
+require("fzf-lua").setup({ "telescope", winopts = { preview = { default = "bat" } } })
+
 -- require("config.lualine")
+
 require("config.lsp_status")
 
 -- SET UP SOME COLOR SCHEMES
@@ -138,7 +145,7 @@ for hl, col in pairs(TelescopeColor) do
 end
 
 require("catppuccin").setup({
-  -- transparent_background = true, --false, -- if true nvim will be transparent!
+  transparent_background = true, --false, -- if true nvim will be transparent!
   integrations = {
     cmp = true,
     nvimtree = true,

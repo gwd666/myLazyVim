@@ -98,12 +98,12 @@ return {
 
     -- ############################################################################
     --  try to fix ""multiple different client offset_encodings detected" warning for clangd lsp
-    local cmp_nvim_lsp = require("cmp_nvim_lsp")
+    -- local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
     lspconfig.clangd.setup({
       on_attach = on_attach,
       filetypes = { "c", "cpp", "objc", "objcpp" },
-      capabilities = cmp_nvim_lsp.default_capabilities(),
+      -- capabilities = cmp_nvim_lsp.default_capabilities(),
       cmd = {
         "clangd",
         -- "--all-scopes-completion",
