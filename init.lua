@@ -33,26 +33,24 @@ else
   require("config.lazy")
   require("config.telescope")
   require("config.chatgpt")
-  require("config.harpoon")
+  -- require("config.harpoon") -- now in LazyExtras
   -- moved all the colorscheme stuff to plugins/colorscheme.lua
   -- define the colorscheme
   -- use tokyonight cs in telescope mod fashion - this will only work from her on since needs require call above to work
   -- vim.api.nvim_command([[ colorscheme tokyonight ]])
   -- vim.api.nvim_command([[ colorscheme tokyonight-storm ]])
   -- vim.api.nvim_command([[ colorscheme habamax ]])
-  -- vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
+  vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
   -- vim.api.nvim_command([[ colorscheme catppuccin-mocha ]])
-  -- vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
   -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
   -- vim.api.nvim_command([[ colorscheme gruvbuddy ]])
-  vim.api.nvim_command([[ colorscheme onenord ]])
+  -- vim.api.nvim_command([[ colorscheme onenord ]])
   -- vim.api.nvim_command([[ colorscheme onedarker ]])
   -- vim.api.nvim_command([[ colorscheme material-palenight ]])
   -- vim.api.nvim_command([[ colorscheme monokai-pro-machine ]])
   -- vim.api.nvim_command([[ colorscheme monokai-pro-octagon ]])
   -- vim.api.nvim_command([[ colorscheme monokai-pro-ristretto ]])
   -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
-  -- vim.api.nvim_command([[ colorscheme zaibatsu ]])
   -- handle a weird path error in cse neovim is started in Git Bash
   if os.getenv("TERM") == "xterm-256color" and os.getenv("SHELL") == "C:\\Program Files\\Git\\usr\\bin\\bash.exe" then
     print("Neovim started in Git Bash? Modifying/Fixing SHELL env var!")

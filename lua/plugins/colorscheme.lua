@@ -19,6 +19,8 @@ return {
   -- add catppuccin colorscheme
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   -- add gruvbox themes
+  -- adding TJ colorbuddy
+  { "tjdevries/colorbuddy.vim" }, -- this now also includes gruvbuddy
   { "luisiacc/gruvbox-baby" },
   { "sainnhe/gruvbox-material" },
   { "ellisonleao/gruvbox.nvim" },

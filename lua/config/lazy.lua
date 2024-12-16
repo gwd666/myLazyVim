@@ -12,7 +12,6 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 --   vim.fn.system("firefox -new-window -url " .. url)
 -- end
 -- vim.g.mkdp_browserfunc = "OpenMarkdownPreview"
-
 require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
@@ -20,9 +19,11 @@ require("lazy").setup({
     -- import any extras modules here
     -- { import = "lazyvim.plugins.extras.lang.typescript" },
     -- { import = "lazyvim.plugins.extras.lang.json" },
-    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    { import = "lazyvim.plugins.extras.ai.copilot" },
+    { import = "lazyvim.plugins.extras.ai.copilot-chat" },
     -- import/override with your plugins
-    { import = "plugins" },
+    { import = "plugins", concurrency = 30 },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
@@ -33,7 +34,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "tokyonight", "habamax", "onenord" } },
+  install = { colorscheme = { "tokyonight", "habamax", "onenord", "gruvbox", "catppuccin" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {
@@ -41,7 +42,7 @@ require("lazy").setup({
       disabled_plugins = {
         "gzip",
         "matchit",
-        -- "matchparen",
+        "matchparen",
         -- "netrwPlugin",
         "tarPlugin",
         "tohtml",
@@ -50,6 +51,10 @@ require("lazy").setup({
       },
     },
   },
+  opts = {
+    colorscheme = "catppuccin", -- "gruvbox", or "tokyonight",
+    style = "frappe", -- "baby" or "material" for gruvbox -- "storm", ... for tokyonight, "frappe", ... for catppuccin
+  },
 })
 
 require("mason").setup({
@@ -57,7 +62,10 @@ require("mason").setup({
 })
 
 -- set up indent-blankline
-require("config.ibl")
+-- require("config.ibl")
+
+-- make bat the defautlt previewer
+require("fzf-lua").setup({ "telescope", winopts = { preview = { default = "bat" } } })
 
 -- make some tokyonight setup mods
 -- require("tokyonight").setup({
@@ -113,18 +121,63 @@ require("tokyonight").setup({
     }
   end,
 })
-----------------
+
+-------------- catppuccin setup -----------------------
+-- try to make Telescope borderless with catppuccin cs
+
+local colors = require("catppuccin.palettes").get_palette()
+local TelescopeColor = {
+  TelescopeMatching = { fg = colors.flamingo },
+  TelescopeSelection = { fg = colors.text, bg = colors.surface0, bold = true },
+
+  TelescopePromptPrefix = { bg = colors.surface0 },
+  TelescopePromptNormal = { bg = colors.surface0 },
+  TelescopeResultsNormal = { bg = colors.mantle },
+  TelescopePreviewNormal = { bg = colors.mantle },
+  TelescopePromptBorder = { bg = colors.surface0, fg = colors.surface0 },
+  TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
+  TelescopePreviewBorder = { bg = colors.mantle, fg = colors.mantle },
+  TelescopePromptTitle = { bg = colors.pink, fg = colors.mantle },
+  TelescopeResultsTitle = { fg = colors.mantle },
+  TelescopePreviewTitle = { bg = colors.green, fg = colors.mantle },
+}
+
+for hl, col in pairs(TelescopeColor) do
+  vim.api.nvim_set_hl(0, hl, col)
+end
+
 require("catppuccin").setup({
-  transparent_background = true, --false, -- if true nvim will be transparent!
+  transparent_background = false, --false|true -- if true nvim will be transparent!
   integrations = {
     cmp = true,
     nvimtree = true,
     treesitter = true,
-    notify = false,
+    treesitter_context = true,
+    notify = true, --false,
+    neotree = true,
     mason = true,
     harpoon = true,
     telescope = true,
     telekasten = true,
     which_key = true,
+  },
+  color_ovcerrides = {
+    frappe = { -- originally mocha was used here
+      base = "#1c1917",
+      blue = "#22d3ee",
+      green = "#86efac",
+      flamingo = "#D6409F",
+      lavender = "#DE51A8",
+      pink = "#f9a8d4",
+      red = "#fda4af",
+      maroon = "#f87171",
+      mauve = "#D19DFF",
+      text = "#E8E2D9",
+      sky = "#7ee6fd",
+      yellow = "#fde68a",
+      rosewater = "#f4c2c2",
+      peach = "#fba8c4",
+      teal = "#4fd1c5",
+    },
   },
 })
