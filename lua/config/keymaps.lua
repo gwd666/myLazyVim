@@ -6,12 +6,14 @@ local map = vim.keymap.set
 local wk = require("which-key")
 local opt = { silent = true }
 
+local builtin = require("telescope.builtin")
+
 map("n", "<leader><leader>", function()
   local is_git = os.execute("git") == 0
   if is_git then
-    require("telescope.builtin").git_files()
+    builtin.git_files()
   else
-    require("telescope.builtin").find_files()
+    builtin.find_files()
   end
 end)
 
@@ -19,13 +21,14 @@ end)
 -- fast editing and reloading of init.lua config embed vimscript code in vim.cmd(.....)
 -- use vim.cmd([[   ]]) for multi-line
 vim.cmd([[
-autocmd! bufwritepost ~/.config/nvim/init.lua source ~/.config/nvim/init.lua
+  autocmd! bufwritepost ~/.config/nvim/init.lua source ~/.config/nvim/init.lua
 ]])
 
+-- Edit init.lua
 map("n", ",ee", ":e! ~/.config/nvim/init.lua<CR>", { silent = false, desc = "Edit nvim/init.lua file" })
 
 -- map comma+c to 'close buffer'
-map("n", ",c", ":bd<CR>:bnext<CR>:Neotree show<CR>", { silent = true, desc = "Close current Buffer" })
+map("n", ",c", ":bd<CR>:bnext<CR>:Neotree show %h<CR>", { silent = true, desc = "Close current Buffer move to next" })
 
 -- reset or umnap the <S-h> and <S-h> mappings to some default behaviour
 -- ie Shift H to move to top and Shift L to move to bottom
@@ -54,7 +57,7 @@ map("n", "N", "Nzzzv", { noremap = true, desc = "Back search '/' or '?'" })
 map("n", "#", "#zzz", { noremap = true, silent = true, desc = "Search word under cursor and center" })
 map("n", "<C-o>", "<C-o>zz", { noremap = true, silent = true })
 
--- Replace All - original from: https://gist.github.com/GllmR/80de5fb8824a758bafdb390e0a471480
+-- Replace All - original source for that mapping is from: https://gist.github.com/GllmR/80de5fb8824a758bafdb390e0a471480
 -- that giist is a single file init.lua ... but ut has lazy and all of it included as well
 vim.keymap.set(
   "n",
@@ -72,12 +75,15 @@ map("i", "jj", "<ESC>", { noremap = true, silent = true })
 
 -- map F2-4 [no longer <C-t>] to toggle Neotree
 -- note: you can switch between those Neotree tabs 'Files', 'Buffers', 'Git' with "<" and ">" key
-map("n", "<F2>", ":Neotree show source=filesystem toggle=true<CR>", { silent = true, desc = "NTree toggle" })
-map("n", "<F3>", ":Neotree source=buffers toggle=true<CR>", { silent = true, desc = "NTree buffers" })
-map("n", "<F4>", ":Neotree source=git_status float toggle=true<CR>", { silent = true, desc = "NTree git_status" })
-
--- map <comma>CD (upppercase CD) to change working dir to curr buffer parent dir
+-- local ntreecmd = require("neo-tree.command")
+-- map("n", "<F2>", function()
+--   ntreecmd.execute({ toggle = true, dir = vim.uv.cwd() })
+-- end, { silent = true, desc = "NTree toggle (cwd)" })
+-- map("n", "<F3>", ":Neotree source=buffers toggle=true<CR>", { silent = true, desc = "NTree buffers" })
+-- map("n", "<F4>", ":Neotree source=git_status float toggle=true<CR>", { silent = true, desc = "NTree git_status" })
+-- -- map <comma>CD (upppercase CD) to set dir to curr buffer parent dir
 map("n", "<leader>CD", ":Neotree %:h<CR>", { silent = true, desc = "Set NeoTree active dir to buffer's dir" })
+map("n", "<leader>e", ":Neotree toggle %:h<CR>", { silent = true, desc = "Explorer NeoTree (Root/Buffer Dir)" })
 
 -- Map <leader>o & <leader>O to newline when in Normal mode ie w/o being followed by insert mode
 map(
@@ -122,13 +128,13 @@ map("n", "<leader>fk", builtin.keymaps, { desc = "Tscope 'n' mode kmaps" })
 map("n", "<leader>fm", "<cmd>NoiceTelescope<CR>", { desc = "NoiceTelescope message/notifications" })
 
 -- find Lazy configuration files
-map(
-  "n",
-  "<leader>fp",
-  "<cmd>lua require('telescope.builtin').find_files({ cwd = require('lazy.core.config').options.root, desc = 'Plugins'})<CR>",
-  -- "<cmd>lua require'tele-git_find_file-config'.project_files()<CR>",
-  { noremap = true, silent = true, desc = "Find 'plugins' files" }
-)
+-- map(
+--   "n",
+--   "<leader>fp",
+--   "<cmd>lua require('telescope.builtin').find_files({ cwd = require('lazy.core.config').options.root, desc = 'Plugins'})<CR>",
+--   -- "<cmd>lua require'tele-git_find_file-config'.project_files()<CR>",
+--   { noremap = true, silent = true, desc = "Find 'plugins' files" }
+-- )
 
 map( -- vim.keymap.set is non-recursive by default so noemrap is not needed
   "n",
@@ -137,10 +143,10 @@ map( -- vim.keymap.set is non-recursive by default so noemrap is not needed
   { silent = true, desc = "Show projects" }
 )
 
--- before the whole ChatGPT group below is added here is a simple quock CopilotChat mappings
+-- before the whole ChatGPT group below is added here is a simple quick CopilotChat mappings
 -- on thos of the default ones you get after hitting <leader>a (for AI I guess)
 -- CopilotChat since leader+cc is recerved for Run-Codelens use Capital C's
-vim.keymap.set("n", "<leader>CC", ":CopilotChatToggle<CR>", opt)
+map("n", "<leader>CC", ":CopilotChatToggle<CR>", opt)
 
 -- chatgpt mappings
 -- local gpt = require("chatgpt")
@@ -224,20 +230,20 @@ map("n", ",<Space>", ":nohls<CR>", { silent = true, desc = "Remove highlighting 
 map("i", "<M-->", " <- ", { noremap = true, silent = true })
 map("i", "<C-_>", " -> ", { noremap = true, silent = true }) -- Meta+Shit+minus opens Terminal below?
 
--- iron.nvim REPL has a bunch of commands,
+-- iron.nvim R:PL has a bunch of commands,
 -- see :h iron-commands for all available commands you might wanna map
 -- map("n", "<leader>rs", "<cmd>IronRepl<cr>", { desc = "IronRepl start" })
 -- map("n", "<leader>rr", "<cmd>IronRestart<cr>", { desc = "IronRepl restart" })
 -- map("n", "<leader>rf", "<cmd>IronFocus<cr>", { desc = "IronRepl focus" })( -- map("n", "<leader>rh", "<cmd>IronHide<cr>", { desc = "IronRepl hide" })
--- ({
---   {
---     mode = { "n" },
---     { "<leader>r", group = "IronRepl", desc = "IronRepl" },
---     { "<leader>rs", "<cmd>IronRepl<cr>", desc = "IronRepl start" },
---     { "<leader>rr", "<cmd>IronRestart<cr>", desc = "IronRepl restart" },
---     { "<leader>rf", "<cmd>IronFocus<cr>", desc = "IronRepl focus" },
---   },
--- })
+wk.add({
+  {
+    mode = { "n" },
+    { "<leader>r", group = "IronRepl", desc = "IronRepl" },
+    --     { "<leader>rs", "<cmd>IronRepl<cr>", desc = "IronRepl start" },
+    --     { "<leader>rr", "<cmd>IronRestart<cr>", desc = "IronRepl restart" },
+    --     { "<leader>rf", "<cmd>IronFocus<cr>", desc = "IronRepl focus" },
+  },
+})
 
 -- telekasten mappings
 -- Launch panel if nothing is typed after <leader>t
@@ -317,34 +323,34 @@ wk.add({
     end,
     desc = "Harpoon QuickMenu",
   },
-  {
-    "<leader>H1",
-    function()
-      harpoon:list():select(1)
-    end,
-    desc = "Goto File 1",
-  },
-  {
-    "<leader>H2",
-    function()
-      harpoon:list():select(2)
-    end,
-    desc = "Goto File 2",
-  },
-  {
-    "<leader>H3",
-    function()
-      harpoon:list():select(3)
-    end,
-    desc = "Goto File 3",
-  },
-  {
-    "<leader>H4",
-    function()
-      harpoon:list():select(4)
-    end,
-    desc = "Goto File 4",
-  },
+  -- { -- those are added as <leader># to main menue anyway by the LazyExtra harpoon extension
+  --   "<leader>H1",
+  --   function()
+  --     harpoon:list():select(1)
+  --   end,
+  --   desc = "Goto File 1",
+  -- },
+  -- {
+  --   "<leader>H2",
+  --   function()
+  --     harpoon:list():select(2)
+  --   end,
+  --   desc = "Goto File 2",
+  -- },
+  -- {
+  --   "<leader>H3",
+  --   function()
+  --     harpoon:list():select(3)
+  --   end,
+  --   desc = "Goto File 3",
+  -- },
+  -- {
+  --   "<leader>H4",
+  --   function()
+  --     harpoon:list():select(4)
+  --   end,
+  --   desc = "Goto File 4",
+  -- },
   {
     "<leader>Hn",
     function()

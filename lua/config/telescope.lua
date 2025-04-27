@@ -1,16 +1,16 @@
--- Make telescope config load automatically loaded on the
--- VeryLazy event
+-- -- Make telescope config load automatically loaded on the
+-- -- VeryLazy event
 local previewers = require("telescope.previewers")
 local plenarypath = vim.fn.stdpath("data") .. "/lazy/plenary.nvim"
 local project_actions = require("telescope._extensions.project.actions")
 local conf = require("telescope.config").values
-
-local harpoon = require("harpoon")
-harpoon:setup({})
-
+--
+-- local harpoon = require("harpoon")
+-- harpoon:setup({})
+--
 vim.opt.rtp:prepend(plenarypath)
 local Job = require("plenary.job")
-
+--
 local new_maker = function(filepath, bufnr, opts)
   opts = opts or {}
   Threshold = 1250000 -- 1.2 MB
@@ -60,7 +60,7 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
     layout_config = {
       vertical = { width = 0.4 },
       horizontal = { height = 0.6 },
-      prompt_position = "bottom", --or "bottom"
+      prompt_position = "rbottom", --or "bottom"
     },
     sorting_strategy = "ascending",
     winblend = 5,
@@ -116,11 +116,11 @@ require("telescope").setup({ -- change some telescope options and a keymap to br
       },
       winblend = 5,
     },
-    help_tags = {
-      theme = "dropdown",
-      winblend = 15,
-      sorting_strategy = "ascending",
-    },
+    -- help_tags = {
+    --   theme = "dropdown",
+    --   winblend = 15,
+    --   sorting_strategy = "ascending",
+    -- },
     live_grep = {
       layout_strategy = "horizontal",
       sorting_strategy = "descending",

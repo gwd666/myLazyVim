@@ -14,7 +14,7 @@ require("lazy").setup({
     -- import any extras modules here
     -- { import = "lazyvim.plugins.extras.lang.typescript" },
     -- { import = "lazyvim.plugins.extras.lang.json" },
-    { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
     -- { import = "lazyvim.plugins.extras.ai.copilot" },
     -- { import = "lazyvim.plugins.extras.ai.copilot-chat" },
     -- import/override with your plugins
@@ -54,12 +54,9 @@ require("lazy").setup({
 
 -- set up indent-blankline
 -- require("config.ibl")
-
 -- make bat default previewer
-require("fzf-lua").setup({ "telescope", winopts = { preview = { default = "bat" } } })
-
--- require("config.lualine")
-
+-- require("fzf-lua").setup({ "telescope", winopts = { preview = { default = "bat" } } })
+require("config.lualine")
 require("config.lsp_status")
 
 -- SET UP SOME COLOR SCHEMES

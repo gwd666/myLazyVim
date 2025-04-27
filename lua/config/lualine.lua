@@ -1,14 +1,18 @@
 -- local custom_gruvbox = require("lualine.themes.gruvbox")
 -- local custom_nord = require("lualine.themes.nord")
 
--- Change the background of lualine_c section for normal mode
+-- -- Change the background of lualine_c section for normal mode
 -- custom_gruvbox.normal.c.bg = "#112233"
 -- custom_nord.normal.c.bg = "#112233"
-
+-- local function hello()
+--   return [[hello world]]
+-- end
+--
 require("lualine").setup({
   -- options = { theme = "onelight" },
+  options = { theme = "tokyonight" },
   -- options = { theme = "onenord" },
-  options = { theme = "nord" },
+  -- options = { theme = "nord" },
   -- options = { theme = custom_nord },
   -- options = { theme = "material" },
   -- options = { theme = "gruvbox" },
@@ -17,29 +21,41 @@ require("lualine").setup({
   -- options = { theme = "gruvbox-material" },
   -- options = { theme = custom_gruvbox },
   sections = {
-    lualine_a = { "mode" },
-    lualine_b = { "branch" },
-    lualine_c = { "filename" },
-    lualine_d = { "lsp_progress" },
-    -- lualine_d = { { lsp_progress = { spinner = "⠋" } } },
-    lualine_e = { { "diagnostics", sources = { "nvim" } } },
-    -- lualine_d = { "lsp_progress" },
-    lualine_w = { require("lsp-status").status() },
-    lualine_x = { "encoding", "fileformat", "filetype" },
-    lualine_y = { "progress" },
-    lualine_z = { "location" },
+    --   lualine_a = { "mode" },
+    --   lualine_b = { "branch", "diff" },
+    --   -- lualine_b = { "diff" },
+    --   lualine_c = { "filename", "filesize" }, -- fot testing purposes you could eg call hello func in here w/o quotes and :so %
+    --   lualine_c = { { "diagnostics", sources = { "nvim" } } },
+    --   lualine_x = { "lsp_status" },
+    --   -- lualine_x = { "lsp_progress" },
+    --   -- lualine_z = { { lsp_progress = { spinner = "⠋" } } },
+    --   -- lualine_z = { require("lsp-status").status() },
+    lualine_x = {
+      "encoding",
+      "fileformat",
+      "filetype",
+    },
+    -- lualine_y = { "searchcount" }
+    -- lualine_y = { "lsp_status", "lsp_progress" },
+    --   lualine_z = { "progress", "location" }, -- row and col location
   },
 })
 
--- Example config for nord theme - in lua
-vim.g.nord_contrast = true
--- vim.g.nord_contrast = false
-vim.g.nord_borders = false
-vim.g.nord_disable_background = false
-vim.g.nord_italic = false
-vim.g.nord_uniform_diff_background = true
-vim.g.nord_bold = false
+-- require("lualine").setup({
+--   options = {
+--     theme = "ayu",
+--   },
+-- })
 
+-- -- Example config for nord theme - in lua
+-- vim.g.nord_contrast = true
+-- -- vim.g.nord_contrast = false
+-- vim.g.nord_borders = false
+-- vim.g.nord_disable_background = false
+-- vim.g.nord_italic = false
+-- vim.g.nord_uniform_diff_background = true
+-- vim.g.nord_bold = false
+--
 -- require("lazy").setup({
 --   {
 --     "lukas-reineke/headlines.nvim",
@@ -48,12 +64,13 @@ vim.g.nord_bold = false
 --   },
 -- })
 
--- bufferline tweasks for highliting for the active buffer
-local highlights = require("nord").bufferline.highlights({
-  italic = true,
-  bold = true,
-  fill = "#181c24",
-})
+-- bufferline tweaks for highliting for the active buffer
+-- local highlights = require("nord").bufferline.highlights({
+--   italic = true,
+--   bold = true,
+--   fill = "#181c24",
+-- })
+
 -- adding slant separator
 require("bufferline").setup({
   options = {
@@ -61,22 +78,6 @@ require("bufferline").setup({
     -- separator_style = "thin", -- the classic thin one
   },
   highlights = highlights,
-})
--- to add headlines for md files support
-require("headlines").setup({
-  markdown = {
-    headline_highlights = {
-      "Headline1",
-      "Headline2",
-      "Headline3",
-      "Headline4",
-      "Headline5",
-      "Headline6",
-    },
-    codeblock_highlight = "CodeBlock",
-    dash_highlight = "Dash",
-    quote_highlight = "Quote",
-  },
 })
 
 -- Load the colorscheme
