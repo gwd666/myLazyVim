@@ -11,7 +11,7 @@ local wk = require("which-key")
 return {
   -- this taps into vim.ui.select and vim.ui.input
   -- and in doing so currently breaks renaming in otter.nvim
-  { "stevearc/dressing.nvim", enabled = false },
+  { "stevearc/dressing.nvim", enabled = false }, -- disbaled
   {
     "quarto-dev/quarto-nvim",
     opts = {
@@ -139,9 +139,11 @@ return {
       ensure_installed = {
         "bash",
         "c",
+        "css",
         "html",
         "javascript",
         "json",
+        "julia",
         "lua",
         "luadoc",
         "luap",
@@ -149,26 +151,13 @@ return {
         "markdown_inline",
         "python",
         "query",
+        "r",
         "regex",
         "tsx",
         "typescript",
         "vim",
         "vimdoc",
         "yaml",
-        "bash",
-        "html",
-        "css",
-        "javascript",
-        "json",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "vim",
-        "yaml",
-        "python",
-        "julia",
-        "r",
       },
     },
   },

@@ -1,4 +1,5 @@
 -- init.lua install headlines.nvim
+-- checkhhealth 'render-markdown' throws error about headlines being installed!
 return {
   "lukas-reineke/headlines.nvim",
   config = function()

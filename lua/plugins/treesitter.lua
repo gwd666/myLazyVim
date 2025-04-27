@@ -19,6 +19,7 @@ return {
         "markdown_inline",
         "ocaml",
         "python",
+        "powershell",
         "query",
         "r",
         "regex",
@@ -33,7 +34,7 @@ return {
     },
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "markdown", "markdown_inline", "r", "rnoweb", "yaml" },
+        ensure_installed = { "r", "python", "rnoweb", "yaml" },
         highlight = {
           enable = true,
         },

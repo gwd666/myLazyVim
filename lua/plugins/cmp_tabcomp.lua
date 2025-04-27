@@ -10,6 +10,7 @@ return {
   -- then: setup supertab in cmp
   {
     "hrsh7th/nvim-cmp",
+    enable = true,
     dependencies = {
       "hrsh7th/cmp-emoji",
     },

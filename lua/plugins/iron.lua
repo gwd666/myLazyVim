@@ -36,15 +36,16 @@ return {
         -- Iron doesn't set keymaps by default anymore.
         -- You can set them here or manually add keymaps to the functions in iron.core
         keymaps = { -- keymaps are managed in keymaps.lua
-          send_motion = "<space>kc",
+          send_motion = "<space>rc",
           visual_send = "<space>rc",
+          -- iron repl open repl
           send_file = "<space>ra", -- rf is reserved for repl start so using a for all
-          send_line = "<space>rl",
+          send_line = "<space>rl", -- this will also open a Repl terminal in case it's  not already open
           send_until_cursor = "<space>ru",
-          send_mark = "<space>rm",
-          mark_motion = "<space>Rc",
-          mark_visual = "<space>Rc",
-          remove_mark = "<space>Rd",
+          send_mark = "<space>rms",
+          mark_motion = "<space>rmc",
+          mark_visual = "<space>rmc",
+          remove_mark = "<space>rmd",
           cr = "<space>r<cr>",
           interrupt = "<space>r<space>",
           exit = "<space>rq",

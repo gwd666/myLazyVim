@@ -1,9 +1,9 @@
 return {
-  -- add Monokai, Material, OneNord, OneDark Pro and Atom themes
+  -- add Monokai, Material, Nord, OneNord, OneDark Pro and Atom themes
   { "loctvl842/monokai-pro.nvim" },
   { "marko-cerovac/material.nvim" },
   -- add nord theme
-  { "shaunsingh/nord.nvim" },
+  { "shaunsingh/nord.nvim", name = "nord" },
   -- add onenord
   { "rmehri01/onenord.nvim", branch = "main", name = "onenord" },
   {
@@ -11,12 +11,12 @@ return {
     "navarasu/onedark.nvim",
     -- priority = 1000, -- Ensure it loads first
   },
-  { "olimorris/onedarkpro.nvim" },
-  -- add onedarkpro "Lazy" get loaded via cs = "onedark"
   {
     "olimorris/onedarkpro.nvim",
     -- priority = 1000 -- Ensure it loads first
   },
+  -- Adding ayu - kind of like ayu-mirage
+  { "Shatur/neovim-ayu" },
   -- add onedarker
   { "lunarvim/onedarker.nvim" },
   -- add catppuccin colorscheme

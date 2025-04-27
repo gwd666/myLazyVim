@@ -29,7 +29,7 @@ local servers = {
   "sqls",
   "stylua",
   "taplo", -- toml toolkit written in rust
-  "zls",
+  "zls@0.13.0",
 }
 
 return {
