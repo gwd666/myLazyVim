@@ -17,7 +17,7 @@ autocmd! bufwritepost ~/AppData/Local/nvim/init.lua source ~/AppData/Local/nvim/
 map("n", ",ee", ":e! ~/AppData/Local/nvim/init.lua<CR>", { silent = false, desc = "Edit nvim/init.lua file" })
 
 -- map comma+c to close buffer
-map("n", ",c", ":bd<CR>:bnext<CR>", { silent = true, desc = "Close current Buffer move to next" })
+map("n", ",c", ":bdelete<CR>:bnext<CR>", { silent = true, desc = "Close current Buffer move to next" })
 
 -- reset the <S-h> and <S-h> mappings to the default behaviour
 vim.keymap.del("n", "<S-h>")
@@ -109,12 +109,12 @@ vim.api.nvim_set_keymap(
   -- "<CMD>lua require'tele-git_find_file-config'.project_files()<CR>",
   { noremap = true, silent = true, desc = "Find 'plugins' files" }
 )
--- map Leader-Space to telscoping projects
-vim.api.nvim_set_keymap(
+
+map( -- vim.keymap.set is non-recursive by default so noemrap is not needed
   "n",
-  "<leader><Space>",
+  "<leader>P",
   "<cmd>lua require'telescope'.extensions.project.project{}<CR>",
-  { noremap = true, silent = true, desc = "Show projects" }
+  { silent = true, desc = "Show projects" }
 )
 
 -- add a telescope lsp keymap and which-key group
@@ -169,11 +169,15 @@ map("i", "<M-->", " <- ", { noremap = true, silent = true })
 map("i", "<C-_>", " -> ", { noremap = true, silent = true }) -- Meta+Shift+minus opens terminal below
 
 -- iron.nvim REPL has a bunch of commands,
--- see :h iron-commands for all available commands you might wanna map
-map("n", "<leader>rs", "<cmd>IronRepl<cr>", { desc = "IronRepl start" })
-map("n", "<leader>rr", "<cmd>IronRestart<cr>", { desc = "IronRepl restart" })
-map("n", "<leader>rf", "<cmd>IronFocus<cr>", { desc = "IronRepl focus" })
-map("n", "<leader>rh", "<cmd>IronHide<cr>", { desc = "IronRepl hide" })
+wk.add({
+  {
+    mode = { "n" },
+    { "<leader>r", group = "IronRepl", desc = "IronRepl" },
+    { "<leader>rs", "<cmd>IronRepl<cr>", desc = "IronRepl start" },
+    { "<leader>rr", "<cmd>IronRestart<cr>", desc = "IronRepl restart" },
+    { "<leader>rf", "<cmd>IronFocus<cr>", desc = "IronRepl focus" },
+  },
+})
 
 -- telekasten mappings
 -- Launch panel if nothing is typed after <leader>z

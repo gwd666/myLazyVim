@@ -19,9 +19,9 @@ require("lazy").setup({
     -- import any extras modules here
     -- { import = "lazyvim.plugins.extras.lang.typescript" },
     -- { import = "lazyvim.plugins.extras.lang.json" },
-    { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    { import = "lazyvim.plugins.extras.ai.copilot" },
-    { import = "lazyvim.plugins.extras.ai.copilot-chat" },
+    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    -- { import = "lazyvim.plugins.extras.ai.copilot" },
+    -- { import = "lazyvim.plugins.extras.ai.copilot-chat" },
     -- import/override with your plugins
     { import = "plugins", concurrency = 30 },
   },
@@ -63,7 +63,6 @@ require("mason").setup({
 
 -- set up indent-blankline
 -- require("config.ibl")
-
 -- make bat the defautlt previewer
 require("fzf-lua").setup({ "telescope", winopts = { preview = { default = "bat" } } })
 
