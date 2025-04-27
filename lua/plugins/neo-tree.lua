@@ -49,7 +49,7 @@ return {
             if filename == nil then
               filename = selection[1]
             end
-            -- any way to open the file without triggering auto-close event of neo-tree?
+            -- a way to open the file without triggering auto-close event of neo-tree?
             require("neo-tree.sources.filesystem").navigate(state, state.path, filename)
           end)
           return true
@@ -59,7 +59,7 @@ return {
 
     require("neo-tree").setup({
       -- opts = {
-      close_if_last_window = true, -- close Neo-tree if it's the last window left
+      close_if_last_window = false, -- close Neo-tree if it's the last window left
       -- },
       update_focused_file = { enable = true },
       event_handlers = {
@@ -79,14 +79,14 @@ return {
           --   vim.cmd("highlight! Cursor guibg=#5f87af blend=0")
           -- end,
         },
-        -- handler to equalize window sizes on neotriee open/close
+        -- handler to equalize window sizes on neotree open/close
         -- { -- comment/uncomment to enable/disable pasted commented out
         --   event = "neo_tree_window_before_open",
         --   handler = function(args)
         --     print("neo_tree_window_before_open", vim.inspect(args))
         --   end,
         -- },
-        {
+        { -- handler to follow opened files in neotree window
           event = "neo_tree_window_after_open",
           handler = function(args)
             if args.position == "left" or args.position == "right" then
@@ -116,11 +116,12 @@ return {
         git_status = true, -- Show git status with icons
       }, -- end of source_selector
       filesystem = {
+        follow_current_file = { enabled = true },
         window = {
           mappings = {
-            ["tf"] = "telescope_find",
-            ["tg"] = "telescope_grep",
-            ["o"] = "system_open", -- mapping for system_open command below
+            ["Tf"] = "telescope_find",
+            ["Tg"] = "telescope_grep",
+            ["X"] = "system_open", -- mapping for system_open command below
           },
         },
         components = {
@@ -221,7 +222,7 @@ return {
         end,
       }, -- end of commands
       window = {
-        position = "left", -- open to the right, defautl is left as in VSC ;-)
+        position = "right", -- open to the right, default is left as in VSC ;-)
         mappings = {
           ["e"] = function()
             vim.api.nvim_exec2("Neotree focus filesystem right", { output = true })

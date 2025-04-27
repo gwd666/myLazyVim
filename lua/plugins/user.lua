@@ -3,59 +3,59 @@ return {
   -- add github/copilot
   -- { "github/copilot.vim" },
   -- add zbirenbaum copilot.lua
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter", -- CopilotChat is managed in Neovim EXTRAS!
-    config = function()
-      require("copilot").setup({
-        suggestion = { enabled = false },
-        panel = {
-          enabled = false,
-          -- other options
-          auto_refresh = true,
-        },
-      })
-    end,
-  },
-  {
-    "zbirenbaum/copilot-cmp",
-    after = { "copilot.lua" },
-    config = function()
-      require("copilot_cmp").setup()
-    end,
-  },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   event = "InsertEnter", -- INFO: CopilotChat is managed in Neovim EXTRAS!
+  --   config = function()
+  --     require("copilot").setup({
+  --       suggestion = { enabled = false },
+  --       panel = {
+  --         enabled = false,
+  --         -- other options
+  --         auto_refresh = true,
+  --       },
+  --     })
+  --   end,
+  -- },
+  -- {
+  --   "zbirenbaum/copilot-cmp",
+  --   after = { "copilot.lua" },
+  --   config = function()
+  --     require("copilot_cmp").setup()
+  --   end,
+  -- },
   -- add rainbow-delimeters
-  {
-    "HiPhish/rainbow-delimiters.nvim",
-    lazy = false,
-    config = function()
-      local rainbow = require("rainbow-delimiters")
-      require("rainbow-delimiters.setup").setup({
-        strategy = {
-          [""] = rainbow.strategy["global"],
-          vim = rainbow.strategy["local"],
-        },
-        query = {
-          [""] = "rainbow-delimiters",
-          lua = "rainbow-blocks",
-          python = "rainbow-blocks",
-          r = "rainbow-blocks",
-          julia = "rainbow-blocks",
-        },
-        highlight = {
-          "RainbowDelimiterRed",
-          "RainbowDelimiterYellow",
-          "RainbowDelimiterBlue",
-          "RainbowDelimiterOrange",
-          "RainbowDelimiterGreen",
-          "RainbowDelimiterViolet",
-          "RainbowDelimiterCyan",
-        },
-        blacklist = { "cpp" },
-      })
-    end,
-  },
+  -- {
+  --   "HiPhish/rainbow-delimiters.nvim",
+  --   lazy = false,
+  --   config = function()
+  --     local rainbow = require("rainbow-delimiters")
+  --     require("rainbow-delimiters.setup").setup({
+  --       strategy = {
+  --         [""] = rainbow.strategy["global"],
+  --         vim = rainbow.strategy["local"],
+  --       },
+  --       query = {
+  --         [""] = "rainbow-delimiters",
+  --         lua = "rainbow-blocks",
+  --         python = "rainbow-blocks",
+  --         r = "rainbow-blocks",
+  --         julia = "rainbow-blocks",
+  --       },
+  --       highlight = {
+  --         "RainbowDelimiterRed",
+  --         "RainbowDelimiterYellow",
+  --         "RainbowDelimiterBlue",
+  --         "RainbowDelimiterOrange",
+  --         "RainbowDelimiterGreen",
+  --         "RainbowDelimiterViolet",
+  --         "RainbowDelimiterCyan",
+  --       },
+  --       blacklist = { "cpp" },
+  --     })
+  --   end,
+  -- },
   -- add lspkind for VSCode like pictograms
   { "onsails/lspkind.nvim" },
   -- add iron.nvim TERM/REPL - there's a seperate iron.lua file in plugings folder
@@ -74,47 +74,47 @@ return {
       require("telescope").load_extension("harpoon")
     end,
   },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    ---@module "ibl"
-    ---@type ibl.config
-    opts = {},
-  },
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   main = "ibl",
+  --   ---@module "ibl"
+  --   ---@type ibl.config
+  --   opts = {},
+  -- },
   -- add zig.vim
   { "ziglang/zig.vim" },
   -- add rainbow-delimeters
-  {
-    "HiPhish/rainbow-delimiters.nvim",
-    lazy = false,
-    config = function()
-      local rainbow = require("rainbow-delimiters")
-      require("rainbow-delimiters.setup").setup({
-        strategy = {
-          [""] = rainbow.strategy["global"],
-          vim = rainbow.strategy["local"],
-        },
-        query = {
-          [""] = "rainbow-delimiters",
-          lua = "rainbow-blocks",
-          python = "rainbow-blocks",
-          r = "rainbow-blocks",
-          -- julia = "rainbow-delimiters",
-          julia = "rainbow-blocks",
-        },
-        highlight = {
-          "RainbowDelimiterRed",
-          "RainbowDelimiterYellow",
-          "RainbowDelimiterBlue",
-          "RainbowDelimiterOrange",
-          "RainbowDelimiterGreen",
-          "RainbowDelimiterViolet",
-          "RainbowDelimiterCyan",
-        },
-        blacklist = { "cpp" },
-      })
-    end,
-  },
+  -- {
+  --   "HiPhish/rainbow-delimiters.nvim",
+  --   lazy = false,
+  --   config = function()
+  --     local rainbow = require("rainbow-delimiters")
+  --     require("rainbow-delimiters.setup").setup({
+  --       strategy = {
+  --         [""] = rainbow.strategy["global"],
+  --         vim = rainbow.strategy["local"],
+  --       },
+  --       query = {
+  --         [""] = "rainbow-delimiters",
+  --         lua = "rainbow-blocks",
+  --         python = "rainbow-blocks",
+  --         r = "rainbow-blocks",
+  --         -- julia = "rainbow-delimiters",
+  --         julia = "rainbow-blocks",
+  --       },
+  --       highlight = {
+  --         "RainbowDelimiterRed",
+  --         "RainbowDelimiterYellow",
+  --         "RainbowDelimiterBlue",
+  --         "RainbowDelimiterOrange",
+  --         "RainbowDelimiterGreen",
+  --         "RainbowDelimiterViolet",
+  --         "RainbowDelimiterCyan",
+  --       },
+  --       blacklist = { "cpp" },
+  --     })
+  --   end,
+  -- },
   -- add send-to-term
   -- { "mtikekar/nvim-send-to-term" },
   -- add folke zen instaead of goyo

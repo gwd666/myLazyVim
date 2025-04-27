@@ -12,9 +12,13 @@ return {
         "html",
         "javascript",
         "json",
+        "julia",
+        "llvm",
         "lua",
-        "markdown",
-        "markdown_inline",
+        "latex",
+        -- "markdown", -- this is anyhow part of nvim-treesitter
+        -- "markdown_inline", -- this is anyhow part of nvim-treesitter
+        "powershell",
         "python",
         "query",
         "r",

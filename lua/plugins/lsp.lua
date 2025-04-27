@@ -6,10 +6,17 @@ return {
     local lspconfig = require("lspconfig")
     -- local lsp = vim.lsp -- this is not needed/used decided to go w vim.lsp
     local keys = require("lazyvim.plugins.lsp.keymaps").get()
-
     keys[#keys + 1] = { "<C-k>", mode = "i", false }
     keys[#keys + 1] =
       { "<C-o>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "SignatureHelp" }
+
+    opts = { -- some lines to fix mason and lsp conflicts for rust-analyzer
+      setup = {
+        rust_analyzer = function()
+          return true
+        end,
+      },
+    }
 
     -- include folloiwing lines to avoid scanning C:\Users\gwd ie the home dir
     root_dir = function(fname)
@@ -19,6 +26,11 @@ return {
       end
       return root_pattern or fname
     end
+
+    -- have a look at https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
+    -- for customization of the floating window borders etc.
+    vim.cmd([[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]])
+    vim.cmd([[autocmd! ColorScheme * highlight FloatBorder guifg=grey guibg=#1f2335]])
 
     -- LSP settings (for overriding per client)
     -- define some custom borders for the floating windows
@@ -36,6 +48,34 @@ return {
       { "●", "FloatBorder" },
       { "▏", "FloatBorder" },
     }
+
+    lspconfig.lua_ls.setup({
+      settings = {
+        Lua = {
+          runtime = {
+            -- Tell the language server which version of Lua you're using
+            -- (most likely LuaJIT in the case of Neovim)
+            version = "LuaJIT",
+          },
+          diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = {
+              "vim",
+              "require",
+            },
+          },
+          workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = vim.api.nvim_get_runtime_file("", true),
+          },
+          -- Do not send telemetry data containing a randomized but unique identifier
+          telemetry = {
+            enable = false,
+          },
+        },
+      },
+    })
+
     -- and then defining a local handler table
     local handlers = {
       ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
@@ -63,18 +103,28 @@ return {
       },
     })
 
+    -- the ocaml lsp server stuff is handled in plugins/mason-lsp.lua
+    -- therefore this is commented out
     -- require("mason").setup()
-    -- define my LSP servers to install including eg a version for ocamllsp
+    -- -- define my LSP servers to install including eg a version for ocamllsp
     -- local myLspServers = {
-    -- "lua_ls", ..., "ocamllsp@v0.17.0", ..}
+    --   "ocaml-lsp-server@1.19.0", -- this needs to fit the ocaml version available in winget
+    -- }
     -- require("mason-lspconfig").setup({
     --   ensure_installed = myLspServers,
     --   automatic_installation = { true, exclude = { "ocamllsp" } },
     -- })
 
+    -- ocaml lsp config part
+    lspconfig.ocamllsp.setup({
+      on_attach = on_attach,
+    })
+
     lspconfig.julials.setup({ -- somehow makes nvim unstable or crash!!
       filetypes = {
+        "jl",
         "julia",
+        "jmd",
         "juliamarkdown",
         --     "juliamarkdown.pandoc",
         --     "juliamarkdown.latex",

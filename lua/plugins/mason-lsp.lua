@@ -16,14 +16,14 @@ local servers = {
   "markdown-toc",
   "markdownlint-cli2", -- markdown linter
   "marksman", -- markdown previewer
-  "ocaml-lsp",
+  -- "ocaml-lsp-server@1.19.0", -- this does not seem to work correctly from here! do it "manually"
   "powershell-editor-services",
   "pyright",
   "python-lsp-server",
   "r-languageserver",
-  "ruff", -- pyhont linter written in rust
+  -- "ruff", -- pyhont linter written in rust -- errors here: install w MasonInstall ruff
   "rust-analyzer",
-  -- "shfmt", -- shell formatter (sh/bash/mksh)
+  "shfmt", -- shell formatter (sh/bash/mksh)
   "sqls", -- Sql Language Server
   "stylua",
   "taplo", -- toml formatter written in rust
@@ -52,9 +52,8 @@ return {
           },
         },
       })
-      -- require("mason-lspconfig").setup()
       require("mason-lspconfig").setup({
-        ensure_installed = servers,
+        ensure_installed = local_servers,
         automatic_installation = true,
       })
     end,
