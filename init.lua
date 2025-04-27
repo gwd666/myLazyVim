@@ -6,7 +6,7 @@
 
 if vim.g.vscode then
   -- VSC extension
-  print("Looks like you're starting Neovim for VSC reading from WINDOWS init.lua!")
+  print("Looks like you're starting 'Neovim' from VSC in WINDOWS -> sourcing WIN vsc_settings.vim!")
   -- local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
   require("config/options") -- this makes H/L move to prev/mext line, etc
   -- require("config/keymaps")
@@ -26,12 +26,14 @@ else
   -- set colorcolumns
   vim.cmd("set colorcolumn=80,120")
   -- set a dedicated python3 host
-  vim.cmd("let g:python3_host_prog='E:/WinEnvs/mamba/envs/py311/python'") --set python3 host to avoid surprises
+  vim.cmd("let g:python3_host_prog='E:/WinEnvs/mamba/envs/py311/python.exe'") --set python3 host to avoid surprises
+  vim.cmd("let g:latex='C:/Users/gwd/AppData/Local/Programs/MiKTeX/miktex/bin/x64/latex.exe'")
+  -- vim.cmd("let g:R_cmd = 'C:/Program Files/R/R-4.3.3/bin/x64/Rgui.exe'")
   -- ----------------------------------------------------------------------------
   -- Start the bootstrap of lazy.nvim, LazyVim and your plugins
   -- load telescope config
   require("config.lazy")
-  require("config.telescope")
+  -- require("config.telescope")
   require("config.chatgpt")
   -- require("config.harpoon") -- now in LazyExtras
   -- moved all the colorscheme stuff to plugins/colorscheme.lua
@@ -44,6 +46,7 @@ else
   -- vim.api.nvim_command([[ colorscheme catppuccin-mocha ]])
   -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
   -- vim.api.nvim_command([[ colorscheme gruvbuddy ]])
+  -- vim.api.nvim_command([[ colorscheme nord ]])
   -- vim.api.nvim_command([[ colorscheme onenord ]])
   -- vim.api.nvim_command([[ colorscheme onedarker ]])
   -- vim.api.nvim_command([[ colorscheme material-palenight ]])
@@ -51,6 +54,8 @@ else
   -- vim.api.nvim_command([[ colorscheme monokai-pro-octagon ]])
   -- vim.api.nvim_command([[ colorscheme monokai-pro-ristretto ]])
   -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
+  -- vim.api.nvim_command([[ colorscheme gruvbox-baby ]])
+  -- vim.api.nvim_command([[ colorscheme ayu-mirage ]])
   -- handle a weird path error in cse neovim is started in Git Bash
   if os.getenv("TERM") == "xterm-256color" and os.getenv("SHELL") == "C:\\Program Files\\Git\\usr\\bin\\bash.exe" then
     print("Neovim started in Git Bash? Modifying/Fixing SHELL env var!")
