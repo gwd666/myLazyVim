@@ -129,45 +129,45 @@ return {
   },
   -- add madox2/vim-ai
   -- { "madox2/vim-ai" },
-  -- {
-  --   "jackMort/ChatGPT.nvim",
-  --   event = "VeryLazy",
-  --   config = function()
-  --     require("chatgpt").setup({
-  --       api_key_cmd = "gpg --decrypt /home/gwd/SER7_KEY-SHELL-GPT_OPENAI-API.gpg",
-  --       edit_with_instructions = {
-  --         keymaps = {
-  --           toggle_help = "<M-h>", -- I changed it from <C-h> to <M-h> ie ALT+h like for other Telescope windows
-  --         },
-  --       },
-  --       chat = {
-  --         welcome_message = [[
-  --           If you don't ask the right questions,
-  --           you don't get the right answers.
-  --                                           ~ Robert Half
-  --   ]],
-  --         keymaps = {
-  --           toggle_help = "<M-h>", -- I changed it from <C-g> to <M-h> ie ALT+h like for other Telescope windows
-  --         },
-  --       },
-  --       openai_params = {
-  --         model = "gpt-4o-mini",
-  --         temperature = 0.1,
-  --         max_tokens = 4096,
-  --         frequency_penalty = 0,
-  --         presence_penalty = 0,
-  --         top_p = 0.2,
-  --         n = 1,
-  --       },
-  --     })
-  --   end,
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --     "nvim-lua/plenary.nvim",
-  --     "folke/trouble.nvim", -- optional
-  --     "nvim-telescope/telescope.nvim",
-  --   },
-  -- },
+  {
+    "jackMort/ChatGPT.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("chatgpt").setup({
+        api_key_cmd = "gpg --decrypt /home/gwd/SER7_KEY-SHELL-GPT_OPENAI-API.gpg",
+        edit_with_instructions = {
+          keymaps = {
+            toggle_help = "<M-h>", -- I changed it from <C-h> to <M-h> ie ALT+h like for other Telescope windows
+          },
+        },
+        --     chat = {
+        --       welcome_message = [[
+        --         If you (gwd) don't ask the right questions,
+        --         you don't get the right answers.
+        --                                         ~ Robert Half
+        -- ]],
+        --   keymaps = {
+        --     toggle_help = "<M-h>", -- I changed it from <C-g> to <M-h> ie ALT+h like for other Telescope windows
+        --   },
+        -- },
+        openai_params = {
+          model = "gpt-4o-mini",
+          temperature = 0.1,
+          max_tokens = 4096,
+          frequency_penalty = 0,
+          presence_penalty = 0,
+          top_p = 0.2,
+          n = 1,
+        },
+      })
+    end,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "folke/trouble.nvim", -- optional
+      "nvim-telescope/telescope.nvim",
+    },
+  },
   -- {
   --   "Julian/lean.nvim", -- from: https://github.com/Julian/lean.nvim
   --   event = { "BufReadPre *.lean", "BufNewFile *.lean" },
