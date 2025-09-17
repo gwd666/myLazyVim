@@ -52,7 +52,7 @@ harpoon:extend({
   end,
 })
 
--- vim.keymap.del("n", "<C-d>") -- remove the harpoon C-d in Nomral mode which otherwose deletes marks mapping
+-- vim.keymap.del("n", "<C-d>") -- remove the harpoon C-d in Normal mode which otherwose deletes marks mapping
 
 -- trying to modify the default keymaps along these lines
 -- local actions = require("telescope.actions")

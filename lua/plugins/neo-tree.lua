@@ -6,7 +6,7 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
     "MunifTanjim/nui.nvim",
-    "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
     {
       "s1n7ax/nvim-window-picker",
       version = "2.*",
@@ -115,10 +115,10 @@ return {
         statusline = false, -- this means when I move to neotree statusbar gets hidden
         git_status = true, -- Show git status with icons not sure what this changes in NTree
       }, -- end of source_selector
-      -- This will go to foldder of current file in neotree window
+      -- This will go to folder of current file in neotree window
       filesystem = {
-        -- bind_to_cwd = true, -- default is: false
-        -- follow_current_file = { enabled = true }, -- true is anyhow default
+        bind_to_cwd = true, -- default is: false
+        follow_current_file = { enabled = true }, -- true is anyhow default
         window = {
           mappings = {
             ["tf"] = "telescope_find",

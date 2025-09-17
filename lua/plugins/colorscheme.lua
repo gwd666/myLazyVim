@@ -20,7 +20,9 @@ return {
   -- add onedarker
   { "lunarvim/onedarker.nvim" },
   -- add catppuccin colorscheme
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000, opts = { blink_cmp = true } },
+  -- add tokyonight
+  { "folke/tokyonight.nvim", priority = 1000, opts = { style = "storm" } }, -- available opts: style = moon|night|day|storm,
   -- add gruvbox themes
   { "luisiacc/gruvbox-baby" },
   { "sainnhe/gruvbox-material" },
@@ -29,14 +31,4 @@ return {
   { "iruzo/matrix-nvim" },
   -- adding TJ colorbuddy
   { "tjdevries/colorbuddy.vim" }, -- this now also includes gruvbuddy
-  -- add tokyonight
-  { "folke/tokyonight.nvim", priority = 1000, opts = { style = "storm" } }, -- available opts: style = moon|night|day|storm,
-  -- configure LazyVim to load yr preferred colorscheme
-  -- {
-  --   "LazyVim/LazyVim", -- think this will override all of the above
-  --   opts = {
-  --     colorscheme = "tokyonight", -- "gruvbox", or "tokyonight",
-  --     style = "storm", -- "baby" or "material" for gruvbox -- "storm", ... for tokyonight, "frappe", ... for catppuccin
-  --   },
-  -- },
 }
