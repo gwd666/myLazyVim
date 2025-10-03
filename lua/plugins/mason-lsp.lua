@@ -1,44 +1,25 @@
 local servers = {
-  "awk-language-server",
-  -- "awk_ls",
-  "bash-language-server",
-  -- "bashls",
-  -- "black",
-  -- "clang-format",
-  -- "clangd",
-  -- "codelldb",
-  -- "cpptools",
-  -- "elixir-ls",
+  "awk_ls",
+  "bashls",
+  "clangd",
+  -- "codelldb", -- that's a DAP and not an LSP
   "elixirls",
-  -- "flake8", -- tht's a linter and not a lsp
-  -- "gofumpt", -- not a lsp
-  -- "goimports", -- not a lsp
   "gopls",
-  -- "jq", -- a formatter anf not a lsp
-  -- "json-lsp",
   "jsonls",
-  -- "julia-lsp",
   "julials",
-  -- "lua-language-server",
   "lua_ls",
-  -- "markdown-toc", -- despite being a formatter it was possible to install it here?
   -- "markdownlint-cli2", -- despite being a formatter it was possible to install it here?
-  -- "marksman", -- that is a markdown lsp
-  -- "ocaml-lsp",
+  "marksman", -- this is a markdown lsp
   "ocamllsp",
-  -- "powershell-editor-services",
   "powershell_es",
   "pyright",
-  -- "python-lsp-server",
-  -- "r-languageserver",
+  "pylsp",
   "r_language_server",
-  -- "ruff",
-  -- "rust-analyzer",
+  "ruff",
   "rust_analyzer",
-  -- "shfmt",
   "sqls",
-  -- "stylua",
-  -- "taplo", -- toml toolkit written in rust
+  "stylua",
+  "taplo", -- toml toolkit written in rust
   "zls",
 }
 
