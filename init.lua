@@ -44,11 +44,12 @@ else
   -- require("config/lualine")
   -- moved all the colorscheme stuff to plugins/colorscheme.lua
   -- choose a colorscheme
-  vim.api.nvim_command([[ colorscheme ayu-mirage ]])
+  -- vim.api.nvim_command([[ colorscheme ayu-mirage ]])
   -- vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
   -- vim.api.nvim_command([[ colorscheme catppuccin-mocha ]])
+  -- vim.api.nvim_command([[ colorscheme desert ]])
   -- vim.api.nvim_command([[ colorscheme gruvbox ]])
-  -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
+  vim.api.nvim_command([[ colorscheme gruvbox-material ]])
   -- vim.api.nvim_command([[ colorscheme gruvbox-baby ]])
   -- vim.api.nvim_command([[ colorscheme gruvbuddy ]])
   -- vim.api.nvim_command([[ colorscheme nord ]])
