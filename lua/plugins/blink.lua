@@ -1,10 +1,8 @@
 -- ~/.config/nvim/lua/plugins/blink.lua
 -- (This file is loaded by LazyVim. We override "saghen/blink.cmp" here.)
-
 return {
   -- Disable the official “blink-cmp-copilot” plugin (we’ll use “blink.cmp” instead)
   { "giuxtaposition/blink-cmp-copilot", enabled = false },
-
   {
     "saghen/blink.cmp",
     dependencies = {
