@@ -6,7 +6,7 @@ local servers = {
   "elixirls",
   "gopls",
   "jsonls",
-  "julials",
+  -- "julials",
   "lua_ls",
   -- "markdownlint-cli2", -- despite being a formatter it was possible to install it here?
   "marksman", -- this is a markdown lsp
