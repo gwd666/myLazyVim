@@ -49,20 +49,20 @@ return {
     })
 
     -- ############################################################################
-    -- lspconfig.julials.setup({
-    --   filetypes = {
-    --     "julia",
-    --     "juliamarkdown",
-    --     -- "juliamarkdown.pandoc",
-    --     -- "juliamarkdown.latex",
-    --     -- "juliamarkdown.html",
-    --   },
-    --   on_attach = on_attach,
-    --   handlers = handlers,
-    --   -- commenting out root-dir for julia lsp seems to work without it
-    --   -- and it seems to be causing issues with other functionnality
-    --   -- root_dir = lspconfig.util.root_pattern("Project.toml", "JuliaProject.toml", ".git", vim.fn.getcwd()),
-    -- })
+    lspconfig.julials.setup({
+      filetypes = {
+        "julia",
+        "juliamarkdown",
+        "juliamarkdown.pandoc",
+        "juliamarkdown.latex",
+        "juliamarkdown.html",
+      },
+      on_attach = on_attach,
+      handlers = handlers,
+      -- commenting out root-dir for julia lsp seems to work without it
+      -- and it seems to be causing issues with other functionnality
+      -- root_dir = lspconfig.util.root_pattern("Project.toml", "JuliaProject.toml", ".git", vim.fn.getcwd()),
+    })
 
     -- lua lsp setup if major usage is with Neovim
     require("lspconfig").lua_ls.setup({
