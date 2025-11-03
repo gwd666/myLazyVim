@@ -3,6 +3,8 @@
 -- in this case.
 vim.g.lazyvim_blink_main = false
 
+vim.cmd("set scrolloff=2") -- number of lines to keep above/below cursor when scrolling
+
 -- change linenumbering to relative except for current line
 -- but switch to absolute in INSERT mode
 vim.cmd([[

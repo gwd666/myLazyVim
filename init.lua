@@ -36,12 +36,9 @@ else
   -- Start the bootstrap of lazy.nvim, LazyVim and your plugins
   -- bootstrap lazy.nvim, LazyVim and your plugins
   require("config.lazy")
-  -- load telescope config
-  -- require("confi
   -- load chatgpt config
   -- require("config.chatgpt")
   -- require("config.harpoon") -- now in lazy extras
-  -- require("config/lualine")
   -- moved all the colorscheme stuff to plugins/colorscheme.lua
   -- choose a colorscheme
   -- vim.api.nvim_command([[ colorscheme ayu-mirage ]])

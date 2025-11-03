@@ -49,15 +49,9 @@ map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "Fix Windows CRLF me
 map("n", "<leader>CD", ":Neotree %:h<CR>", { silent = true, desc = "Set NeoTree active dir to buffer's dir" })
 map("n", "<leader>e", ":Neotree toggle %:h<CR>", { silent = true, desc = "Explorer NeoTree (Root/Buffer Dir)" })
 
--- map Ctrl-h, Ctrl-l, j, k to move cursor left/right/down/up in INSERT mode,
--- map C-u to undo last edit? albeit C-k in insert is mapped to "Signature Help" by Telescope or Treesitter
+-- map Ctrl-h, Ctrl-l to move cursor left/right in INSERT mode
+-- Note: <C-j> and <C-k> are set in blink.lua config to ensure they override blink's keymaps
 map("i", "<C-h>", "<left>", { noremap = true, silent = true })
-map("i", "<C-j>", "<down>", { noremap = true, silent = true })
--- you need to unmamp <C-k> which is mapped by `blink.cmp` in insert mode to other commands
--- see: https://cmp.saghen.dev/configuration/keymap.html
--- ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' } as defined by blink.cmp
--- set that ton 'none' in blink.cmp config to be able to override it here
-map("i", "<C-k>", "<up>", { noremap = true, silent = true })
 map("i", "<C-l>", "<right>", { noremap = true, silent = true })
 -- undo in insert mode with Ctrl-u
 map("i", "<C-u>", "<C-g>u<C-u>", { noremap = true, silent = true })

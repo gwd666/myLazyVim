@@ -2,21 +2,50 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = { "saghen/blink.cmp" },
-  init = function()
-    lspconfig = require("lspconfig")
-    local keys = require("lazyvim.plugins.lsp.keymaps").get()
-    -- modifying the keymaps for lsp ie. deactivating c-k for signature help in insert mode
-    keys[#keys + 1] = { "<C-k>", mode = "i", false }
-    keys[#keys + 1] =
-      { "<C-o>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "SignatureHelp" }
 
-    opts = { -- some lines to fix mason and lsp conflicts for rust-analyzer
-      setup = {
-        rust_analyzer = function()
-          return true
-        end,
-      },
-    }
+  opts = {
+    setup = {
+      rust_analyzer = function()
+        return true
+      end,
+    },
+  },
+
+  keys = {
+    -- Disable LazyVim's default <C-k> signature help mapping
+    { "<C-k>", false, mode = "i" },
+    -- Map signature help to <C-o> instead
+    {
+      "<C-o>",
+      function()
+        vim.lsp.buf.signature_help()
+      end,
+      mode = "i",
+      desc = "LSP Signature Help",
+    },
+  },
+
+  init = function()
+    -- Override LazyVim's LspAttach to remove C-k and add C-o for signature help
+    vim.api.nvim_create_autocmd("LspAttach", {
+      callback = function(args)
+        local bufnr = args.buf
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+        -- Remove C-k signature help if it was set by LazyVim
+        pcall(vim.keymap.del, "i", "<C-k>", { buffer = bufnr })
+
+        -- Set C-o for signature help if client supports it
+        if client and client.server_capabilities.signatureHelpProvider then
+          vim.keymap.set("i", "<C-o>", function()
+            vim.lsp.buf.signature_help()
+          end, { buffer = bufnr, desc = "LSP Signature Help" })
+        end
+      end,
+    })
+
+    -- Note: C-o mapping for signature help is handled above
+    lspconfig = require("lspconfig")
     -- have a look at https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
     -- for customization of the floating window borders etc.
     vim.cmd([[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]])
