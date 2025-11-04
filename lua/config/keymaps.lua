@@ -50,9 +50,11 @@ map("n", "<leader>CD", ":Neotree %:h<CR>", { silent = true, desc = "Set NeoTree 
 map("n", "<leader>e", ":Neotree toggle %:h<CR>", { silent = true, desc = "Explorer NeoTree (Root/Buffer Dir)" })
 
 -- map Ctrl-h, Ctrl-l to move cursor left/right in INSERT mode
--- Note: <C-j> and <C-k> are set in blink.lua config to ensure they override blink's keymaps
+-- blink.lua disables these keys inside the completion menu so these mappings always win
 map("i", "<C-h>", "<left>", { noremap = true, silent = true })
 map("i", "<C-l>", "<right>", { noremap = true, silent = true })
+map("i", "<C-j>", "<down>", { noremap = true, silent = true, desc = "Move cursor down" })
+map("i", "<C-k>", "<up>", { noremap = true, silent = true, desc = "Move cursor up" })
 -- undo in insert mode with Ctrl-u
 map("i", "<C-u>", "<C-g>u<C-u>", { noremap = true, silent = true })
 

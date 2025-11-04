@@ -30,8 +30,8 @@ return {
       keymap = {
         preset = "super-tab",
         -- Disable <C-k> and <C-j> for blink completely so we can use them for cursor movement
-        ["<C-k>"] = {},
-        ["<C-j>"] = {},
+        ["<C-k>"] = false,
+        ["<C-j>"] = false,
       },
       sources = {
         default = { "lsp", "path", "snippets", "emoji", "buffer", "codeium", "copilot" },
@@ -110,8 +110,42 @@ return {
         max_completions = 4,
         max_attempts = 3,
       })
+
       opts.sources.providers.copilot.max_items = 3
       opts.sources.providers.codeium.max_items = 4
+
+      -- blink.cmp 0.11+ removed the legacy compat field; LazyVim extras still populate
+      -- it, so drop it before validation runs.
+      opts.sources.compat = nil
+
+      -- Providers coming from extras (e.g. LazyVim's ai/codeium) still add a custom
+      -- `kind` field. Register those kinds with blink and strip the field so the new
+      -- schema validator is satisfied.
+      local providers = opts.sources and opts.sources.providers
+      if providers then
+        local icons = (LazyVim and LazyVim.config and LazyVim.config.icons and LazyVim.config.icons.kinds) or {}
+        for _, provider in pairs(providers) do
+          if provider.kind then
+            local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+            local kind_idx = #CompletionItemKind + 1
+
+            CompletionItemKind[kind_idx] = provider.kind
+            CompletionItemKind[provider.kind] = kind_idx
+
+            local transform_items = provider.transform_items
+            provider.transform_items = function(ctx, items)
+              items = transform_items and transform_items(ctx, items) or items
+              for _, item in ipairs(items) do
+                item.kind = kind_idx or item.kind
+                item.kind_icon = icons[item.kind_name] or item.kind_icon
+              end
+              return items
+            end
+
+            provider.kind = nil
+          end
+        end
+      end
 
       require("blink.cmp").setup(opts)
       -- Set insert mode cursor movement keymaps

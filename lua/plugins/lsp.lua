@@ -11,23 +11,11 @@ return {
     },
   },
 
-  keys = {
-    -- Disable LazyVim's default <C-k> signature help mapping
-    { "<C-k>", false, mode = "i" },
-    -- Map signature help to <C-o> instead
-    {
-      "<C-o>",
-      function()
-        vim.lsp.buf.signature_help()
-      end,
-      mode = "i",
-      desc = "LSP Signature Help",
-    },
-  },
-
   init = function()
+    local lsp_keymap_group = vim.api.nvim_create_augroup("custom_lsp_insert_mappings", { clear = true })
     -- Override LazyVim's LspAttach to remove C-k and add C-o for signature help
     vim.api.nvim_create_autocmd("LspAttach", {
+      group = lsp_keymap_group,
       callback = function(args)
         local bufnr = args.buf
         local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -35,11 +23,14 @@ return {
         -- Remove C-k signature help if it was set by LazyVim
         pcall(vim.keymap.del, "i", "<C-k>", { buffer = bufnr })
 
+        -- Always map <C-k> to move the cursor up in insert mode on LSP buffers
+        vim.keymap.set("i", "<C-k>", "<Up>", { buffer = bufnr, noremap = true, silent = true, desc = "Move cursor up" })
+
         -- Set C-o for signature help if client supports it
         if client and client.server_capabilities.signatureHelpProvider then
           vim.keymap.set("i", "<C-o>", function()
             vim.lsp.buf.signature_help()
-          end, { buffer = bufnr, desc = "LSP Signature Help" })
+          end, { buffer = bufnr, noremap = true, silent = true, desc = "LSP Signature Help" })
         end
       end,
     })
@@ -131,4 +122,18 @@ return {
       },
     })
   end,
+
+  keys = {
+    -- Disable LazyVim's default <C-k> signature help mapping late so it does not get overruled by other lsp config before this block
+    { "<C-k>", false, mode = "i" },
+    -- Map signature help to <C-o> instead
+    {
+      "<C-o>",
+      function()
+        vim.lsp.buf.signature_help()
+      end,
+      mode = "i",
+      desc = "LSP Signature Help",
+    },
+  },
 }
