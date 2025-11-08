@@ -59,7 +59,7 @@ return {
 
     require("neo-tree").setup({
       -- opts = {
-      close_if_last_window = false, -- close Neo-tree if it's the last window left
+      close_if_last_window = true, -- false, -- close Neo-tree if it's the last window left
       -- },
       update_focused_file = { enable = true },
       event_handlers = {
