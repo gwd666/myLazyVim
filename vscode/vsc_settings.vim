@@ -28,24 +28,17 @@ xnoremap = <Cmd>call VSCodeCall('editor.action.formatSelection')<CR>
 nnoremap = <Cmd>call VSCodeCall('editor.action.formatSelection')<CR><Esc>
 nnoremap == <Cmd>call VSCodeCall('editor.action.formatSelection')<CR>
 
-" try to make VS Code switch between realative in normal and absolute in
-" insert mode line numbers
-" augroup ToggleRelLineNumbers
-"   autocmd InsertLeave * call VSCodeNotify('settings.cycle.ToggleLineNumbers')
-"   autocmd InsertEnter * call VSCodeNotify('settings.cycle.ToggleLineNumbers')
-" augroup END
-
 " new method no longer needing settings.cycle.ToggleLineNumbers
 augroup ToggleRelLineNumbers
   autocmd InsertLeave lua.require('vscode').update_config("editor.lineNumbers", "relative", "global")
   autocmd InsertEnter lua.require('vscode').update_config("editor.lineNumbers", "on", "global")
 augroup END
 
-" Toggle zen mode with comma zz
-nnoremap <silent> ,zz :call VSCodeNotify('workbench.action.toggleZenMode')<CR>
+" Toggle zen mode with semicolon+z
+nnoremap <silent> ;z :call VSCodeNotify('workbench.action.toggleZenMode')<CR>
 
 " close active edior window with comma-c"
-nnoremap <silent> ,c :call VSCodeNotify('workbench.action.closeActiveEditor')<CR>
+nnoremap <silent> ;c :call VSCodeNotify('workbench.action.closeActiveEditor')<CR>
 
 " some lines ie calling the vim.api.exec incl last line after augroup
 " don't go too well in VSC on WINdows! but this way it doesn't error in VSC,
@@ -64,14 +57,14 @@ endfunction
 
 " Neovim-ui THEME CHANGER
 function! SetCursorLineNrColorInsert(mode)
-    " Insert mode: blue
-    if a:mode == "i"
-        call VSCodeNotify('nvim-theme.insert')
+  " Insert mode: blue
+  if a:mode == "i"
+    call VSCodeNotify('nvim-theme.insert')
 
     " Replace mode: red
-    elseif a:mode == "r"
-        call VSCodeNotify('nvim-theme.replace')
-    endif
+  elseif a:mode == "r"
+    call VSCodeNotify('nvim-theme.replace')
+  endif
 endfunction
 
 augroup CursorLineNrColorSwap

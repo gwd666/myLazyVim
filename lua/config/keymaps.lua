@@ -65,7 +65,7 @@ map("n", "<up>", ":tabnext<CR>", { noremap = true, silent = true })
 map("n", "<down>", ":tabprev<CR>", { noremap = true, silent = true })
 
 -- toggle zen mode w Comma-zz
-map("n", ";zz", ":lua Snacks.zen()<CR>", { silent = true, desc = "Toggle ZenMode" })
+map("n", ";z", ":lua Snacks.zen()<CR>", { silent = true, desc = "Toggle ZenMode" })
 
 -- ctrlspace
 map("n", "<C-Space>", ":CtrlSpace<CR>", { silent = true, desc = "CtrlSpace window at bottom" })
