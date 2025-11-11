@@ -42,10 +42,10 @@ augroup END
 " Toggle zen mode with comma zz - added this in VSC in the keybindings.json
 " there as a {"keys": "oem_comma+zz", ...} bingding in VSC on Winodws now
 " still keeping this here as well does not seem to harm anything
-nnoremap <silent> ,zz <Cmd>call VSCodeCall('workbench.action.toggleZenMode')<CR>
+nnoremap <silent> ;z <Cmd>call VSCodeCall('workbench.action.toggleZenMode')<CR>
 
 " close buffer with comma-c
-nnoremap <silent> ,c <Cmd>call VSCodeCall('workbench.action.closeActiveEditor')<CR>
+nnoremap <silent> ;c <Cmd>call VSCodeCall('workbench.action.closeActiveEditor')<CR>
 " some lines ie calling the vim.api.exec incl last line after augroup
 " don't go too well in VSC on WINdows! but this way it doesn't error in VSC,
 " so fine with me to keep it this way here
@@ -61,13 +61,25 @@ function! SetCursorLineNrColorInsert(mode)
   endif
 endfunction
 
-augroup CursorLineNrColorSwap
-  autocmd!
-  autocmd ModeChanged *:[vV\x16]* call VSCodeNotify('nvim-theme.visual')
-  autocmd ModeChanged *:[R]* call VSCodeNotify('nvim-theme.replace')
-  autocmd InsertEnter * call SetCursorLineNrColorInsert(v:insertmode)
-  autocmd InsertLeave * call VSCodeNotify('nvim-theme.normal')
-  autocmd CursorHold * call VSCodeNotify('nvim-theme.normal')
-augroup END
-" ]], false)
+" Neovim-ui THEME CHANGER
+function! SetCursorLineNrColorInsert(mode)
+    " Insert mode: blue
+    if a:mode == "i"
+        call VSCodeNotify('nvim-theme.insert')
 
+    " Replace mode: red
+    elseif a:mode == "r"
+        call VSCodeNotify('nvim-theme.replace')
+    endif
+endfunction
+
+augroup CursorLineNrColorSwap
+    autocmd!
+    autocmd ModeChanged *:[vV\x16]* call VSCodeNotify('nvim-theme.visual')
+    autocmd ModeChanged *:[R]* call VSCodeNotify('nvim-theme.replace')
+    autocmd InsertEnter * call SetCursorLineNrColorInsert(v:insertmode)
+    autocmd InsertLeave * call VSCodeNotify('nvim-theme.normal')
+    autocmd CursorHold * call VSCodeNotify('nvim-theme.normal')
+    autocmd ModeChanged [vV\x16]*:* call VSCodeNotify('nvim-theme.normal')
+augroup END
+" THEME CHANGER END

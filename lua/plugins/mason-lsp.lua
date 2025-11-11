@@ -1,42 +1,33 @@
 local servers = {
-  -- "black",
-  "clang-format",
+  -- "bash-language-server",
+  "bashls",
   "clangd",
-  "codelldb", -- DAP
-  "cpptools", -- DAP (C/C++)
-  "elixir-ls", -- DAP (Elixir)
-  -- "flake8",
-  -- "gofumpt",
-  -- "goimports",
+  -- "codelldb", -- that is a DAP and not a LSP
+  "copilot",
   "gopls",
-  "jq", -- CLI json processor
-  "json-lsp",
-  "julia-lsp",
-  "lua-language-server",
-  "markdown-toc",
-  "markdownlint-cli2", -- markdown linter
-  "marksman", -- markdown previewer
-  -- "ocaml-lsp-server@1.19.0", -- this does not seem to work correctly from here! do it "manually"
-  "powershell-editor-services",
+  "jsonls",
+  -- "julials",
+  "lua_ls",
+  "marksman", -- that is a markdown lsp
+  "powershell_es",
   "pyright",
-  "python-lsp-server",
-  "r-languageserver",
-  -- "ruff", -- pyhont linter written in rust -- errors here: install w MasonInstall ruff
-  "rust-analyzer",
-  "shfmt", -- shell formatter (sh/bash/mksh)
-  "sqls", -- Sql Language Server
+  "pylsp",
+  "r_language_server",
+  "ruff",
+  "rust_analyzer",
+  "sqls",
   "stylua",
-  "taplo", -- toml formatter written in rust
+  "taplo", -- toml toolkit written in rust
   "zls",
 }
 
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
     build = ":MasonUpdate",
     dependencies = {
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason-lspconfig.nvim",
     },
     config = function()
       require("mason").setup({
@@ -44,16 +35,17 @@ return {
           icons = {
             package_installed = "",
             package_pending = "",
-            -- package_uninstalled = "",
+            package_uninstalled = "",
             -- alternavive icons
             --       package_installed = "✓",
-            --       package_pending = "➜",
-            package_uninstalled = "✗",
+            -- package_pending = "➜",
+            -- package_uninstalled = "✗",
           },
         },
       })
+      -- require("mason-lspconfig").setup()
       require("mason-lspconfig").setup({
-        ensure_installed = local_servers,
+        ensure_installed = servers,
         automatic_installation = true,
       })
     end,

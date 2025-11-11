@@ -15,13 +15,19 @@ return {
             sh = {
               -- Can be a table or a function that
               -- returns a table (see below)
-              command = { "pwsh" },
+              command = { "bash" },
             },
             julia = {
-              command = { "julia" },
+              -- command = { "C:\\Users\\gwd\\AppData\\Local\\Microsoft\\WindowsApps\\julia.exe" },
+              command = { "C:\\Users\\gwd\\.julia\\juliaup\\julia-1.12.1+0.x64.w64.mingw32\\bin\\julia.exe" },
+            },
+            python = {
+              command = { "ipython" },
+              format = require("iron.fts.common").bracketed_paste,
             },
             r = {
-              command = { "radian" },
+              command = { "radian" }, -- or { "R" }
+              format = require("iron.fts.common").bracketed_paste,
             },
           },
           -- How the repl window will be displayed
@@ -33,8 +39,9 @@ return {
         keymaps = { -- keymaps are managed in keymaps.lua
           send_motion = "<space>rc",
           visual_send = "<space>rc",
+          -- iron repl open repl
           send_file = "<space>ra", -- rf is reserved for repl start so using a for all
-          send_line = "<space>rl",
+          send_line = "<space>rl", -- this will also open a Repl terminal in case it's  not already open
           send_until_cursor = "<space>ru",
           send_mark = "<space>rms",
           mark_motion = "<space>rmc",

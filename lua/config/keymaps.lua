@@ -4,210 +4,119 @@
 
 local map = vim.keymap.set
 local wk = require("which-key")
+
 local opt = { silent = true }
 
--- vim.g.mapleader = "," -- Make sure to set `mapleader` before lazy so your mappings are correct
--- fast editing and reloading of init.lua config embed vimscript code in vim.cmd(.....)
--- use vim.cmd([[   ]]) for multi-line
+local builtin = require("telescope.builtin")
+
 vim.cmd([[
-autocmd! bufwritepost ~/AppData/Local/nvim/init.lua source ~/AppData/Local/nvim/init.lua
+  autocmd! bufwritepost ~/.config/nvim/init.lua source ~/.config/nvim/init.lua
 ]])
 
--- map ,ee to quick edit of init.lua
-map("n", ",ee", ":e! ~/AppData/Local/nvim/init.lua<CR>", { silent = false, desc = "Edit nvim/init.lua file" })
+-- alternative mapleader -> sticking with Space for now
+-- vim.g.mapleader = "," -- Make sure to set `mapleader` before lazy so your mappings are correct
 
--- map comma+c to close buffer
-map("n", ",c", ":bdelete<CR>:bnext<CR>", { silent = true, desc = "Close current Buffer move to next" })
+-- besided the CAPSLOCK being mapped to ESC via PowerToys Input/Output Remapper, here's the usual jk jj to ESC as well
+-- map jk to ESC
+map("i", "jk", "<ESC>", { noremap = true, silent = true })
+map("i", "jj", "<ESC>", { noremap = true, silent = true })
 
--- reset the <S-h> and <S-h> mappings to the default behaviour
-vim.keymap.del("n", "<S-h>")
-vim.keymap.del("n", "<S-l>")
-
--- toggle paste
-map({ "n", "i", "v", "x" }, "<F6>", "<cmd>set invpaste<CR><cmd>set paste?<CR>", { desc = "Toggle PASTE mode" })
-
--- map jk to switch to Normal mode in Terminal
+-- map jk to switch to Normal mode in Terminal as well
 map("t", "jk", [[<C-\><C-n>]], { silent = true })
 map("t", "<ESC>", [[<C-\><C-n>]], {})
 map("t", "<M-[>", [[<C-\><C-n>]], {})
 map("t", "<C-w>", [[<C-\><C-n><C-w>]], {})
 map("t", "<M-r>", [['<C-\><C-N>"'.nr2char(getchar()).'pi']], { expr = true })
 
--- Keep matches center screen when cycling with n|N etc.
-map("n", "n", "nzzzv", { noremap = true, desc = "Fwd  search '/' or '?'" })
-map("n", "N", "Nzzzv", { noremap = true, desc = "Back search '/' or '?'" })
-map("n", "#", "#zzz", { noremap = true, silent = true, desc = "Search word under cursor and center" })
-map("n", "<C-o>", "<C-o>zz", { noremap = true, silent = true })
-
--- Replace All - original from: https://gist.github.com/GllmR/80de5fb8824a758bafdb390e0a471480
--- that giist is a sinvgle file init.lua ... but ut has lazy and all of it included as well
-vim.keymap.set(
-  "n",
-  "<leader>h",
-  [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-  { noremap = true, desc = "Sed/Replace global" }
-)
-
-map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "Fix ^M or Windows CRLF meta chars in file" })
-
--- map jk to ESC
-map("i", "jk", "<ESC>", { silent = true })
-map("i", "jj", "<ESC>", { silent = true })
-
--- map F3 [no longer <C-t>] to toggle Neotree
-map("n", "<F3>", ":Neotree toggle<CR>", { silent = true, desc = "NTree toggle" })
-map("n", "<F2>", ":Neotree buffers<CR>", { silent = true, desc = "NTree buffers" })
-
--- map <comma>CD (upppercase CD) to change working dir to curr buffer parent dir
-map("n", "<leader>CD", ":Neotree %:h<CR>", { silent = true, desc = "Set the NeoTree active dir to buffer's dir" })
-
--- Map <leader>o & <leader>O to newline when in Normal mode ie w/o being followed by insert mode
+-- toggle paste with F6
 map(
-  "n",
-  "<leader>o",
-  [[:<C-u>call append(line("."), repeat([""], v:count1))<CR>]],
-  { silent = true, desc = "Newline below (no insert-mode)" }
-)
-map(
-  "n",
-  "<leader>O",
-  [[:<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>]],
-  { silent = true, desc = "Newline above (no insert-mode)" }
+  { "n", "i", "v", "x" },
+  "<F6>",
+  "<cmd>set invpaste<CR><cmd>set paste?<CR>",
+  { silent = false, desc = "Toggle PASTE mode" }
 )
 
--- map Ctrl-h and Ctrl-l to move cursor left/right in INSERT mode, map C-u to undo last edit?
+-- Edit init.lua
+map("n", ",ee", ":e! ~/.config/nvim/init.lua<CR>", { silent = false, desc = "Edit nvim/init.lua file" })
+
+-- map semi-colon+c to 'close buffer'
+map("n", ";c", ":bd<CR>:bnext<CR>:Neotree show %h<CR>", { silent = true, desc = "Close current Buffer move to next" })
+
+-- remove WIN CRLF meta char when encoding get messed up
+map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "Fix Windows CRLF meta chars" })
+
+-- map <comma>CD (upppercase CD) to set dir to curr buffer parent dir
+map("n", "<leader>CD", ":Neotree %:h<CR>", { silent = true, desc = "Set NeoTree active dir to buffer's dir" })
+map("n", "<leader>e", ":Neotree toggle %:h<CR>", { silent = true, desc = "Explorer NeoTree (Root/Buffer Dir)" })
+
+-- map Ctrl-h, Ctrl-l, j, k to move cursor left/right/down/up in INSERT mode,
+-- map C-u to undo last edit? albeit C-k in insert is mapped to "Signature Help" by Telescope or Treesitter
 map("i", "<C-h>", "<left>", { noremap = true, silent = true })
-map("i", "<C-l>", "<right>", { noremap = true, silent = true })
 map("i", "<C-j>", "<down>", { noremap = true, silent = true })
 map("i", "<C-k>", "<up>", { noremap = true, silent = true })
+map("i", "<C-l>", "<right>", { noremap = true, silent = true })
 map("i", "<C-u>", "<C-g>u<C-u>", { noremap = true, silent = true })
 
--- remap arrow keys deactivate movements in buffer all together
-map("n", "<left>", ":bp<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
-map("n", "<right>", ":bn<CR>", { noremap = true, silent = true, desc = "Next buffer" })
-map("n", "<up>", ":tabnext<CR>", { noremap = true, silent = true, desc = "Next tab" })
-map("n", "<down>", ":tabprev<CR>", { noremap = true, silent = true, desc = "Previous tab" })
+-- remap arrow keys to move between buffers and tabs
+map("n", "<left>", ":bp<CR>", { noremap = true, silent = true })
+map("n", "<right>", ":bn<CR>", { noremap = true, silent = true })
+map("n", "<up>", ":tabnext<CR>", { noremap = true, silent = true })
+map("n", "<down>", ":tabprev<CR>", { noremap = true, silent = true })
 
--- toggle zen mode w Comma-zz -> new mapping: <leader>uz or <leader>uZ for full-screen
--- map("n", ",zz", ":ZenMode<CR>", { noremap = true, silent = true, desc = "Toggle ZenMode" })
+-- toggle zen mode w Comma-zz
+map("n", ";z", ":lua Snacks.zen()<CR>", { silent = true, desc = "Toggle ZenMode" })
 
--- telscope mappings
-local builtin = require("telescope.builtin")
-map("n", "<leader>ff", builtin.find_files, { desc = "Tele find Files" })
-map("n", "<leader>fg", builtin.live_grep, { desc = "Tele grep Live" })
-map("n", "<leader>fs", builtin.grep_string, { desc = "Tele grep String (under cursor)" })
-map("n", "<leader>fb", builtin.buffers, { desc = "Tele Buffers" })
-map("n", "<leader>fh", builtin.help_tags, { desc = "Tele Help tags" })
-map("n", "<leader>fk", builtin.keymaps, { desc = "Tele 'n' mode kmaps" })
-map("n", "<leader>fm", "<cmd>NoiceTelescope<CR>", { desc = "NoiceTelescope messages/notificatons" })
+-- ctrlspace
+map("n", "<C-space>", "<cmd>CtrlSpace<CR>", { silent = true, desc = "CtrlSpace window at bottom" })
 
--- find Lazy configuration files
-vim.api.nvim_set_keymap(
-  "n",
-  "<Leader>fp",
-  "<CMD>lua require('telescope.builtin').find_files({ cwd = require('lazy.core.config').options.root, desc = 'Plugins'})<CR>",
-  -- "<CMD>lua require'tele-git_find_file-config'.project_files()<CR>",
-  { noremap = true, silent = true, desc = "Find 'plugins' files" }
-)
+-- some additional Telescope f..find mappings
+local tsBuiltin = require("telescope.builtin")
+map("n", "<leader>fh", tsBuiltin.help_tags, { desc = "Tscope Help tags" })
+map("n", "<leader>fk", tsBuiltin.keymaps, { desc = "Tscope 'n' mode kmaps" })
 
-map( -- vim.keymap.set is non-recursive by default so noemrap is not needed
-  "n",
-  "<leader>P",
-  "<cmd>lua require'telescope'.extensions.project.project{}<CR>",
-  { silent = true, desc = "Show projects" }
-)
-
--- add a telescope lsp keymap and which-key group
--- (
---   --- suggested new spec - accordding to checkhealth which-key
---   {
---     { "<leader>t", group = "Telekasten/TSitter/Lsp" },
---     { "<leader>td", builtin.lsp_definitions, desc = "Lsp Definitions" },
---     { "<leader>ts", builtin.lsp_document_symbols, desc = "Lsp Docu Symbols" },
---     { "<leader>tx", builtin.treesitter, desc = "TreeSitter Funcs/Vars Ref" },
---   }
--- )
-
--- before the whole ChatGPT group below is added here is a simple quock CopilotChat mappings
--- on thos of the default ones you get after hitting <leader>a (for AI I guess)
--- CopilotChat since leader+cc is recerved for Run-Codelens use Capital C's
-vim.keymap.set("n", "<leader>CC", ":CopilotChatToggle<CR>", opt)
-
--- chatigpt mappings
-wk.add({
-  mode = { "v", "n" },
-  { "<leader>G", group = "ChatGPT" },
-  { "<leader>Gc", group = "ChatGPT" },
-  { "<leader>Gca", "<cmd>ChatGPTRun add_tests<CR>", desc = "Add Tests" },
-  { "<leader>Gcc", "<cmd>ChatGPT<CR>", desc = "ChatGPT" },
-  { "<leader>Gcd", "<cmd>ChatGPTRun docstring<CR>", desc = "Docstring" },
-  { "<leader>Gce", "<cmd>ChatGPTEditWithInstruction<CR>", desc = "Edit with instruction" },
-  { "<leader>Gcf", "<cmd>ChatGPTRun fix_bugs<CR>", desc = "Fix Bugs" },
-  { "<leader>Gcg", "<cmd>ChatGPTRun grammar_correction<CR>", desc = "Grammar Correction" },
-  { "<leader>Gck", "<cmd>ChatGPTRun keywords<CR>", desc = "Keywords" },
-  { "<leader>Gcl", "<cmd>ChatGPTRun code_readability_analysis<CR>", desc = "Code Readability Analysis" },
-  { "<leader>Gco", "<cmd>ChatGPTRun optimize_code<CR>", desc = "Optimize Code" },
-  { "<leader>Gcr", "<cmd>ChatGPTRun roxygen_edit<CR>", desc = "Roxygen Edit" },
-  { "<leader>Gcs", "<cmd>ChatGPTRun summarize<CR>", desc = "Summarize" },
-  { "<leader>Gct", "<cmd>ChatGPTRun translate<CR>", desc = "Translate" },
-  { "<leader>Gcx", "<cmd>ChatGPTRun explain_code<CR>", desc = "Explain Code" },
-  { "<leader>Gce", "<cmd>ChatGPTEditWithInstruction<CR>", desc = "Edit with instruction" },
-})
+map("n", "<leader>fm", "<cmd>NoiceTelescope<CR>", { desc = "NoiceTelescope message/notifications" })
 
 -- OLD STYLE DEFINTIONS w/o local map
+-- another close buffer mappping with <leader>c
+-- map("n", "<leader>c", ":bd<CR>")
 -- map Ctrl-PgUp/PgDown to move between buffers in NORMAL mode
 map("n", "<C-PageUp>", ":bp<CR>", { silent = true, desc = "Prev buff" })
 map("n", "<C-PageDown>", ":bn<CR>", { silent = true, desc = "Next buff" })
--- also in INSERT mode
-map("i", "<C-PageUp>", ":bp<CR>", { silent = true })
-map("i", "<C-PageDown>", ":bn<CR>", { silent = true })
--- map <leader><Space> to remove search hhighlighting
+-- also in INSERT mode - does not work in INSERT mode - so comment out for now!
+--
+-- map("i", "<C-PageUp>", ":bp<CR>", { silent = true, desc = "previous buffer" })
+-- map("i", "<C-PageDown>", ":bn<CR>", { silent = true, desc = "next buffer" })
+-- map <leader><Space> to remove search highlightings
 map("n", ",<Space>", ":nohls<CR>", { silent = true, desc = "Remove highlighting on search results" })
 
--- mappaig Meta+minus to insert <- in insert mode
-map("i", "<M-->", " <- ", { noremap = true, silent = true })
-map("i", "<C-_>", " -> ", { noremap = true, silent = true }) -- Meta+Shift+minus opens terminal below
+-- map Ctrl+A to enter insert mode at end of file
+map("n", "<C-A>", "Go", { noremap = true, silent = true })
 
--- iron.nvim REPL has a bunch of commands,
+-- using nvim_put to paste text via function other methods did not work as expected
+-- The first argument is a table of lines to paste.
+-- The second argument is the register type (`"c"` for characterwise).
+-- The third argument is whether to paste after the cursor (`true`).
+-- The fourth argument is whether to move the cursor (`true`).
+
+-- mapping ALT or Meta+minus to insert <- R assignment operator in insert mode
+map("i", "<M-->", function()
+  vim.api.nvim_put({ " <- " }, "c", true, true)
+end, { noremap = true, silent = true })
+-- inserting right assignment operator, this is also the julia pipe operetor
+map("i", "<C-_>", function()
+  vim.api.nvim_put({ " -> " }, "c", true, true)
+end, { noremap = true, silent = true }) -- Meta+Shit+minus opens Terminal below?
+
+-- adding iron.nvim REPL bunch of mappings for its commands,
 wk.add({
   {
     mode = { "n" },
     { "<leader>r", group = "IronRepl", desc = "IronRepl" },
-    { "<leader>rs", "<cmd>IronRepl<cr>", desc = "IronRepl start" },
-    { "<leader>rr", "<cmd>IronRestart<cr>", desc = "IronRepl restart" },
-    { "<leader>rf", "<cmd>IronFocus<cr>", desc = "IronRepl focus" },
+    { "<leader>rf", "<cmd>IronRepl<cr>", desc = "IronRepl start" },
+    { "<leader>rF", "<cmd>IronFocus<cr>", desc = "IronRepl focus" },
+    { "<leader>rR", "<cmd>IronRestart<cr>", desc = "IronRepl restart" },
   },
 })
-
--- telekasten mappings
--- Launch panel if nothing is typed after <leader>z
-map("n", "<leader>t", "<cmd>Telekasten panel<CR>")
--- Most used functions
-map("n", "<leader>tf", "<cmd>Telekasten find_notes<CR>")
-map("n", "<leader>tg", "<cmd>Telekasten search_notes<CR>")
-map("n", "<leader>tt", "<cmd>Telekasten goto_today<CR>")
-map("n", "<leader>tz", "<cmd>Telekasten follow_link<CR>")
-map("n", "<leader>tn", "<cmd>Telekasten new_note<CR>")
-map("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
-map("n", "<leader>tq", "<cmd>bw!<CR>", { desc = "Close Calendar panel." })
-map("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
-map("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
--- Call insert link automatically when we start typing a link
-map("i", "[[", "<cmd>Telekasten insert_link<CR>")
-
--- add some dbee keymaps
-map("n", "<leader>db", "<cmd>lua require('dbee').open()<CR>", { desc = "Open DB editor", silent = true })
-map(
-  "n",
-  "<leader>dc",
-  "<cmd>lua require('dbee').close()<CR>",
-  { desc = "Close DB editor(also press <leader>q", silent = true }
-)
-
--- send-to-term mappings
--- map("n", "Tl", "<Plug>SendLine", { silent = false, desc = "Send line to Term" })
--- map("n", "Ts", "<Plug>Send", { silent = false, desc = "Send motion to Term" })
--- map("v", "Ts", "<Plug>Send", { silent = false, desc = "Send visual to Term" })
 
 -- ( -- Terminal and Lsp/TreeSitter group
 wk.add({
@@ -221,98 +130,51 @@ wk.add({
   { "<leader>Tx", require("telescope.builtin").treesitter, desc = "TreeSitter Funcs/Vars Ref" },
 })
 
--- keymaps for HARPOON - all starting with M- (Alt) key
--- and UPPERCASE letters except for M-q to toggle the harpoon quick menu
-local harpoon = require("harpoon")
-wk.add({
-  { "<leader>H", group = "Harpoon" },
-  -- { "<leader>Hq", "<cmd>lua require'harpoon.ui'.toggle_quick_menu()<CR>", desc = "Harpoon QuickMenu" },
-  { "<leader>HT", "<cmd>Telescope harpoon marks<CR>", desc = "Telescope Harpoon marks" },
-  {
-    "<leader>Ha",
-    function()
-      harpoon:list():add()
-    end,
-    desc = "Add Harpoon mark",
-  },
-  {
-    "<leader>Hq",
-    function()
-      harpoon.ui:toggle_quick_menu(harpoon:list())
-    end,
-    desc = "Harpoon QuickMenu",
-  },
-  {
-    "<leader>H1",
-    function()
-      harpoon:list():select(1)
-    end,
-    desc = "Goto File 1",
-  },
-  {
-    "<leader>H2",
-    function()
-      harpoon:list():select(2)
-    end,
-    desc = "Goto File 2",
-  },
-  {
-    "<leader>H3",
-    function()
-      harpoon:list():select(3)
-    end,
-    desc = "Goto File 3",
-  },
-  {
-    "<leader>H4",
-    function()
-      harpoon:list():select(4)
-    end,
-    desc = "Goto File 4",
-  },
-  {
-    "<leader>Hn",
-    function()
-      harpoon:list():next()
-    end,
-    desc = "Goto next Harpoon mark",
-  },
-  {
-    "<leader>Hp",
-    function()
-      harpoon:list():prev()
-    end,
-    desc = "Goto previous Harpoon mark",
-  },
-})
+-- telekasten mappings
+-- Launch panel if nothing is typed after <leader>t
+map("n", "<leader>z", "<cmd>Telekasten panel<CR>")
+-- Most used Telekasten functions
+map("n", "<leader>zf", "<cmd>Telekasten find_notes<CR>")
+map("n", "<leader>zg", "<cmd>Telekasten search_notes<CR>")
+map("n", "<leader>zt", "<cmd>Telekasten goto_today<CR>")
+map("n", "<leader>zz", "<cmd>Telekasten follow_link<CR>")
+map("n", "<leader>zn", "<cmd>Telekasten new_note<CR>")
+map("n", "<leader>zc", "<cmd>Telekasten show_calendar<CR>")
+map("n", "<leader>zq", "<cmd>bw!<CR>", { desc = "Close Calendar panel." })
+map("n", "<leader>zb", "<cmd>Telekasten show_backlinks<CR>")
+map("n", "<leader>zI", "<cmd>Telekasten insert_img_link<CR>")
+-- Call insert link automatically when we start typing a link
+map("i", "[[", "<cmd>Telekasten insert_link<CR>")
+-- Calendar keybindings
+map("n", "<C-Right>", "<cmd>lua require('telekasten').goto_next_month()<CR>")
+
 -- here are some additional real harpoon "shortcuts" ie just two keys at most, but w/o the which-key group
 -- toggle the Harpoon QuickMenu with M-q ie Alt-q
+local harpoon = require("harpoon")
+
 vim.keymap.set("n", "<M-q>", function()
   harpoon.ui:toggle_quick_menu(harpoon:list())
 end, { silent = true, desc = "Toggle Harpoon QuickMenu" })
--- -- show harpoon marks in Telescope w M-Q
+
+-- show harpoon marks in Telescope w M-Q
 vim.keymap.set("n", "<M-Q>", ":Telescope harpoon marks<CR>", { silent = false, desc = "Telescope Harpoon marks" })
--- -- add harpoons
+
+-- add harpoons
 vim.keymap.set("n", "<M-a>", function()
   harpoon:list():add()
 end, { silent = false, desc = "Add Harpoon file mark" })
--- -- switch to M-N uppercase since lowercase acts like C-n
+
+-- switch to M-N uppercase since lowercase acts like C-n
 vim.keymap.set("n", "<M-N>", function()
   harpoon:list():next()
 end, { silent = true, desc = "Goto next Harpoon mark" })
+
 -- switch to M-N uppercase since lowercase M-n acts like C-p
 vim.keymap.set("n", "<M-P>", function()
   harpoon:list():prev()
 end, { silent = true, desc = "Goto previous Harpoon mark" })
 
--- workaruond from here: https://github.com/ThePrimeagen/harpoon/issues/178#issuecomment-1174520639
-map(
-  "n",
-  "<leader>Hh",
-  "<cmd>lua require('telescope').extensions.harpoon.marks({attach_mappings=function(_, map) map('i', '<c-d>', require('telescope.actions').preview_scrolling_down) return true end})<CR>",
-  { noremap = true, desc = "Remap harpoon preview screen to scroll down" }
-)
-
--- vim.keymap.set("n", "<leader>fH", "<cmd>Telescope harpoon marks<CR>", { desc = "Open Telescope harpoon window" })
-
--- end of keymaps.lua
+-- unmap <C-A> (in normal mode: movinhg to EOF and entering insert mode in next line i.e. 'Go' combo)
+vim.keymap.del("n", "<C-A>")
+map("i", "<C-A>", "<Esc>Go", { silent = true, desc = "Go to EOF and enter new line" })
+-- end of keymap.lua

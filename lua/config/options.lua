@@ -1,6 +1,7 @@
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
+-- set to `true` to follow the main branch
+-- you need to have a working rust toolchain to build the plugin
+-- in this case.
+vim.g.lazyvim_blink_main = false
 
 -- change linenumbering to relative except for current line
 -- but switch to absolute in INSERT mode
@@ -12,7 +13,24 @@ augroup numbertoggle
 augroup END
 ]])
 
--- set terminal options to make it look more like a terminal ie no line numbers
+-- adding this based on ocaml update infos
+-- vim.cmd("set rtp^='/home/gwd/.opam/default/share/ocp-indent/vim'")
+-- vim.cmd("set rtp^='/home/gwd/.opam/default/share/ocp-indent/vim'")
+
+-- share clipboard with system clipboard
+vim.opt.clipboard = "unnamedplus"
+
+-- ignore case when searching
+vim.cmd("set ignorecase")
+
+-- ignore cse if pattern is only lowercase - if there's a capital letter in the search, it's case-sensitive
+vim.cmd("set smartcase")
+
+-- disable the calendar.vim keybindings - b/c of conflicts with code mappings
+-- therefore the bindings are all set in hte keybindings.lua file
+vim.cmd("let g:calendar_no_mappings = 1")
+
+-- set terminal options to make it look more like a terminal
 vim.cmd([[
 augroup neovim_terminal
     autocmd!
@@ -24,15 +42,6 @@ augroup neovim_terminal
     autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
 augroup END
 ]])
-
--- share clipboard with system clipboard
-vim.opt.clipboard = "unnamedplus"
--- ignore case when searching
-vim.cmd("set ignorecase")
-
--- disable the calendar.vim keybindings - b/c of conflicts with code mappings
--- therefore the bindings are all set in hte keybindings.lua file
-vim.cmd("let g:calendar_no_mappings = 1")
 
 -- make j and l move to prev/next line
 vim.opt.whichwrap = "<>[],hl,b,s"
@@ -47,7 +56,7 @@ vim.cmd("let g:completion_enable_auto_popup=1")
 -- customize better ws
 vim.cmd("let g:better_whitespace_operator='_s'") -- <leader>s is alrealy takek in LazyVim
 
--- menans you can do <numbber>_s<space> to strip ws on number lines, _s<motion> on lines affected by motion
+-- means you can do <number>_s<space> to strip ws on number lines, _s<motion> on lines affected by motion
 -- _sip will clean on current paragraph, etc
 vim.keymap.set("n", "_ws", ":ToggleWhitespace<CR>", { silent = false, desc = "Toggle show Whitespace" })
 vim.cmd("let g:better_whitespace_ctermcolor='Gray'")
@@ -61,20 +70,29 @@ vim.cmd("let g:show_spaces_that_precede_tabs=1")
 -- need conceallevel of 1 or 2 for obsidian.nvim to manage format concealment
 vim.opt.conceallevel = 1
 
--- for use of ocp-indent package in ocaml
-vim.cmd("set rtp^='C:UsersgwdAppDataLocalopam-testingdefaultshare/ocp-indent/vim'")
+-- Open binary files
+vim.api.nvim_create_autocmd("BufReadCmd", {
+  pattern = "*.pdf",
+  callback = function()
+    local filename = vim.fn.shellescape(vim.api.nvim_buf_get_name(0))
+    vim.cmd("silent !mupdf " .. filename .. " &")
+    vim.cmd("let tobedeleted = bufnr('%') | b# | exe \"bd! \" . tobedeleted")
+  end,
+})
 
--- madox2 vim-ai config
--- vim.cmd([[[
--- let g:vim_ai_chat = {
--- \ "options": {
--- \    "model": "gpt-4",
--- \    "temperature": 0.1,
--- \ },
--- \}
--- ]])
+vim.api.nvim_create_autocmd("BufReadCmd", {
+  pattern = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" },
+  callback = function()
+    local filename = vim.fn.shellescape(vim.api.nvim_buf_get_name(0))
+    vim.cmd("silent !eyestalk " .. filename .. " &")
+    vim.cmd("let tobedeleted = bufnr('%') | b# | exe \"bd! \" . tobedeleted")
+  end,
+})
 
--- send-to-term options for multiline text eg IPython etc
+-- for Windows uncomment the following line to set/use Powershell 7 as terminal
+vim.opt.shell = "pwsh"
+
+-- send-to-term options for multiline text eg IPython etc -- deactivated, relying on iron.repl now
 -- vim.cmd([[
 --   let g:send_multiline = {
 --   \    'ipy': {'begin':"\e[200~", 'end':"\e[201~\n", 'newline':"\n"},
@@ -82,5 +100,3 @@ vim.cmd("set rtp^='C:UsersgwdAppDataLocalopam-testingdefaultshare/ocp-indent/vim
 --   \    'jl': {'begin':"\e[200~", 'end':"\e[201~\n", 'newline':"\n"},
 --   \}
 -- ]])
--- set pwsh to be default shell
-vim.opt.shell = "pwsh"

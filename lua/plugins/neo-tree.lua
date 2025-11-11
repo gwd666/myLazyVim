@@ -6,7 +6,7 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
     "MunifTanjim/nui.nvim",
-    "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
     {
       "s1n7ax/nvim-window-picker",
       version = "2.*",
@@ -34,7 +34,7 @@ return {
     vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
     vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
     vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
-    -- define this loacl getTelesocpeOpts func to use in 'commands' config below
+    -- define this local getTelesocpeOpts func to use in 'commands' config below
     local function getTelescopeOpts(state, path)
       return {
         cwd = path,
@@ -49,7 +49,7 @@ return {
             if filename == nil then
               filename = selection[1]
             end
-            -- a way to open the file without triggering auto-close event of neo-tree?
+            -- any way to open the file without triggering auto-close event of neo-tree?
             require("neo-tree.sources.filesystem").navigate(state, state.path, filename)
           end)
           return true
@@ -59,7 +59,7 @@ return {
 
     require("neo-tree").setup({
       -- opts = {
-      close_if_last_window = false, -- close Neo-tree if it's the last window left
+      close_if_last_window = true, --false, -- close Neo-tree if it's the last window left
       -- },
       update_focused_file = { enable = true },
       event_handlers = {
@@ -75,7 +75,7 @@ return {
           handler = function()
             vim.cmd("highlight! Cursor blend=0")
           end,
-          -- handler = function()
+          -- handler = function() -- highlighted cursor
           --   vim.cmd("highlight! Cursor guibg=#5f87af blend=0")
           -- end,
         },
@@ -86,11 +86,11 @@ return {
         --     print("neo_tree_window_before_open", vim.inspect(args))
         --   end,
         -- },
-        { -- handler to follow opened files in neotree window
+        { -- hanbler to follow opened files in neotree window
           event = "neo_tree_window_after_open",
           handler = function(args)
             if args.position == "left" or args.position == "right" then
-              vim.cmd("wincmd =")
+              vim.cmd("wincmd=")
             end
           end,
         },
@@ -104,23 +104,25 @@ return {
           event = "neo_tree_window_after_close",
           handler = function(args)
             if args.position == "left" or args.position == "right" then
-              vim.cmd("wincmd =")
+              vim.cmd("wincmd=")
             end
           end,
         },
       }, -- end of event_handlers
       source_selector = {
         -- you can enable a clickable source selector in winbar or statusline
-        winbar = true, -- Show a winbar in the neotree window
-        statusline = false,
-        git_status = true, -- Show git status with icons
+        winbar = true, -- Show a winbar in the neotree window: the bar showing Files/Buffers/Git Tabs
+        statusline = false, -- this means when I move to neotree statusbar gets hidden
+        git_status = true, -- Show git status with icons not sure what this changes in NTree
       }, -- end of source_selector
+      -- This will go to folder of current file in neotree window
       filesystem = {
-        follow_current_file = { enabled = true },
+        bind_to_cwd = true, -- default is: false
+        follow_current_file = { enabled = true }, -- true is anyhow default
         window = {
           mappings = {
-            ["Tf"] = "telescope_find",
-            ["Tg"] = "telescope_grep",
+            ["tf"] = "telescope_find",
+            ["tg"] = "telescope_grep",
             ["X"] = "system_open", -- mapping for system_open command below
           },
         },
@@ -143,8 +145,8 @@ return {
                 }
               end
             end
-            return {} -- end of version 1
-            -- version 2: alternative if aobove fails
+            return {} -- end of version 1 for harpoon
+            -- version 2: alternative for harpoon if aobove vers.1 fails
             -- local Marked = require("harpoon.mark")
             -- local path = node:get_id()
             -- local success, index = pcall(Marked.get_index_of, path)
@@ -197,18 +199,7 @@ return {
           local path = node:get_id()
           -- Linux: open file in default app
           vim.fn.jobstart({ "xdg-open", path }, { detach = true })
-
           -- for windows see: https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Recipes#open-with-system-viewer
-          -- Windows: Without removing the file from the path, it opens in code.exe instead of explorer.exe
-          local p
-          local lastSlashIndex = path:match("^.+()\\[^\\]*$") -- Match the last slash and everything before it
-
-          if lastSlashIndex then
-            p = path:sub(1, lastSlashIndex - 1) -- Extract substring before the last slash
-          else
-            p = path -- If no slash found, return original path
-          end
-          vim.cmd("silent !start explorer " .. p)
         end,
         telescope_find = function(state)
           local node = state.tree:get_node()
@@ -223,15 +214,17 @@ return {
       }, -- end of commands
       window = {
         position = "right", -- open to the right, default is left as in VSC ;-)
-        mappings = {
+        mappings = { -- keymaps for moving between the Files|Buffers|Git tabs
           ["e"] = function()
+            -- DO NOT REWRITE THOSE exec2 calls -> they will break if you do so!
             vim.api.nvim_exec2("Neotree focus filesystem right", { output = true })
           end,
           ["b"] = function()
-            -- vim.api.nvim_command("Neotree focus buffers right")
+            -- DO NOT REWRITE THOSE exec2 calls -> they will break if you do so!
             vim.api.nvim_exec2("Neotree focus buffers right", { output = true })
           end,
           ["g"] = function()
+            -- DO NOT REWRITE THOSE exec2 calls -> they will break if you do so!
             vim.api.nvim_exec2("Neotree focus git_status right", { output = true })
           end,
         },

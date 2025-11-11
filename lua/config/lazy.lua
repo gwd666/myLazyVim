@@ -1,27 +1,18 @@
 -- start lazy.nvim load
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  -- bootstrap lazy.nvim
+  -- bootstrap lazyj.nvim
   -- stylua: ignore
   vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
--- MarkdownPreview fix browser funx
--- vim.fn.OpenMarkdownPreview = function(url)
---   vim.fn.system("firefox -new-window -url " .. url)
--- end
--- vim.g.mkdp_browserfunc = "OpenMarkdownPreview"
 require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- import any extras modules here
-    -- { import = "lazyvim.plugins.extras.lang.typescript" },
-    -- { import = "lazyvim.plugins.extras.lang.json" },
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    -- { import = "lazyvim.plugins.extras.ai.copilot" },
-    -- { import = "lazyvim.plugins.extras.ai.copilot-chat" },
     -- import/override with your plugins
     { import = "plugins", concurrency = 30 },
   },
@@ -41,12 +32,12 @@ require("lazy").setup({
       -- disable some rtp plugins
       disabled_plugins = {
         "gzip",
-        "matchit",
-        "matchparen",
-        -- "netrwPlugin",
+        -- "matchit",
+        -- "matchparen",
+        "netrwPlugin",
         "tarPlugin",
         "tohtml",
-        "tutor",
+        -- "tutor",
         "zipPlugin",
       },
     },
@@ -57,15 +48,14 @@ require("lazy").setup({
   },
 })
 
-require("mason").setup({
-  PATH = "prepend", -- "skip" seems to cause spwawning errors in CMD
-})
-
 -- set up indent-blankline
 -- require("config.ibl")
--- make bat the defautlt previewer
-require("fzf-lua").setup({ "telescope", winopts = { preview = { default = "bat" } } })
+-- make bat default previewer
+-- require("fzf-lua").setup({ "telescope", winopts = { preview = { default = "bat" } } })
+-- require("config.lualine")
+-- require("config.lsp_status")
 
+-- SET UP SOME COLOR SCHEMES
 -- make some tokyonight setup mods
 -- require("tokyonight").setup({
 --   -- use the night style
@@ -82,6 +72,8 @@ require("fzf-lua").setup({ "telescope", winopts = { preview = { default = "bat" 
 --   end,
 -- })
 
+-- COMMENT OUT because of annoying warning about indent-blankline plugin
+--
 -- make Telescope borderless with tokyonight cs
 require("tokyonight").setup({
   -- Change the "hint" color to the "orange" color, and make the "error" color bright red
@@ -146,9 +138,9 @@ for hl, col in pairs(TelescopeColor) do
 end
 
 require("catppuccin").setup({
-  transparent_background = false, --false|true -- if true nvim will be transparent!
+  transparent_background = true, --false, -- if true nvim will be transparent!
   integrations = {
-    cmp = true,
+    -- cmp = true,
     nvimtree = true,
     treesitter = true,
     treesitter_context = true,

@@ -18,6 +18,7 @@ if vim.g.vscode then
   vim.cmd("set ignorecase") -- Ignore case when searching
   vim.cmd([[source $HOME\AppData\Local\nvim\vscode\vsc_settings.vim]])
 else
+  vim.cmd("let g:copilot_debug = 1")
   -- print("=== Sourcing " .. os.getenv("USERPROFILE") .. "/init.lua " .. os.getenv("USERNAME") .. " part =====")
   -- I am gonna ride with SPACE as LEADER for now to test the feeling
   -- ----------------------------------------------------------------------------
@@ -26,7 +27,7 @@ else
   -- set colorcolumns
   vim.cmd("set colorcolumn=80,120")
   -- set a dedicated python3 host
-  vim.cmd("let g:python3_host_prog='E:/WinEnvs/mamba/envs/py311/python.exe'") --set python3 host to avoid surprises
+  vim.cmd("let g:python3_host_prog='E:/WinEnvs/mamba/envs/py312/python.exe'") --set python3 host to avoid surprises
   vim.cmd("let g:latex='C:/Users/gwd/AppData/Local/Programs/MiKTeX/miktex/bin/x64/latex.exe'")
   -- vim.cmd("let g:R_cmd = 'C:/Program Files/R/R-4.3.3/bin/x64/Rgui.exe'")
   -- ----------------------------------------------------------------------------
@@ -34,7 +35,7 @@ else
   -- load telescope config
   require("config.lazy")
   -- require("config.telescope")
-  require("config.chatgpt")
+  -- require("config.chatgpt")
   -- require("config.harpoon") -- now in LazyExtras
   -- moved all the colorscheme stuff to plugins/colorscheme.lua
   -- define the colorscheme
@@ -42,25 +43,22 @@ else
   -- vim.api.nvim_command([[ colorscheme tokyonight ]])
   -- vim.api.nvim_command([[ colorscheme tokyonight-storm ]])
   -- vim.api.nvim_command([[ colorscheme habamax ]])
-  vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
+  -- vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
   -- vim.api.nvim_command([[ colorscheme catppuccin-mocha ]])
-  -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
+  -- vim.api.nvim_command([[ colorscheme gruvbox ]])
   -- vim.api.nvim_command([[ colorscheme gruvbuddy ]])
+  -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
+  -- vim.api.nvim_command([[ colorscheme gruvbox-baby ]])
   -- vim.api.nvim_command([[ colorscheme nord ]])
   -- vim.api.nvim_command([[ colorscheme onenord ]])
   -- vim.api.nvim_command([[ colorscheme onedarker ]])
+  vim.api.nvim_command([[ colorscheme onedark_vivid ]])
   -- vim.api.nvim_command([[ colorscheme material-palenight ]])
   -- vim.api.nvim_command([[ colorscheme monokai-pro-machine ]])
   -- vim.api.nvim_command([[ colorscheme monokai-pro-octagon ]])
   -- vim.api.nvim_command([[ colorscheme monokai-pro-ristretto ]])
-  -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
-  -- vim.api.nvim_command([[ colorscheme gruvbox-baby ]])
   -- vim.api.nvim_command([[ colorscheme ayu-mirage ]])
   -- handle a weird path error in cse neovim is started in Git Bash
-  if os.getenv("TERM") == "xterm-256color" and os.getenv("SHELL") == "C:\\Program Files\\Git\\usr\\bin\\bash.exe" then
-    print("Neovim started in Git Bash? Modifying/Fixing SHELL env var!")
-    vim.cmd([[ let &shell = '"C:/Program Files/Git/usr/bin/bash.exe"']])
-  end
   -- telekasten setpu
   require("telekasten").setup({
     home = vim.fn.expand("C:/Users/gwd/Docs@OneDrive/zettelkasten"), -- Put the name of your notes directory here
