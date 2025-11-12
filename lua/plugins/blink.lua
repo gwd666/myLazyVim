@@ -185,7 +185,7 @@ return {
     -- Blink also powers cmdline if you like:
     cmdline = {
       enabled = true,
-      completion = { ghost_tex = { enabled = true } },
+      completion = { ghost_text = { enabled = true } },
     },
   },
 }
