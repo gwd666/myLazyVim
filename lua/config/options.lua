@@ -3,16 +3,6 @@
 -- in this case.
 vim.g.lazyvim_blink_main = false
 
--- change linenumbering to relative except for current line
--- but switch to absolute in INSERT mode
-vim.cmd([[
-augroup numbertoggle
- autocmd!
- autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i"  | set rnu    | endif
- autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                   | set nornu  | endif
-augroup END
-]])
-
 -- adding this based on ocaml update infos
 -- vim.cmd("set rtp^='/home/gwd/.opam/default/share/ocp-indent/vim'")
 -- vim.cmd("set rtp^='/home/gwd/.opam/default/share/ocp-indent/vim'")
@@ -29,19 +19,6 @@ vim.cmd("set smartcase")
 -- disable the calendar.vim keybindings - b/c of conflicts with code mappings
 -- therefore the bindings are all set in hte keybindings.lua file
 vim.cmd("let g:calendar_no_mappings = 1")
-
--- set terminal options to make it look more like a terminal
-vim.cmd([[
-augroup neovim_terminal
-    autocmd!
-    " Enter Terminal-mode (insert) automatically
-    autocmd TermOpen * startinsert
-    " Disables number lines on terminal buffers
-    autocmd TermOpen * :set nonumber norelativenumber
-    " allows you to use Ctrl-c on terminal window
-    autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
-augroup END
-]])
 
 -- make j and l move to prev/next line
 vim.opt.whichwrap = "<>[],hl,b,s"
@@ -69,25 +46,6 @@ vim.cmd("let g:show_spaces_that_precede_tabs=1")
 
 -- need conceallevel of 1 or 2 for obsidian.nvim to manage format concealment
 vim.opt.conceallevel = 1
-
--- Open binary files
-vim.api.nvim_create_autocmd("BufReadCmd", {
-  pattern = "*.pdf",
-  callback = function()
-    local filename = vim.fn.shellescape(vim.api.nvim_buf_get_name(0))
-    vim.cmd("silent !mupdf " .. filename .. " &")
-    vim.cmd("let tobedeleted = bufnr('%') | b# | exe \"bd! \" . tobedeleted")
-  end,
-})
-
-vim.api.nvim_create_autocmd("BufReadCmd", {
-  pattern = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" },
-  callback = function()
-    local filename = vim.fn.shellescape(vim.api.nvim_buf_get_name(0))
-    vim.cmd("silent !eyestalk " .. filename .. " &")
-    vim.cmd("let tobedeleted = bufnr('%') | b# | exe \"bd! \" . tobedeleted")
-  end,
-})
 
 -- for Windows uncomment the following line to set/use Powershell 7 as terminal
 vim.opt.shell = "pwsh"
