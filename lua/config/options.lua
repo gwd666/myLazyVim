@@ -5,16 +5,6 @@ vim.g.lazyvim_blink_main = false
 
 vim.cmd("set scrolloff=2") -- number of lines to keep above/below cursor when scrolling
 
--- change linenumbering to relative except for current line
--- but switch to absolute in INSERT mode
-vim.cmd([[
-augroup numbertoggle
- autocmd!
- autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i"  | set rnu    | endif
- autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                   | set nornu  | endif
-augroup END
-]])
-
 -- adding this based on ocaml update infos
 vim.cmd("set rtp^='/home/gwd/.opam/default/share/ocp-indent/vim'")
 
@@ -30,19 +20,6 @@ vim.cmd("set smartcase")
 -- disable the calendar.vim keybindings - b/c of conflicts with code mappings
 -- therefore the bindings are all set in hte keybindings.lua file
 vim.cmd("let g:calendar_no_mappings = 1")
-
--- set terminal options to make it look more like a terminal
-vim.cmd([[
-augroup neovim_terminal
-    autocmd!
-    " Enter Terminal-mode (insert) automatically
-    autocmd TermOpen * startinsert
-    " Disables number lines on terminal buffers
-    autocmd TermOpen * :set nonumber norelativenumber
-    " allows you to use Ctrl-c on terminal window
-    autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
-augroup END
-]])
 
 -- make j and l move to prev/next line
 vim.opt.whichwrap = "<>[],hl,b,s"
@@ -63,6 +40,7 @@ vim.keymap.set("n", "_ws", ":ToggleWhitespace<CR>", { silent = false, desc = "To
 vim.cmd("let g:better_whitespace_ctermcolor='Gray'")
 vim.cmd("let g:better_whitespace_guicolor='Gray'")
 vim.cmd("let g:better_whitespace_skip_emptylines=1") -- don't  bother with empty lines other pliugin will handle that
+
 -- vim.cmd("let g:stip_whitespace_on_save=1") -- this would disable stripping ws on save
 -- highlight ws that precedes Tabs, plugin cannot remove those,
 -- BUT you can try to fix indentation by slecting and hitting '=' key!
