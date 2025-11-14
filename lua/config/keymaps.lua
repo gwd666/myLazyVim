@@ -90,6 +90,11 @@ map("n", "<C-PageDown>", ":bn<CR>", { silent = true, desc = "Next buff" })
 -- map <leader><Space> to remove search highlightings
 map("n", ",<Space>", ":nohls<CR>", { silent = true, desc = "Remove highlighting on search results" })
 
+-- some scrollbind for buffers/windows mapping
+map("n", "<leader>wS", function()
+  require("config.scrollbind").toggle()
+end, { silent = true, desc = "Toggle scrollbind for this window" })
+
 -- map Ctrl+A to enter insert mode at end of file
 map("n", "<C-A>", "Go", { noremap = true, silent = true })
 
