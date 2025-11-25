@@ -56,7 +56,17 @@ map("i", "<C-l>", "<right>", { noremap = true, silent = true })
 map("i", "<C-j>", "<down>", { noremap = true, silent = true, desc = "Move cursor down" })
 map("i", "<C-k>", "<up>", { noremap = true, silent = true, desc = "Move cursor up" })
 -- undo in insert mode with Ctrl-u
-map("i", "<C-u>", "<C-g>u<C-u>", { noremap = true, silent = true })
+map("i", "<C-u>", "<C-g>u<C-u>", {
+  noremap = true,
+  silent = true,
+  desc = "Undo in insert mode, if nothing was typed/inserted, then delete char to left",
+})
+map(
+  "i",
+  "<C-a>",
+  "<C-o>$",
+  { noremap = true, silent = true, desc = "Move to end of current line - you need to hit <C-a> twice!" }
+)
 
 -- remap arrow keys to move between buffers and tabs
 map("n", "<left>", ":bp<CR>", { noremap = true, silent = true })
@@ -95,8 +105,9 @@ map("n", "<leader>wS", function()
   require("config.scrollbind").toggle()
 end, { silent = true, desc = "Toggle scrollbind for this window" })
 
--- map Ctrl+A to enter insert mode at end of file
+-- map Ctrl+A to enter insert mode at the end of the file
 map("n", "<C-A>", "Go", { noremap = true, silent = true })
+-- map("i", "<C-a>", "<Esc>Go", { silent = true, desc = "Go to EOF and enter new line" }) # I decided to use this for moving to end of line in insert mode
 
 -- using nvim_put to paste text via function other methods did not work as expected
 -- The first argument is a table of lines to paste.
@@ -180,7 +191,4 @@ vim.keymap.set("n", "<M-P>", function()
   harpoon:list():prev()
 end, { silent = true, desc = "Goto previous Harpoon mark" })
 
--- unmap <C-A> (in normal mode: movinhg to EOF and entering insert mode in next line i.e. 'Go' combo)
-vim.keymap.del("n", "<C-A>")
-map("i", "<C-A>", "<Esc>Go", { silent = true, desc = "Go to EOF and enter new line" })
 -- end of keymap.lua
