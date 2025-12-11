@@ -42,9 +42,10 @@ else
   -- moved all the colorscheme stuff to plugins/colorscheme.lua
   -- choose a colorscheme
   -- vim.api.nvim_command([[ colorscheme ayu-mirage ]])
+  -- vim.api.nvim_command([[ colorscheme catppuccin ]])
   -- vim.api.nvim_command([[ colorscheme catppuccin-frappe ]])
   -- vim.api.nvim_command([[ colorscheme catppuccin-latte ]])
-  vim.api.nvim_command([[ colorscheme catppuccin-mocha ]])
+  -- vim.api.nvim_command([[ colorscheme catppuccin-mocha ]])
   -- vim.api.nvim_command([[ colorscheme desert ]])
   -- vim.api.nvim_command([[ colorscheme gruvbox ]])
   -- vim.api.nvim_command([[ colorscheme gruvbox-material ]])
@@ -58,6 +59,7 @@ else
   -- vim.api.nvim_command([[ colorscheme onedarker ]])
   -- vim.api.nvim_command([[ colorscheme onedark ]])
   -- vim.api.nvim_command([[ colorscheme onenord ]])
+  vim.api.nvim_command([[ colorscheme tokyonight ]])
   -- vim.api.nvim_command([[ colorscheme tokyonight-storm ]])
   -- try to set Terminal to be ghostty
   -- defined this in the plugins/snacks.lua config->terminal section

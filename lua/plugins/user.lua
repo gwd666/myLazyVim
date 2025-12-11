@@ -5,6 +5,13 @@ return {
     "nvim-telekasten/calendar-vim",
     after = "telekasten.nvim",
   },
+  -- adding telescope-project.nvim (replacing project.nvim with it)
+  {
+    "nvim-telescope/telescope-project.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+    },
+  },
   -- better whitespaces showing
   { "ntpeters/vim-better-whitespace" },
   -- ctrlspace for Tab management

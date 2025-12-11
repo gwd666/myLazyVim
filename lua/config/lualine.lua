@@ -1,4 +1,4 @@
-local custom_gruvbox = require("lualine.themes.gruvbox")
+local custom_gruvbox = require("lualine.themes.tokyonight")
 
 -- Change the background of lualine_c section for normal mode
 custom_gruvbox.normal.c.bg = "#112233"
@@ -14,17 +14,17 @@ require("lualine").setup({
     {
       "harpoon2",
       -- custom config:
-      --   icon = "♥",
-      --   indicators = { "a", "s", "q", "w" },
-      --   active_indicators = { "A", "S", "Q", "W" },
-      --   color_active = { fg = "#00ff00" },
-      --   _separator = " ",
+      icon = "♥",
+      indicators = { "a", "s", "q", "w" },
+      active_indicators = { "A", "S", "Q", "W" },
+      color_active = { fg = "#00ff00" },
+      _separator = " ",
       no_harpoon = "Harpoon not loaded",
     },
   },
 })
 
--- -- default lualine sections conffig
+-- -- default lualine sections config exmaple
 -- sections = {
 --     lualine_a = {'mode'},
 --     lualine_b = {'branch', 'diff', 'diagnostics'},

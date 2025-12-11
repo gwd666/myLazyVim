@@ -52,7 +52,7 @@ require("lazy").setup({
 -- require("config.ibl")
 -- make bat default previewer
 -- require("fzf-lua").setup({ "telescope", winopts = { preview = { default = "bat" } } })
--- require("config.lualine")
+require("config.lualine")
 -- require("config.lsp_status")
 
 -- SET UP SOME COLOR SCHEMES
@@ -75,100 +75,100 @@ require("lazy").setup({
 -- COMMENT OUT because of annoying warning about indent-blankline plugin
 --
 -- make Telescope borderless with tokyonight cs
-require("tokyonight").setup({
-  -- Change the "hint" color to the "orange" color, and make the "error" color bright red
-  on_colors = function(colors)
-    colors.hint = colors.orange
-    colors.error = "#ff0000" -- red
-  end,
-  on_highlights = function(hl, c)
-    local prompt = "#2d3149"
-    hl.TelescopeNormal = {
-      bg = c.bg_dark,
-      fg = c.fg_dark,
-    }
-    hl.TelescopeBorder = {
-      bg = c.bg_dark,
-      fg = c.bg_dark,
-    }
-    hl.TelescopePromptNormal = {
-      bg = prompt,
-    }
-    hl.TelescopePromptBorder = {
-      bg = prompt,
-      fg = prompt,
-    }
-    hl.TelescopePromptTitle = {
-      bg = prompt,
-      fg = prompt,
-    }
-    hl.TelescopePreviewTitle = {
-      bg = c.bg_dark,
-      fg = c.bg_dark,
-    }
-    hl.TelescopeResultsTitle = {
-      bg = c.bg_dark,
-      fg = c.bg_dark,
-    }
-  end,
-})
+-- require("tokyonight").setup({
+--   -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+--   on_colors = function(colors)
+--     colors.hint = colors.orange
+--     colors.error = "#ff0000" -- red
+--   end,
+--   on_highlights = function(hl, c)
+--     local prompt = "#2d3149"
+--     hl.TelescopeNormal = {
+--       bg = c.bg_dark,
+--       fg = c.fg_dark,
+--     }
+--     hl.TelescopeBorder = {
+--       bg = c.bg_dark,
+--       fg = c.bg_dark,
+--     }
+--     hl.TelescopePromptNormal = {
+--       bg = prompt,
+--     }
+--     hl.TelescopePromptBorder = {
+--       bg = prompt,
+--       fg = prompt,
+--     }
+--     hl.TelescopePromptTitle = {
+--       bg = prompt,
+--       fg = prompt,
+--     }
+--     hl.TelescopePreviewTitle = {
+--       bg = c.bg_dark,
+--       fg = c.bg_dark,
+--     }
+--     hl.TelescopeResultsTitle = {
+--       bg = c.bg_dark,
+--       fg = c.bg_dark,
+--     }
+--   end,
+-- })
 
 -------------- catppuccin setup -----------------------
 -- try to make Telescope borderless with catppuccin cs
-
-local colors = require("catppuccin.palettes").get_palette()
-local TelescopeColor = {
-  TelescopeMatching = { fg = colors.flamingo },
-  TelescopeSelection = { fg = colors.text, bg = colors.surface0, bold = true },
-
-  TelescopePromptPrefix = { bg = colors.surface0 },
-  TelescopePromptNormal = { bg = colors.surface0 },
-  TelescopeResultsNormal = { bg = colors.mantle },
-  TelescopePreviewNormal = { bg = colors.mantle },
-  TelescopePromptBorder = { bg = colors.surface0, fg = colors.surface0 },
-  TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
-  TelescopePreviewBorder = { bg = colors.mantle, fg = colors.mantle },
-  TelescopePromptTitle = { bg = colors.pink, fg = colors.mantle },
-  TelescopeResultsTitle = { fg = colors.mantle },
-  TelescopePreviewTitle = { bg = colors.green, fg = colors.mantle },
-}
-
-for hl, col in pairs(TelescopeColor) do
-  vim.api.nvim_set_hl(0, hl, col)
-end
-
-require("catppuccin").setup({
-  transparent_background = true, --false, -- if true nvim will be transparent!
-  integrations = {
-    cmp = true,
-    nvimtree = true,
-    treesitter = true,
-    treesitter_context = true,
-    notify = true, --false,
-    neotree = true,
-    mason = true,
-    harpoon = true,
-    telescope = true,
-    telekasten = true,
-    which_key = true,
-  },
-  color_ovcerrides = {
-    frappe = { -- originally mocha was used here
-      base = "#1c1917",
-      blue = "#22d3ee",
-      green = "#86efac",
-      flamingo = "#D6409F",
-      lavender = "#DE51A8",
-      pink = "#f9a8d4",
-      red = "#fda4af",
-      maroon = "#f87171",
-      mauve = "#D19DFF",
-      text = "#E8E2D9",
-      sky = "#7ee6fd",
-      yellow = "#fde68a",
-      rosewater = "#f4c2c2",
-      peach = "#fba8c4",
-      teal = "#4fd1c5",
-    },
-  },
-})
+--
+-- local colors = require("catppuccin.palettes").get_palette()
+-- local TelescopeColor = {
+--   TelescopeMatching = { fg = colors.flamingo },
+--   TelescopeSelection = { fg = colors.text, bg = colors.surface0, bold = true },
+--
+--   TelescopePromptPrefix = { bg = colors.surface0 },
+--   TelescopePromptNormal = { bg = colors.surface0 },
+--   TelescopeResultsNormal = { bg = colors.mantle },
+--   TelescopePreviewNormal = { bg = colors.mantle },
+--   TelescopePromptBorder = { bg = colors.surface0, fg = colors.surface0 },
+--   TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
+--   TelescopePreviewBorder = { bg = colors.mantle, fg = colors.mantle },
+--   TelescopePromptTitle = { bg = colors.pink, fg = colors.mantle },
+--   TelescopeResultsTitle = { fg = colors.mantle },
+--   TelescopePreviewTitle = { bg = colors.green, fg = colors.mantle },
+-- }
+--
+-- for hl, col in pairs(TelescopeColor) do
+--   vim.api.nvim_set_hl(0, hl, col)
+-- end
+--
+-- require("catppuccin").setup({
+--   transparent_background = true, --false, -- when true nvim will be transparent!
+--   integrations = {
+--     cmp = true,
+--     nvimtree = true,
+--     treesitter = true,
+--     treesitter_context = true,
+--     notify = true, --false,
+--     neotree = true,
+--     mason = true,
+--     harpoon = true,
+--     telescope = true,
+--     telekasten = true,
+--     which_key = true,
+--   },
+--   color_ovcerrides = {
+--     frappe = { -- originally mocha was used here
+--       base = "#1c1917",
+--       blue = "#22d3ee",
+--       green = "#86efac",
+--       flamingo = "#D6409F",
+--       lavender = "#DE51A8",
+--       pink = "#f9a8d4",
+--       red = "#fda4af",
+--       maroon = "#f87171",
+--       mauve = "#D19DFF",
+--       text = "#E8E2D9",
+--       sky = "#7ee6fd",
+--       yellow = "#fde68a",
+--       rosewater = "#f4c2c2",
+--       peach = "#fba8c4",
+--       teal = "#4fd1c5",
+--     },
+--   },
+-- })

@@ -40,7 +40,8 @@ map(
 map("n", ",ee", ":e! ~/.config/nvim/init.lua<CR>", { silent = false, desc = "Edit nvim/init.lua file" })
 
 -- map semi-colon+c to 'close buffer'
-map("n", ";c", ":bd<CR>:bnext<CR>:Neotree show %h<CR>", { silent = true, desc = "Close current Buffer move to next" })
+-- map("n", ";c", ":bd<CR>:bnext<CR>:Neotree show %h<CR>", { silent = true, desc = "Close current Buffer move to next" })
+map("n", ";c", ":bd<CR>:bnext<CR>", { silent = true, desc = "Close current Buffer move to next" })
 
 -- remove WIN CRLF meta char when encoding get messed up
 map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "Fix Windows CRLF meta chars" })
@@ -164,6 +165,14 @@ map("n", "<leader>zI", "<cmd>Telekasten insert_img_link<CR>")
 map("i", "[[", "<cmd>Telekasten insert_link<CR>")
 -- Calendar keybindings
 map("n", "<C-Right>", "<cmd>lua require('telekasten').goto_next_month()<CR>")
+
+-- Telescope project.nvim binding
+map(
+  "n",
+  "<leader>P",
+  "<cmd>lua require'telescope'.extensions.project.project{}<CR>",
+  { noremap = true, silent = true, desc = "Telescope project-picker" }
+)
 
 -- here are some additional real harpoon "shortcuts" ie just two keys at most, but w/o the which-key group
 -- toggle the Harpoon QuickMenu with M-q ie Alt-q

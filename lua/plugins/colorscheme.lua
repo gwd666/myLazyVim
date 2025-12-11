@@ -20,9 +20,32 @@ return {
   -- add onedarker
   { "lunarvim/onedarker.nvim" },
   -- add catppuccin colorscheme
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000, opts = { blink_cmp = true } },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    opts = {
+      transparent_background = true,
+      blink_cmp = true,
+    },
+  },
   -- add tokyonight
-  { "folke/tokyonight.nvim", priority = 1000, opts = { style = "storm" } }, -- available opts: style = moon|night|day|storm,
+  {
+    "folke/tokyonight.nvim",
+    lazy = true,
+    priority = 1000,
+    opts = function()
+      return {
+        -- style = "storm",
+        -- available style opts: style = moon|night|day|storm,
+        transparent = true,
+        -- styles = {
+        --   sidebars = "transparent",
+        --   floats = "transparent",
+        -- },
+      }
+    end,
+  },
   -- add gruvbox themes
   { "luisiacc/gruvbox-baby" },
   { "sainnhe/gruvbox-material" },
