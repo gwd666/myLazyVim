@@ -40,7 +40,19 @@ map(
 map("n", ",ee", ":e! ~/.config/nvim/init.lua<CR>", { silent = false, desc = "Edit nvim/init.lua file" })
 
 -- map semi-colon+c to 'close buffer'
-map("n", ";c", ":bd<CR>:bnext<CR>:Neotree show %h<CR>", { silent = true, desc = "Close current Buffer move to next" })
+-- map("n", ";c", ":bd<CR>:bnext<CR>:Neotree show %h<CR>", { silent = true, desc = "Close current Buffer move to next" })
+local function close_and_switch_buffer()
+  local buffers = vim.fn.getbufinfo({ buflisted = true })
+  if #buffers <= 1 then
+    -- if there is only one buffer, just close it
+    vim.cmd("bd")
+  else -- otherwise, switch to the next buffer before closing the current one
+    vim.cmd("bnext")
+    vim.cmd("bd # ")
+  end
+end
+
+vim.keymap.set("n", ";c", close_and_switch_buffer, { silent = true, desc = "Close current buffer and move to next" })
 
 -- remove WIN CRLF meta char when encoding get messed up
 map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "Fix Windows CRLF meta chars" })
