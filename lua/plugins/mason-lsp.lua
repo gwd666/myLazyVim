@@ -6,14 +6,13 @@ local servers = {
   "elixirls",
   "gopls",
   "jsonls",
-  -- "julials",
   "lua_ls",
   -- "markdownlint-cli2", -- despite being a formatter it was possible to install it here?
   "marksman", -- this is a markdown lsp
-  "ocamllsp",
   "powershell_es",
   "pyright",
   "pylsp",
+  ocamllsp = {},
   "r_language_server",
   "ruff",
   "rust_analyzer",
@@ -32,6 +31,7 @@ return {
     dependencies = {
       { "mason-org/mason-lspconfig.nvim" },
     },
+
     config = function()
       require("mason").setup({
         ui = {
@@ -46,7 +46,6 @@ return {
           },
         },
       })
-      -- require("mason-lspconfig").setup()
       require("mason-lspconfig").setup({
         ensure_installed = servers,
         automatic_installation = true,

@@ -41,7 +41,18 @@ map("n", ",ee", ":e! ~/.config/nvim/init.lua<CR>", { silent = false, desc = "Edi
 
 -- map semi-colon+c to 'close buffer'
 -- map("n", ";c", ":bd<CR>:bnext<CR>:Neotree show %h<CR>", { silent = true, desc = "Close current Buffer move to next" })
-map("n", ";c", ":bd<CR>:bnext<CR>", { silent = true, desc = "Close current Buffer move to next" })
+local function close_and_switch_buffer()
+  local buffers = vim.fn.getbufinfo({ buflisted = true })
+  if #buffers <= 1 then
+    -- if there is only one buffer, just close it
+    vim.cmd("bd")
+  else -- otherwise, switch to the next buffer before closing the current one
+    vim.cmd("bnext")
+    vim.cmd("bd # ")
+  end
+end
+
+vim.keymap.set("n", ";c", close_and_switch_buffer, { silent = true, desc = "Close current buffer and move to next" })
 
 -- remove WIN CRLF meta char when encoding get messed up
 map("n", ",m", "mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm", { desc = "Fix Windows CRLF meta chars" })
@@ -75,7 +86,7 @@ map("n", "<right>", ":bn<CR>", { noremap = true, silent = true })
 map("n", "<up>", ":tabnext<CR>", { noremap = true, silent = true })
 map("n", "<down>", ":tabprev<CR>", { noremap = true, silent = true })
 
--- toggle zen mode w Comma-zz
+-- toggle zen mode w semi-colon z
 map("n", ";z", ":lua Snacks.zen()<CR>", { silent = true, desc = "Toggle ZenMode" })
 
 -- ctrlspace
@@ -171,7 +182,7 @@ map(
   "n",
   "<leader>P",
   "<cmd>lua require'telescope'.extensions.project.project{}<CR>",
-  { noremap = true, silent = true, desc = "Telescope project-picker" }
+  { noremap = true, silent = true, desc = "Telescope Project-Picker" }
 )
 
 -- here are some additional real harpoon "shortcuts" ie just two keys at most, but w/o the which-key group

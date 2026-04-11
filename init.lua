@@ -57,9 +57,9 @@ else
   -- vim.api.nvim_command([[ colorscheme desert ]])
   -- vim.api.nvim_command([[ colorscheme monokai-pro-octagon ]])
   -- vim.api.nvim_command([[ colorscheme onedarker ]])
-  -- vim.api.nvim_command([[ colorscheme onedark ]])
+  vim.api.nvim_command([[ colorscheme onedark ]])
   -- vim.api.nvim_command([[ colorscheme onenord ]])
-  vim.api.nvim_command([[ colorscheme tokyonight ]])
+  -- vim.api.nvim_command([[ colorscheme tokyonight ]])
   -- vim.api.nvim_command([[ colorscheme tokyonight-storm ]])
   -- try to set Terminal to be ghostty
   -- defined this in the plugins/snacks.lua config->terminal section

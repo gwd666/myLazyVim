@@ -20,6 +20,9 @@ return {
   { "juliaEditorSupport/julia-vim" },
   -- add zig.vim
   { "ziglang/zig.vim" },
+  -- DiffView
+  { "sindrets/diffview.nvim" },
+  -- vim-tmux
   {
     "christoomey/vim-tmux-navigator",
     cond = function()

@@ -5,7 +5,7 @@ return {
   -- add nord theme
   { "shaunsingh/nord.nvim", name = "nord" },
   -- add onenord
-  { "rmehri01/onenord.nvim", branch = "main", name = "onenord" },
+  { "rmehri01/onenord.nvim", name = "onenord" },
   {
     -- add onedark
     "navarasu/onedark.nvim",
