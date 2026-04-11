@@ -4,7 +4,18 @@ return {
     -- note that `init` will disable lazy-loading!
     init = function()
       local iron = require("iron.core")
-      local view = require("iron.view")
+      local julia = "julia"
+      local juliaup_bins = vim.fn.glob(vim.fn.expand("~/.julia/juliaup/*/bin/julia.exe"), false, true)
+      if #juliaup_bins > 0 then
+        table.sort(juliaup_bins)
+        julia = juliaup_bins[#juliaup_bins]
+      else
+        local julia_exepath = vim.fn.exepath("julia")
+        if julia_exepath ~= "" then
+          julia = julia_exepath
+        end
+      end
+
       iron.setup({
         -- add the other options if you want
         config = {
@@ -18,8 +29,7 @@ return {
               command = { "bash" },
             },
             julia = {
-              -- command = { "C:\\Users\\gwd\\AppData\\Local\\Microsoft\\WindowsApps\\julia.exe" },
-              command = { "C:\\Users\\gwd\\.julia\\juliaup\\julia-1.12.1+0.x64.w64.mingw32\\bin\\julia.exe" },
+              command = { julia },
             },
             python = {
               command = { "ipython" },

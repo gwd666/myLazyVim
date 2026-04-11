@@ -57,24 +57,33 @@ map("i", "<C-k>", "<up>", { noremap = true, silent = true })
 map("i", "<C-l>", "<right>", { noremap = true, silent = true })
 map("i", "<C-u>", "<C-g>u<C-u>", { noremap = true, silent = true })
 
+-- because pwsh terminal has issues with using <C-h> to move between windows i.e. gets interpreted as backspace
+-- I also added a remapping of Backspace to "<C-w>h"
+vim.cmd([[
+    if &shell =~ 'pwsh'
+      nnoremap <BS> <C-w>h
+    endif
+]])
+-- map("n", "<C-h>", "<C-w>h", { noremap = true, silent = true })
+
 -- remap arrow keys to move between buffers and tabs
 map("n", "<left>", ":bp<CR>", { noremap = true, silent = true })
 map("n", "<right>", ":bn<CR>", { noremap = true, silent = true })
 map("n", "<up>", ":tabnext<CR>", { noremap = true, silent = true })
 map("n", "<down>", ":tabprev<CR>", { noremap = true, silent = true })
 
--- toggle zen mode w Comma-zz
+-- toggle zen mode w semi-colon z
 map("n", ";z", ":lua Snacks.zen()<CR>", { silent = true, desc = "Toggle ZenMode" })
 
 -- ctrlspace
-map("n", "<C-space>", "<cmd>CtrlSpace<CR>", { silent = true, desc = "CtrlSpace window at bottom" })
+map("n", "<C-Space>", ":CtrlSpace<CR>", { silent = true, desc = "CtrlSpace window at bottom" })
 
 -- some additional Telescope f..find mappings
 local tsBuiltin = require("telescope.builtin")
 map("n", "<leader>fh", tsBuiltin.help_tags, { desc = "Tscope Help tags" })
 map("n", "<leader>fk", tsBuiltin.keymaps, { desc = "Tscope 'n' mode kmaps" })
 
-map("n", "<leader>fm", "<cmd>NoiceTelescope<CR>", { desc = "NoiceTelescope message/notifications" })
+map("n", "<leader>fm", ":NoiceTelescope<CR>", { desc = "NoiceTelescope message/notifications" })
 
 -- OLD STYLE DEFINTIONS w/o local map
 -- another close buffer mappping with <leader>c
@@ -168,6 +177,14 @@ vim.keymap.set("n", "<M-Q>", ":Telescope harpoon marks<CR>", { silent = false, d
 vim.keymap.set("n", "<M-a>", function()
   harpoon:list():add()
 end, { silent = false, desc = "Add Harpoon file mark" })
+
+-- Telescope project.nvim binding
+map(
+  "n",
+  "<leader>P",
+  "<cmd>lua require'telescope'.extensions.project.project{}<CR>",
+  { noremap = true, silent = true, desc = "Telescope Project-Picker" }
+)
 
 -- switch to M-N uppercase since lowercase acts like C-n
 vim.keymap.set("n", "<M-N>", function()

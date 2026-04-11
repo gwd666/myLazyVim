@@ -27,7 +27,7 @@ else
   -- set colorcolumns
   vim.cmd("set colorcolumn=80,120")
   -- set a dedicated python3 host
-  vim.cmd("let g:python3_host_prog='E:/WinEnvs/mamba/envs/py312/python.exe'") --set python3 host to avoid surprises
+  vim.cmd("let g:python3_host_prog='E:/WinEnvs/mamba/envs/py313/python.exe'") --set python3 host to avoid surprises
   vim.cmd("let g:latex='C:/Users/gwd/AppData/Local/Programs/MiKTeX/miktex/bin/x64/latex.exe'")
   -- vim.cmd("let g:R_cmd = 'C:/Program Files/R/R-4.3.3/bin/x64/Rgui.exe'")
   -- ----------------------------------------------------------------------------

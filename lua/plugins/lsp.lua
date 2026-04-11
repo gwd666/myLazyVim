@@ -1,53 +1,48 @@
--- trying to remap lsp signature_help from C-k to C-o
 return {
   "neovim/nvim-lspconfig",
   dependencies = { "saghen/blink.cmp" },
-  opts = {
-    -- LSP keymaps
-    -- modifying the keymaps for lsp
-    keys = {
-      -- Disable LazyVim's default <C-k> signature help mapping
-      { "<C-k>", false, mode = "i" },
-      -- Map signature help to <C-o> instead
-      {
-        "<C-o>",
-        function()
-          vim.lsp.buf.signature_help()
-        end,
-        mode = "i",
-        desc = "LSP Signature Help",
-      },
-    },
-    setup = {
-      rust_analyzer = function()
-        return true
-      end,
-    },
-  },
 
   init = function()
-    -- Override LazyVim's LspAttach to remove C-k and add C-o for signature help
+    vim.api.nvim_create_user_command("LspHealth", function()
+      vim.cmd("checkhealth vim.lsp")
+    end, { desc = "Check Neovim LSP health" })
+
+    vim.api.nvim_create_user_command("LspLog", function()
+      vim.cmd("tabnew " .. vim.lsp.log.get_filename())
+    end, { desc = "Open Neovim LSP log" })
+
+    vim.api.nvim_create_user_command("LspAttached", function()
+      local clients = vim.lsp.get_clients({ bufnr = 0 })
+      local names = vim.tbl_map(function(client)
+        return client.name
+      end, clients)
+
+      if #names == 0 then
+        vim.notify("No LSP clients attached to current buffer", vim.log.levels.INFO, { title = "LspAttached" })
+        return
+      end
+
+      vim.notify(table.concat(names, ", "), vim.log.levels.INFO, { title = "LspAttached" })
+    end, { desc = "Show LSP clients attached to current buffer" })
+
+    local lsp_keymap_group = vim.api.nvim_create_augroup("custom_lsp_insert_mappings", { clear = true })
     vim.api.nvim_create_autocmd("LspAttach", {
+      group = lsp_keymap_group,
       callback = function(args)
         local bufnr = args.buf
         local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-        -- Remove C-k signature help if it was set by LazyVim
         pcall(vim.keymap.del, "i", "<C-k>", { buffer = bufnr })
+        vim.keymap.set("i", "<C-k>", "<Up>", { buffer = bufnr, noremap = true, silent = true, desc = "Move cursor up" })
 
-        -- Set C-o for signature help if client supports it
         if client and client.server_capabilities.signatureHelpProvider then
           vim.keymap.set("i", "<C-o>", function()
             vim.lsp.buf.signature_help()
-          end, { buffer = bufnr, desc = "LSP Signature Help" })
+          end, { buffer = bufnr, noremap = true, silent = true, desc = "LSP Signature Help" })
         end
       end,
     })
 
-    -- Note: C-o mapping for signature help is handled above
-    lspconfig = require("lspconfig")
-    -- have a look at https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
-    -- for customization of the floating window borders etc.
     vim.cmd([[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]])
     vim.cmd([[autocmd! ColorScheme * highlight FloatBorder guifg=grey guibg=#1f2335]])
     vim.cmd([[autocmd! ColorScheme * highlight FloatTitle guifg=grey guibg=#1f2335]])
@@ -62,42 +57,66 @@ return {
       { "🭼", "FloatBorder" },
       { "▏", "FloatBorder" },
     }
-    -- LSP settings (for overriding per client) -
-    -- start by defining a local handler table
-    local handlers = {
-      ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-      -- ["textDocmumen/functionInfo"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single"}),
-      ["textDocmumen/functionInfo"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-      ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-    }
 
-    -- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
-    local lsp = vim.lsp -- comment this out and use vim.lsp instead
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-      border = border, -- "single", -- "rounded",
+      border = border,
+      max_width = 80,
+      max_height = 20,
+      relative = "cursor",
     })
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+      border = border,
+    })
+  end,
 
-    -- ############################################################################
-    lspconfig.julials.setup({
-      on_new_config = function(new_config, _)
-        local julia = vim.fn.expand("~/AppData/Local/Microsoft/WindowsApps/julia.exe")
-        -- if lspconfig.util.path.is_file(julia) then
-        if vim.uv.fs_stat(julia) and vim.uv.fs_stat(julia).type == "file" then
-          vim.notify("Setup msg: julia executable found, using it for lsp config")
-          new_config.cmd = {
-            julia,
-            "--startup-file=no",
-            "--history-file=no",
-            "--depwarn=no",
-            "--color=yes",
-            "--project=C:/Users/gwd/.julia/environments/nvim-lspconfig",
-          }
-        end
-        -- if lspconfig.util.path.is_file(julia) then
-        --   vim.notify("Setup msg: julia executable found, using it")
-        --   new_config.cdmd[1] = julia
-        -- end
-      end,
+  opts = function(_, opts)
+    opts = opts or {}
+    opts.servers = opts.servers or {}
+    opts.setup = opts.setup or {}
+
+    local julia = "julia"
+    local juliaup_bins = vim.fn.glob(vim.fn.expand("~/.julia/juliaup/*/bin/julia.exe"), false, true)
+    if #juliaup_bins > 0 then
+      table.sort(juliaup_bins)
+      julia = juliaup_bins[#juliaup_bins]
+    else
+      local julia_exepath = vim.fn.exepath("julia")
+      if julia_exepath ~= "" then
+        julia = julia_exepath
+      end
+    end
+
+    opts.servers.ocamllsp = {
+      mason = false,
+    }
+    opts.servers.julials = {
+      mason = false,
+      cmd = {
+        julia,
+        "--project=" .. vim.fn.expand("~/.julia/environments/nvim-lspconfig"),
+        "--startup-file=no",
+        "--history-file=no",
+        "-e",
+        [[
+          using LanguageServer, SymbolServer, StaticLint
+          depot_path = get(ENV, "JULIA_DEPOT_PATH", "")
+          project_path = let
+              dirname(something(
+                  Base.load_path_expand((
+                      p = get(ENV, "JULIA_PROJECT", nothing);
+                      p === nothing ? nothing : isempty(p) ? nothing : p
+                  )),
+                  Base.current_project(),
+                  get(Base.load_path(), 1, nothing),
+                  Base.load_path_expand("@v#.#"),
+              ))
+          end
+          @info "Running language server" VERSION pwd() project_path depot_path
+          server = LanguageServer.LanguageServerInstance(stdin, stdout, project_path, depot_path)
+          server.runlinter = true
+          run(server)
+        ]],
+      },
       filetypes = {
         "julia",
         "juliamarkdown",
@@ -105,20 +124,17 @@ return {
         "juliamarkdown.latex",
         "juliamarkdown.html",
       },
-      handlers = handlers,
-      -- commenting out root-dir for julia lsp semme to work without it
-      -- and it seems to be causing issues with other functionnality
-      -- root_dir = lspconfig.util.root_pattern("Project.toml", "JuliaProject.toml", ".git", vim.fn.getcwd()),
-    })
-
-    -- lua lsp setup if major usage is with Neovim
-    require("lspconfig").lua_ls.setup({
+    }
+    opts.servers.lua_ls = {
       on_init = function(client)
         if client.workspace_folders then
           local path = client.workspace_folders[1].name
           if
             path ~= vim.fn.stdpath("config")
-            and (vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc"))
+            and (
+              (vim.uv or vim.loop).fs_stat(path .. "/.luarc.json")
+              or (vim.uv or vim.loop).fs_stat(path .. "/.luarc.jsonc")
+            )
           then
             return
           end
@@ -126,27 +142,41 @@ return {
 
         client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
           runtime = {
-            -- Tell the language server which version of Lua you're using
-            -- (most likely LuaJIT in the case of Neovim)
             version = "LuaJIT",
           },
-          -- Make the server aware of Neovim runtime files
           workspace = {
             checkThirdParty = false,
             library = {
               vim.env.VIMRUNTIME,
-              -- Depending on the usage, you might want to add additional paths here.
-              -- "${3rd}/luv/library"
-              -- "${3rd}/busted/library",
             },
-            -- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
-            -- library = vim.api.nvim_get_runtime_file("", true)
           },
         })
       end,
       settings = {
         Lua = {},
       },
-    })
+    }
+    opts.setup.julials = function(_, server_opts)
+      vim.lsp.config("julials", server_opts)
+      vim.lsp.enable("julials")
+      return true
+    end
+    opts.setup.rust_analyzer = function()
+      return true
+    end
+
+    return opts
   end,
+
+  keys = {
+    { "<C-k>", false, mode = "i" },
+    {
+      "<C-o>",
+      function()
+        vim.lsp.buf.signature_help()
+      end,
+      mode = "i",
+      desc = "LSP Signature Help",
+    },
+  },
 }

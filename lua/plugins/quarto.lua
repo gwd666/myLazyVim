@@ -120,7 +120,6 @@ return {
       servers = {
         pyright = {},
         r_language_server = {},
-        julials = {},
         marksman = {
           -- also needs:
           -- $home/.config/marksman/config.toml :

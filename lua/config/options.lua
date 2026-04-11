@@ -4,8 +4,7 @@
 vim.g.lazyvim_blink_main = false
 
 -- adding this based on ocaml update infos
--- vim.cmd("set rtp^='/home/gwd/.opam/default/share/ocp-indent/vim'")
--- vim.cmd("set rtp^='/home/gwd/.opam/default/share/ocp-indent/vim'")
+vim.cmd("set rtp^='/home/gwd/.opam/default/share/ocp-indent/vim'")
 
 -- share clipboard with system clipboard
 vim.opt.clipboard = "unnamedplus"

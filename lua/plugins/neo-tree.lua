@@ -6,7 +6,7 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
     "MunifTanjim/nui.nvim",
-    -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
     {
       "s1n7ax/nvim-window-picker",
       version = "2.*",
@@ -58,9 +58,7 @@ return {
     end
 
     require("neo-tree").setup({
-      -- opts = {
-      close_if_last_window = true, --false, -- close Neo-tree if it's the last window left
-      -- },
+      close_if_last_window = false, -- close explicitly with :qall until the upstream last-window path is fixed
       update_focused_file = { enable = true },
       event_handlers = {
         -- event handlers to hide cursor in neootree window - only see the line hgighlight
@@ -90,7 +88,7 @@ return {
           event = "neo_tree_window_after_open",
           handler = function(args)
             if args.position == "left" or args.position == "right" then
-              vim.cmd("wincmd=")
+              vim.cmd("wincmd =")
             end
           end,
         },
@@ -104,7 +102,7 @@ return {
           event = "neo_tree_window_after_close",
           handler = function(args)
             if args.position == "left" or args.position == "right" then
-              vim.cmd("wincmd=")
+              vim.cmd("wincmd =")
             end
           end,
         },
@@ -117,7 +115,7 @@ return {
       }, -- end of source_selector
       -- This will go to folder of current file in neotree window
       filesystem = {
-        bind_to_cwd = true, -- default is: false
+        -- bind_to_cwd = true, -- default is: false
         follow_current_file = { enabled = true }, -- true is anyhow default
         window = {
           mappings = {
@@ -213,19 +211,20 @@ return {
         end,
       }, -- end of commands
       window = {
-        position = "right", -- open to the right, default is left as in VSC ;-)
+        -- position = "right", -- open to the right, default is left as in VSC ;-)
+        position = "left",
         mappings = { -- keymaps for moving between the Files|Buffers|Git tabs
           ["e"] = function()
             -- DO NOT REWRITE THOSE exec2 calls -> they will break if you do so!
-            vim.api.nvim_exec2("Neotree focus filesystem right", { output = true })
+            vim.api.nvim_exec2("Neotree focus filesystem left", { output = true })
           end,
           ["b"] = function()
             -- DO NOT REWRITE THOSE exec2 calls -> they will break if you do so!
-            vim.api.nvim_exec2("Neotree focus buffers right", { output = true })
+            vim.api.nvim_exec2("Neotree focus buffers left", { output = true })
           end,
           ["g"] = function()
             -- DO NOT REWRITE THOSE exec2 calls -> they will break if you do so!
-            vim.api.nvim_exec2("Neotree focus git_status right", { output = true })
+            vim.api.nvim_exec2("Neotree focus git_status left", { output = true })
           end,
         },
       }, -- end of window

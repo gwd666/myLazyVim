@@ -6,9 +6,9 @@ local servers = {
   "copilot",
   "gopls",
   "jsonls",
-  -- "julials",
   "lua_ls",
   "marksman", -- that is a markdown lsp
+  "ocamllsp@1.23.0",
   "powershell_es",
   "pyright",
   "pylsp",
@@ -43,7 +43,6 @@ return {
           },
         },
       })
-      -- require("mason-lspconfig").setup()
       require("mason-lspconfig").setup({
         ensure_installed = servers,
         automatic_installation = true,
