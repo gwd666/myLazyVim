@@ -20,7 +20,7 @@ require("telescope").setup({
       on_project_selected = function(prompt_bufnr)
         -- Do anything you want in here. For example:
         project_actions.change_working_directory(prompt_bufnr, false)
-        require("harpoon").index.set_current(1)
+        require("harpoon.ui").nav_file(1)
       end,
       mappings = {
         n = {

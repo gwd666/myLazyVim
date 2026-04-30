@@ -193,7 +193,7 @@ end, { silent = false, desc = "Add Harpoon file mark" })
 -- Telescope project.nvim binding
 map(
   "n",
-  "<leader>P",
+  "<leader><Space>",
   "<cmd>lua require'telescope'.extensions.project.project{}<CR>",
   { noremap = true, silent = true, desc = "Telescope Project-Picker" }
 )

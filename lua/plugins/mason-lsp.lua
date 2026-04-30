@@ -12,7 +12,7 @@ local servers = {
   "powershell_es",
   "pyright",
   "pylsp",
-  "r_language_server",
+  -- "r_language_server",
   "ruff",
   "rust_analyzer",
   "sqls",

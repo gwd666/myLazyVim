@@ -1,44 +1,44 @@
 return {
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      vim.g.copilot_strict_ssl = false
-      require("copilot").setup({
-        suggestion = {
-          enabled = true,
-          auto_trigger = false,
-          debounce = 75,
-          keymap = {
-            accept = "<M-l>",
-            accecpt_word = false,
-            accept_line = false,
-            next = "<M-]>",
-            prev = "<M-[>",
-            dismiss = "<C-]>",
-          },
-        },
-        panel = {
-          -- enabled = false,
-          hover = true,
-          window = { width = 60, rounded = true },
-          auto_refresh = true,
-        },
-        filetypes = {
-          python = true,
-          julia = true,
-          lua = true,
-          r = true,
-          cpp = true,
-          c = true,
-          zig = true,
-          javascript = true,
-          ["*"] = false, -- disable for oll other filetypes
-        },
-      })
-    end,
-  },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   event = "InsertEnter",
+  --   config = function()
+  --     vim.g.copilot_strict_ssl = false
+  --     require("copilot").setup({
+  --       suggestion = {
+  --         enabled = true,
+  --         auto_trigger = false,
+  --         debounce = 75,
+  --         keymap = {
+  --           accept = "<M-l>",
+  --           accecpt_word = false,
+  --           accept_line = false,
+  --           next = "<M-]>",
+  --           prev = "<M-[>",
+  --           dismiss = "<C-]>",
+  --         },
+  --       },
+  --       panel = {
+  --         -- enabled = false,
+  --         hover = true,
+  --         window = { width = 60, rounded = true },
+  --         auto_refresh = true,
+  --       },
+  --       filetypes = {
+  --         python = true,
+  --         julia = true,
+  --         lua = true,
+  --         r = true,
+  --         cpp = true,
+  --         c = true,
+  --         zig = true,
+  --         javascript = true,
+  --         ["*"] = false, -- disable for oll other filetypes
+  --       },
+  --     })
+  --   end,
+  -- },
   -- {
   --   "zbirenbaum/copilot-cmp",
   --   config = function()

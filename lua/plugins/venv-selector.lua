@@ -6,7 +6,7 @@ return {
   },
   ft = "python", -- Load when opening Python files
   keys = {
-    { "<leader>V", "<cmd>VenvSelect<cr>" },
+    { "<leader>V", "<cmd>VenvSelect<cr>", desc = "venv selector" },
   },
   opts = {
     search = {

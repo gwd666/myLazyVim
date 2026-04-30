@@ -89,6 +89,7 @@ return {
     opts.servers.ocamllsp = {
       mason = false,
     }
+
     opts.servers.julials = {
       mason = false,
       cmd = {
@@ -125,6 +126,7 @@ return {
         "juliamarkdown.html",
       },
     }
+
     opts.servers.lua_ls = {
       on_init = function(client)
         if client.workspace_folders then
@@ -156,6 +158,7 @@ return {
         Lua = {},
       },
     }
+
     opts.setup.julials = function(_, server_opts)
       vim.lsp.config("julials", server_opts)
       vim.lsp.enable("julials")
