@@ -180,7 +180,7 @@ map("n", "<C-Right>", "<cmd>lua require('telekasten').goto_next_month()<CR>")
 -- Telescope project.nvim binding
 map(
   "n",
-  "<leader>P",
+  "<leader><Space>",
   "<cmd>lua require'telescope'.extensions.project.project{}<CR>",
   { noremap = true, silent = true, desc = "Telescope Project-Picker" }
 )
