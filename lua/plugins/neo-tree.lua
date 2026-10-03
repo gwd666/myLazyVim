@@ -119,9 +119,9 @@ return {
         follow_current_file = { enabled = true }, -- true is anyhow default
         window = {
           mappings = {
-            ["Tf"] = "telescope_find",
-            ["Tg"] = "telescope_grep",
-            ["X"] = "system_open", -- mapping for system_open command below
+            ["tf"] = "telescope_find",
+            ["tg"] = "telescope_grep",
+            ["o"] = "system_open", -- mapping for system_open command below
           },
         },
         components = {

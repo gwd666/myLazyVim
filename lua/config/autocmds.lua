@@ -27,7 +27,7 @@ augroup END
 ]])
 
 -- handling E21 error modifiable is off in dashbboard
--- caused ny the terminals section on line 46 in sncaks.lua, that is needed
+-- caused by the terminals section on line 46 in snack.lua, that is needed
 -- to be able to show short git info when opening nvim w dashboard in git repository folder
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "snacks_dashboard",
@@ -45,7 +45,7 @@ vim.api.nvim_create_autocmd("BufReadCmd", {
   end,
 })
 
--- hwo to open binary files
+-- how to open binary files
 vim.api.nvim_create_autocmd("BufReadCmd", {
   pattern = "*.pdf",
   callback = function()
