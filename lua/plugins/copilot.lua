@@ -5,6 +5,7 @@ return {
   },
   build = "make tiktoken",
   opts = {
+    model = "auto", -- Use :CopilotChatModels to select a different model for this session.
     chat = {
       keymaps = {
         scroll_up = "<C-u>",

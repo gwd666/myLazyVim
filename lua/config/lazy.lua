@@ -16,6 +16,8 @@ require("lazy").setup({
     -- import/override with your plugins
     { import = "plugins", concurrency = 30 },
   },
+  -- Explicit HTTPS port bypasses the global GitHub HTTPS-to-SSH rewrite.
+  git = { url_format = "https://github.com:443/%s.git" },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
     -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
@@ -26,7 +28,7 @@ require("lazy").setup({
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
   install = { colorscheme = { "tokyonight", "habamax", "onenord", "gruvbox", "catppuccin" } },
-  checker = { enabled = true }, -- automatically check for plugin updates
+  checker = { enabled = false }, -- Run :Lazy update explicitly after unlocking SSH.
   performance = {
     rtp = {
       -- disable some rtp plugins

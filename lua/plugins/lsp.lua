@@ -25,24 +25,6 @@ return {
       vim.notify(table.concat(names, ", "), vim.log.levels.INFO, { title = "LspAttached" })
     end, { desc = "Show LSP clients attached to current buffer" })
 
-    local lsp_keymap_group = vim.api.nvim_create_augroup("custom_lsp_insert_mappings", { clear = true })
-    vim.api.nvim_create_autocmd("LspAttach", {
-      group = lsp_keymap_group,
-      callback = function(args)
-        local bufnr = args.buf
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-        pcall(vim.keymap.del, "i", "<C-k>", { buffer = bufnr })
-        vim.keymap.set("i", "<C-k>", "<Up>", { buffer = bufnr, noremap = true, silent = true, desc = "Move cursor up" })
-
-        if client and client.server_capabilities.signatureHelpProvider then
-          vim.keymap.set("i", "<C-o>", function()
-            vim.lsp.buf.signature_help()
-          end, { buffer = bufnr, noremap = true, silent = true, desc = "LSP Signature Help" })
-        end
-      end,
-    })
-
     vim.cmd([[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]])
     vim.cmd([[autocmd! ColorScheme * highlight FloatBorder guifg=grey guibg=#1f2335]])
     vim.cmd([[autocmd! ColorScheme * highlight FloatTitle guifg=grey guibg=#1f2335]])
@@ -71,6 +53,20 @@ return {
 
   opts = {
     servers = {
+      ["*"] = {
+        keys = {
+          { "<c-k>", false, mode = "i" },
+          {
+            "<c-o>",
+            function()
+              vim.lsp.buf.signature_help()
+            end,
+            mode = "i",
+            desc = "LSP Signature Help",
+            has = "signatureHelp",
+          },
+        },
+      },
       ocamllsp = {
         mason = false,
       },
@@ -148,18 +144,6 @@ return {
       rust_analyzer = function()
         return true
       end,
-    },
-  },
-
-  keys = {
-    { "<C-k>", false, mode = "i" },
-    {
-      "<C-o>",
-      function()
-        vim.lsp.buf.signature_help()
-      end,
-      mode = "i",
-      desc = "LSP Signature Help",
     },
   },
 }

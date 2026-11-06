@@ -12,12 +12,11 @@ local servers = {
   "powershell_es",
   "pyright",
   "pylsp",
-  ocamllsp = {},
+  -- ocamllsp is managed outside Mason (see lsp.lua).
   "r_language_server",
   "ruff",
   "rust_analyzer",
   "sqls",
-  "stylua",
   "taplo", -- toml toolkit written in rust
   "zls",
 }
@@ -28,28 +27,20 @@ return {
     -- version = "1.11.*",
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
     build = ":MasonUpdate",
-    dependencies = {
-      { "mason-org/mason-lspconfig.nvim" },
-    },
-
-    config = function()
-      require("mason").setup({
-        ui = {
-          icons = {
-            package_installed = "",
-            -- package_pending = "",
-            -- package_uninstalled = "",
-            -- alternavive icons
-            --       package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗",
-          },
+    opts = {
+      ensure_installed = { "stylua" },
+      ui = {
+        icons = {
+          package_installed = "",
+          package_pending = "➜",
+          package_uninstalled = "✗",
         },
-      })
-      require("mason-lspconfig").setup({
-        ensure_installed = servers,
-        automatic_installation = true,
-      })
-    end,
+      },
+    },
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    opts_extend = { "ensure_installed" },
+    opts = { ensure_installed = servers },
   },
 }
